@@ -1,0 +1,1506 @@
+/* =====================================================
+   TOPBAR USER
+===================================================== */
+
+.topbar-user {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  height: 76px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 28px;
+
+  background: #ffffff;
+  border-bottom: 1px solid #e9edf3;
+
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   BARRE DE RECHERCHE
+===================================================== */
+
+.search-wrapper {
+  width: 390px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+
+  background: #f6f8fb;
+  border: 1px solid #e7ebf1;
+
+  border-radius: 12px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.search-wrapper:focus-within {
+  background: #ffffff;
+
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =====================================================
+   ICONE RECHERCHE
+===================================================== */
+
+.search-icon {
+  margin-left: 14px;
+
+  font-size: 21px;
+
+  color: #94a3b8;
+
+  pointer-events: none;
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.search-wrapper input {
+  flex: 1;
+
+  height: 100%;
+
+  padding: 0 12px;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  color: #1e293b;
+}
+
+.search-wrapper input::placeholder {
+  color: #94a3b8;
+}
+
+.search-wrapper input:focus {
+  outline: none;
+}
+
+
+/* =====================================================
+   BOUTON EFFACER RECHERCHE
+===================================================== */
+
+.search-button {
+  width: 34px;
+  height: 34px;
+
+  margin-right: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: #94a3b8;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.search-button:hover {
+  background: #e9eef5;
+
+  color: #334155;
+}
+
+.search-button .material-icons {
+  font-size: 19px;
+}
+
+
+/* =====================================================
+   PARTIE DROITE
+===================================================== */
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  height: 100%;
+}
+
+
+/* =====================================================
+   BOUTONS ICONES
+===================================================== */
+
+.icon-button {
+  width: 44px;
+  height: 44px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: transparent;
+
+  color: #475569;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.icon-button:hover {
+  background: #f1f5f9;
+
+  color: #2563eb;
+
+  transform: translateY(-1px);
+}
+
+.icon-button .material-icons {
+  font-size: 23px;
+}
+
+
+/* =====================================================
+   NOTIFICATION WRAPPER
+===================================================== */
+
+.notification-wrapper {
+  position: relative;
+}
+
+
+/* =====================================================
+   BOUTON NOTIFICATION
+===================================================== */
+
+.notification-button {
+  position: relative;
+}
+
+
+/* =====================================================
+   BADGE NOTIFICATION
+===================================================== */
+
+.badge {
+  position: absolute;
+
+  top: 2px;
+  right: 1px;
+
+  min-width: 18px;
+  height: 18px;
+
+  padding: 0 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  border-radius: 999px;
+
+  background: #ef4444;
+
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  line-height: 1;
+
+  border: 2px solid #ffffff;
+
+  box-shadow:
+    0 2px 6px rgba(239, 68, 68, 0.30);
+
+  animation: notificationBadge 0.25s ease;
+}
+
+@keyframes notificationBadge {
+
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+}
+
+
+/* =====================================================
+   PANNEAU NOTIFICATIONS
+===================================================== */
+
+.notification-panel {
+  position: absolute;
+
+  top: calc(100% + 14px);
+  right: -105px;
+
+  width: 420px;
+
+  max-height: 600px;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #e5eaf0;
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 18px 45px rgba(15, 23, 42, 0.14),
+    0 4px 12px rgba(15, 23, 42, 0.06);
+
+  animation: notificationPanelIn 0.18s ease-out;
+
+  z-index: 2000;
+}
+
+@keyframes notificationPanelIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+}
+
+
+/* =====================================================
+   PETITE FLECHE DU PANNEAU
+===================================================== */
+
+.notification-panel::before {
+  content: '';
+
+  position: absolute;
+
+  top: -7px;
+  right: 118px;
+
+  width: 13px;
+  height: 13px;
+
+  background: #ffffff;
+
+  border-left: 1px solid #e5eaf0;
+  border-top: 1px solid #e5eaf0;
+
+  transform: rotate(45deg);
+}
+
+
+/* =====================================================
+   HEADER NOTIFICATIONS
+===================================================== */
+
+.notification-header {
+  min-height: 78px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 16px 20px;
+
+  border-bottom: 1px solid #edf1f5;
+
+  box-sizing: border-box;
+}
+
+.notification-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #2563eb;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+}
+
+.notification-header h3 {
+  margin: 0;
+
+  color: #0f172a;
+
+  font-size: 19px;
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   BOUTON TOUT LIRE
+===================================================== */
+
+.read-all-button {
+  border: none;
+
+  background: transparent;
+
+  color: #2563eb;
+
+  font-family: inherit;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  padding: 7px 9px;
+
+  border-radius: 7px;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.read-all-button:hover {
+  background: #eff6ff;
+
+  color: #1d4ed8;
+}
+
+
+/* =====================================================
+   CHARGEMENT
+===================================================== */
+
+.notification-loading {
+  min-height: 180px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+.notification-loading .material-icons {
+  font-size: 30px;
+
+  color: #2563eb;
+}
+
+
+/* =====================================================
+   ANIMATION LOADING
+===================================================== */
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+/* =====================================================
+   ERREUR
+===================================================== */
+
+.notification-error {
+  min-height: 180px;
+
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  box-sizing: border-box;
+}
+
+.notification-error .material-icons {
+  margin-bottom: 8px;
+
+  font-size: 34px;
+
+  color: #ef4444;
+}
+
+.notification-error p {
+  max-width: 300px;
+
+  margin: 0 0 14px;
+
+  color: #64748b;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.notification-error button {
+  border: none;
+
+  padding: 8px 14px;
+
+  border-radius: 8px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.notification-error button:hover {
+  background: #1d4ed8;
+}
+
+
+/* =====================================================
+   LISTE
+===================================================== */
+
+.notification-list {
+  max-height: 440px;
+
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+
+/* =====================================================
+   SCROLLBAR CHROME
+===================================================== */
+
+.notification-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notification-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notification-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+
+  border-radius: 10px;
+}
+
+.notification-list::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+
+/* =====================================================
+   NOTIFICATION ITEM
+===================================================== */
+
+.notification-item {
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+
+  padding: 15px 15px 15px 18px;
+
+  border-bottom: 1px solid #f0f2f5;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item:hover {
+  background: #f8fafc;
+}
+
+
+/* =====================================================
+   NOTIFICATION NON LUE
+===================================================== */
+
+.notification-item.unread {
+  background: #f4f8ff;
+}
+
+.notification-item.unread:hover {
+  background: #edf5ff;
+}
+
+
+/* =====================================================
+   NOTIFICATION LUE
+===================================================== */
+
+.notification-item.read {
+  background: #ffffff;
+}
+
+.notification-item.read .notification-content p {
+  color: #64748b;
+}
+
+
+/* =====================================================
+   ICONE NOTIFICATION
+===================================================== */
+
+.notification-icon {
+  flex: 0 0 40px;
+
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+}
+
+.notification-icon .material-icons {
+  font-size: 21px;
+}
+
+
+/* =====================================================
+   TYPE RESERVATION
+===================================================== */
+
+.notification-icon.reservation {
+  background: #eff6ff;
+
+  color: #2563eb;
+}
+
+
+/* =====================================================
+   TYPE PAIEMENT
+===================================================== */
+
+.notification-icon.paiement {
+  background: #ecfdf5;
+
+  color: #059669;
+}
+
+
+/* =====================================================
+   TYPE VOYAGE
+===================================================== */
+
+.notification-icon.voyage {
+  background: #fff7ed;
+
+  color: #ea580c;
+}
+
+
+/* =====================================================
+   TYPE UTILISATEUR
+===================================================== */
+
+.notification-icon.utilisateur {
+  background: #f5f3ff;
+
+  color: #7c3aed;
+}
+
+
+/* =====================================================
+   TYPE SYSTEME
+===================================================== */
+
+.notification-icon.systeme {
+  background: #f1f5f9;
+
+  color: #475569;
+}
+
+
+/* =====================================================
+   TYPE PAR DEFAUT
+===================================================== */
+
+.notification-icon.default {
+  background: #f1f5f9;
+
+  color: #64748b;
+}
+
+
+/* =====================================================
+   CONTENU
+===================================================== */
+
+.notification-content {
+  flex: 1;
+
+  min-width: 0;
+
+  padding-right: 22px;
+}
+
+
+/* =====================================================
+   TITRE
+===================================================== */
+
+.notification-title-row {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  margin-bottom: 5px;
+}
+
+.notification-title-row strong {
+  color: #1e293b;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   POINT NON LU
+===================================================== */
+
+.unread-dot {
+  width: 7px;
+  height: 7px;
+
+  flex: 0 0 7px;
+
+  border-radius: 50%;
+
+  background: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+.notification-content p {
+  margin: 0 0 8px;
+
+  color: #475569;
+
+  font-size: 12.5px;
+
+  line-height: 1.5;
+
+  word-break: break-word;
+}
+
+
+/* =====================================================
+   DATE NOTIFICATION
+===================================================== */
+
+.notification-date {
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+
+  color: #94a3b8;
+
+  font-size: 10.5px;
+}
+
+.notification-date .material-icons {
+  font-size: 14px;
+}
+
+
+/* =====================================================
+   BOUTON SUPPRIMER
+===================================================== */
+
+.delete-notification {
+  position: absolute;
+
+  top: 14px;
+  right: 10px;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: #94a3b8;
+
+  opacity: 0;
+
+  cursor: pointer;
+
+  transition:
+    opacity 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.notification-item:hover .delete-notification {
+  opacity: 1;
+}
+
+.delete-notification:hover {
+  background: #fef2f2;
+
+  color: #ef4444;
+}
+
+.delete-notification .material-icons {
+  font-size: 18px;
+}
+
+
+/* =====================================================
+   AUCUNE NOTIFICATION
+===================================================== */
+
+.notification-empty {
+  min-height: 260px;
+
+  padding: 35px 25px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  box-sizing: border-box;
+}
+
+.empty-notification-icon {
+  width: 64px;
+  height: 64px;
+
+  margin-bottom: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f1f5f9;
+
+  color: #94a3b8;
+}
+
+.empty-notification-icon .material-icons {
+  font-size: 30px;
+}
+
+.notification-empty strong {
+  margin-bottom: 7px;
+
+  color: #334155;
+
+  font-size: 14px;
+}
+
+.notification-empty p {
+  max-width: 260px;
+
+  margin: 0;
+
+  color: #94a3b8;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+
+/* =====================================================
+   FOOTER NOTIFICATIONS
+===================================================== */
+
+.notification-footer {
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 18px;
+
+  border-top: 1px solid #edf1f5;
+
+  background: #fafbfc;
+
+  color: #94a3b8;
+
+  font-size: 10.5px;
+}
+
+
+/* =====================================================
+   PROFIL
+===================================================== */
+
+.profile-wrapper {
+  position: relative;
+}
+
+
+/* =====================================================
+   BOUTON PROFIL
+===================================================== */
+
+.profile-button {
+  min-width: 190px;
+
+  height: 50px;
+
+  padding: 5px 8px 5px 6px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  transition:
+    background 0.2s ease;
+}
+
+.profile-button:hover {
+  background: #f8fafc;
+}
+
+
+/* =====================================================
+   AVATAR
+===================================================== */
+
+.avatar {
+  width: 38px;
+  height: 38px;
+
+  flex: 0 0 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  box-shadow:
+    0 3px 8px rgba(37, 99, 235, 0.20);
+}
+
+
+/* =====================================================
+   INFORMATIONS PROFIL
+===================================================== */
+
+.profile-info {
+  flex: 1;
+
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.profile-info strong {
+  max-width: 130px;
+
+  overflow: hidden;
+
+  color: #1e293b;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.profile-info span {
+  color: #94a3b8;
+
+  font-size: 10.5px;
+}
+
+
+/* =====================================================
+   FLECHE PROFIL
+===================================================== */
+
+.profile-button > .material-icons {
+  color: #94a3b8;
+
+  font-size: 20px;
+}
+
+
+/* =====================================================
+   MENU PROFIL
+===================================================== */
+
+.profile-menu {
+  position: absolute;
+
+  top: calc(100% + 12px);
+  right: 0;
+
+  width: 280px;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #e5eaf0;
+
+  border-radius: 15px;
+
+  box-shadow:
+    0 18px 45px rgba(15, 23, 42, 0.14),
+    0 4px 12px rgba(15, 23, 42, 0.05);
+
+  animation: profileMenuIn 0.18s ease-out;
+
+  z-index: 2000;
+}
+
+@keyframes profileMenuIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(-7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+
+/* =====================================================
+   FLECHE MENU PROFIL
+===================================================== */
+
+.profile-menu::before {
+  content: '';
+
+  position: absolute;
+
+  top: -7px;
+  right: 22px;
+
+  width: 13px;
+  height: 13px;
+
+  background: #ffffff;
+
+  border-left: 1px solid #e5eaf0;
+  border-top: 1px solid #e5eaf0;
+
+  transform: rotate(45deg);
+}
+
+
+/* =====================================================
+   HEADER PROFIL
+===================================================== */
+
+.profile-header {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 18px;
+}
+
+
+/* =====================================================
+   GRAND AVATAR
+===================================================== */
+
+.large-avatar {
+  width: 48px;
+  height: 48px;
+
+  flex: 0 0 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   INFORMATIONS GRAND PROFIL
+===================================================== */
+
+.profile-user-info {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.profile-user-info strong {
+  overflow: hidden;
+
+  color: #1e293b;
+
+  font-size: 13px;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.profile-user-info span {
+  overflow: hidden;
+
+  color: #64748b;
+
+  font-size: 11px;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.profile-user-info small {
+  color: #2563eb;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   SEPARATEUR
+===================================================== */
+
+.divider {
+  height: 1px;
+
+  background: #edf1f5;
+}
+
+
+/* =====================================================
+   ELEMENT PROFIL
+===================================================== */
+
+.profile-item {
+  width: 100%;
+  min-height: 48px;
+
+  padding: 0 16px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #475569;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.profile-item:hover {
+  background: #f8fafc;
+
+  color: #2563eb;
+}
+
+.profile-item .material-icons {
+  font-size: 20px;
+
+  color: #64748b;
+}
+
+.profile-item:hover .material-icons {
+  color: #2563eb;
+}
+
+
+/* =====================================================
+   FLECHE DES ELEMENTS
+===================================================== */
+
+.profile-item .arrow {
+  margin-left: auto;
+
+  font-size: 18px;
+
+  color: #cbd5e1;
+}
+
+
+/* =====================================================
+   DECONNEXION
+===================================================== */
+
+.profile-item.logout {
+  color: #ef4444;
+}
+
+.profile-item.logout .material-icons {
+  color: #ef4444;
+}
+
+.profile-item.logout:hover {
+  background: #fef2f2;
+
+  color: #dc2626;
+}
+
+
+/* =====================================================
+   RESPONSIVE TABLETTE
+===================================================== */
+
+@media (max-width: 1100px) {
+
+  .topbar-user {
+    padding: 0 20px;
+  }
+
+  .search-wrapper {
+    width: 300px;
+  }
+
+  .profile-button {
+    min-width: 160px;
+  }
+
+  .profile-info strong {
+    max-width: 100px;
+  }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE PETIT ÉCRAN
+===================================================== */
+
+@media (max-width: 850px) {
+
+  .topbar-user {
+    height: 70px;
+
+    padding: 0 16px;
+  }
+
+  .search-wrapper {
+    width: 260px;
+  }
+
+  .profile-info {
+    display: none;
+  }
+
+  .profile-button {
+    min-width: auto;
+
+    padding-right: 4px;
+  }
+
+  .profile-button > .material-icons {
+    display: none;
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+  .topbar-user {
+    gap: 10px;
+  }
+
+  .search-wrapper {
+    flex: 1;
+
+    width: auto;
+
+    max-width: none;
+  }
+
+  .topbar-right {
+    gap: 5px;
+  }
+
+  .notification-panel {
+    position: fixed;
+
+    top: 70px;
+    left: 10px;
+    right: 10px;
+
+    width: auto;
+
+    max-height: calc(100vh - 85px);
+  }
+
+  .notification-panel::before {
+    display: none;
+  }
+
+  .profile-menu {
+    position: fixed;
+
+    top: 70px;
+    right: 10px;
+
+    width: 280px;
+  }
+
+  .profile-menu::before {
+    display: none;
+  }
+
+}
+
+
+/* =====================================================
+   TRES PETIT MOBILE
+===================================================== */
+
+@media (max-width: 430px) {
+
+  .topbar-user {
+    padding: 0 10px;
+  }
+
+  .search-wrapper {
+    height: 40px;
+  }
+
+  .search-icon {
+    margin-left: 10px;
+
+    font-size: 19px;
+  }
+
+  .search-wrapper input {
+    padding: 0 7px;
+
+    font-size: 12px;
+  }
+
+  .icon-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .avatar {
+    width: 34px;
+    height: 34px;
+
+    flex-basis: 34px;
+  }
+
+  .notification-panel {
+    left: 6px;
+    right: 6px;
+  }
+
+}
+
+
+/* =====================================================
+   ACCESSIBILITE
+===================================================== */
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #2563eb;
+
+  outline-offset: 2px;
+}
+
+
+/* =====================================================
+   REDUCTION DES ANIMATIONS
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+  }
+
+}

@@ -1,0 +1,650 @@
+
+.sidebar {
+
+    width: 270px;
+    height: 100vh;
+
+    background: #0b5ed7;
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    box-sizing: border-box;
+
+    z-index: 1000;
+
+}
+
+
+
+/* ================================================= */
+/* LOGO */
+/* ================================================= */
+
+.logo {
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+    border-bottom: 1px solid rgba(255,255,255,.2);
+
+    flex-shrink: 0;
+
+}
+
+
+.logo h2 {
+
+    margin: 0;
+
+    font-size: 28px;
+
+}
+
+
+.logo span {
+
+    font-size: 14px;
+
+    opacity: .8;
+
+}
+
+
+/* ================================================= */
+/* ZONE PRINCIPALE */
+/* ================================================= */
+
+.sidebar-main {
+
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+}
+
+
+/* ================================================= */
+/* MENU */
+/* ================================================= */
+
+.menu {
+
+    list-style: none;
+
+    padding: 20px 0;
+
+    margin: 0;
+
+}
+
+
+.menu li {
+
+    margin: 8px 0;
+
+}
+
+
+.menu a {
+
+    display: block;
+
+    padding: 14px 25px;
+
+    color: white;
+
+    text-decoration: none;
+
+    transition: .3s;
+
+}
+
+
+.menu a:hover {
+
+    background: white;
+
+    color: #0b5ed7;
+
+}
+
+
+.active a {
+
+    background: white;
+
+    color: #0b5ed7;
+
+    font-weight: bold;
+
+}
+
+
+/* ================================================= */
+/* SEPARATION */
+/* ================================================= */
+
+.sidebar-separator {
+
+    width: calc(100% - 40px);
+
+    height: 1px;
+
+    margin: 0 20px;
+
+    background: rgba(255,255,255,.35);
+
+    flex-shrink: 0;
+
+}
+
+
+/* ================================================= */
+/* ZONE BASSE */
+/* ================================================= */
+
+.sidebar-bottom {
+
+    width: 100%;
+
+    padding: 10px 0 15px;
+
+    flex-shrink: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ================================================= */
+/* ELEMENTS BAS */
+/* ================================================= */
+
+.sidebar-bottom .bottom-item {
+
+    width: 100%;
+
+    min-height: 48px;
+
+    padding: 0 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    box-sizing: border-box;
+
+    color: white;
+
+    background: transparent;
+
+    border: none;
+
+    text-decoration: none;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+
+/* ================================================= */
+/* ICONES */
+/* ================================================= */
+
+.sidebar-bottom .bottom-item mat-icon {
+
+    width: 22px;
+
+    height: 22px;
+
+    font-size: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+/* ================================================= */
+/* HOVER */
+/* ================================================= */
+
+.sidebar-bottom .bottom-item:hover {
+
+    background: white;
+
+    color: #0b5ed7;
+
+}
+
+
+/* ================================================= */
+/* ACTIF */
+/* ================================================= */
+
+.sidebar-bottom .bottom-item.active {
+
+    background: white;
+
+    color: #0b5ed7;
+
+    font-weight: bold;
+
+}
+
+
+/* ================================================= */
+/* DECONNEXION */
+/* ================================================= */
+
+.sidebar-bottom .bottom-item.logout {
+
+    color: #ffcccc;
+
+}
+
+
+.sidebar-bottom .bottom-item.logout:hover {
+
+    background: white;
+
+    color: #dc3545;
+
+}
+
+
+
+
+/* ================================================= */
+/* SCROLLBAR */
+/* ================================================= */
+
+.sidebar-main::-webkit-scrollbar {
+
+    width: 4px;
+
+}
+
+
+.sidebar-main::-webkit-scrollbar-thumb {
+
+    background: rgba(255,255,255,.25);
+
+    border-radius: 10px;
+
+}
+
+
+.sidebar-main::-webkit-scrollbar-track {
+
+    background: transparent;
+
+}
+
+
+/* ================================================= */
+/* RESPONSIVE */
+/* ================================================= */
+
+@media (max-height: 700px) {
+
+    .logo {
+
+        padding: 20px 15px;
+
+    }
+
+    .menu {
+
+        padding: 10px 0;
+
+    }
+
+    .menu li {
+
+        margin: 3px 0;
+
+    }
+
+    .menu a {
+
+        padding: 11px 25px;
+
+    }
+
+}
+
+/* ================================================= */
+/* SIDEBAR */
+/* ================================================= */
+
+.sidebar-staff {
+
+  width: 270px;
+
+  height: 100vh;
+
+  background: #0b5ed7;
+
+  color: white;
+
+  display: flex;
+
+  flex-direction: column;
+
+  position: fixed;
+
+  left: 0;
+
+  top: 0;
+
+  z-index: 1000;
+
+  box-sizing: border-box;
+
+}
+
+
+/* ================================================= */
+/* LOGO */
+/* ================================================= */
+
+.logo {
+
+  padding: 30px 20px;
+
+  text-align: center;
+
+  border-bottom: 1px solid rgba(255,255,255,.2);
+
+  flex-shrink: 0;
+
+}
+
+
+.logo h2 {
+
+  margin: 0;
+
+  font-size: 28px;
+
+}
+
+
+.logo span {
+
+  font-size: 14px;
+
+  opacity: .8;
+
+}
+
+
+/* ================================================= */
+/* MENU PRINCIPAL */
+/* ================================================= */
+
+.sidebar-main {
+
+  flex: 1;
+
+  overflow-y: auto;
+
+}
+
+
+.menu {
+
+  list-style: none;
+
+  padding: 20px 0;
+
+  margin: 0;
+
+}
+
+
+.menu li {
+
+  margin: 8px 0;
+
+}
+
+
+.menu a {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 14px 25px;
+
+  color: white;
+
+  text-decoration: none;
+
+  transition: .3s;
+
+  font-size: 14px;
+
+}
+
+
+.menu a:hover {
+
+  background: white;
+
+  color: #0b5ed7;
+
+}
+
+
+.menu a.active {
+
+  background: white;
+
+  color: #0b5ed7;
+
+  font-weight: bold;
+
+}
+
+
+.material-icons {
+
+  font-size: 21px;
+
+}
+
+
+/* ================================================= */
+/* SEPARATION */
+/* ================================================= */
+
+.sidebar-separator {
+
+  height: 1px;
+
+  margin: 0 20px;
+
+  background: rgba(255,255,255,.25);
+
+  flex-shrink: 0;
+
+}
+
+
+/* ================================================= */
+/* MENU DU BAS */
+/* ================================================= */
+
+.sidebar-bottom {
+
+  padding: 12px 15px 18px;
+
+  flex-shrink: 0;
+
+}
+
+
+/* ================================================= */
+/* ELEMENTS DU BAS */
+/* ================================================= */
+
+.bottom-item {
+
+  width: 100%;
+
+  min-height: 45px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 0 13px;
+
+  margin-bottom: 5px;
+
+  border-radius: 10px;
+
+  box-sizing: border-box;
+
+  color: white;
+
+  text-decoration: none;
+
+  background: transparent;
+
+  border: none;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition: .3s;
+
+}
+
+
+.bottom-item:hover {
+
+  background: white;
+
+  color: #0b5ed7;
+
+}
+
+
+/* ================================================= */
+/* ELEMENT ACTIF */
+/* ================================================= */
+
+.bottom-item.active {
+
+  background: white;
+
+  color: #0b5ed7;
+
+  font-weight: bold;
+
+}
+
+
+/* ================================================= */
+/* DECONNEXION */
+/* ================================================= */
+
+.bottom-item.logout {
+
+  color: #ffdddd;
+
+}
+
+
+.bottom-item.logout:hover {
+
+  background: #dc3545;
+
+  color: white;
+
+}
+
+
+.bottom-item.logout .material-icons {
+
+  color: #ffdddd;
+
+}
+
+
+.bottom-item.logout:hover .material-icons {
+
+  color: white;
+
+}
+
+
+/* ================================================= */
+/* SCROLLBAR */
+/* ================================================= */
+
+.sidebar-main::-webkit-scrollbar {
+
+  width: 5px;
+
+}
+
+
+.sidebar-main::-webkit-scrollbar-thumb {
+
+  background: rgba(255,255,255,.35);
+
+  border-radius: 10px;
+
+}
+
+
+.sidebar-main::-webkit-scrollbar-track {
+
+  background: transparent;
+
+}
+.menu li {
+    position: relative;
+    z-index: 9999;
+}
+
+.menu a {
+    position: relative;
+    z-index: 10000;
+    cursor: pointer;
+    pointer-events: auto;
+}

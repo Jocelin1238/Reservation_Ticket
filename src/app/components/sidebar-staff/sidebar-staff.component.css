@@ -1,0 +1,395 @@
+/* ================================================= */
+/* SIDEBAR STAFF */
+/* ================================================= */
+
+.sidebar-staff {
+
+  width: 270px;
+  height: 100vh;
+
+  background: #0b5ed7;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+
+  left: 0;
+  top: 0;
+
+  z-index: 1000;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+}
+
+
+/* ================================================= */
+/* LOGO */
+/* ================================================= */
+
+.sidebar-staff .logo {
+
+  height: 110px;
+
+  padding: 25px 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  border-bottom: 1px solid rgba(255, 255, 255, .2);
+
+  box-sizing: border-box;
+
+  flex-shrink: 0;
+
+}
+
+
+.sidebar-staff .logo h2 {
+
+  margin: 0;
+
+  font-size: 25px;
+
+  font-weight: 700;
+
+  color: white;
+
+}
+
+
+.sidebar-staff .logo span {
+
+  margin-top: 4px;
+
+  font-size: 13px;
+
+  color: rgba(255, 255, 255, .8);
+
+}
+
+
+/* ================================================= */
+/* MENU PRINCIPAL */
+/* ================================================= */
+
+.sidebar-staff .sidebar-main {
+
+  flex: 1;
+
+  overflow-y: auto;
+
+  overflow-x: hidden;
+
+}
+
+
+/* ================================================= */
+/* LISTE MENU */
+/* ================================================= */
+
+.sidebar-staff .menu {
+
+  list-style: none;
+
+  padding: 18px 0;
+
+  margin: 0;
+
+}
+
+
+/* ================================================= */
+/* ELEMENT MENU */
+/* ================================================= */
+
+.sidebar-staff .menu li {
+
+  margin: 5px 12px;
+
+}
+
+
+/* ================================================= */
+/* LIENS MENU */
+/* ================================================= */
+
+.sidebar-staff .menu a {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  min-height: 48px;
+
+  padding: 0 15px;
+
+  border-radius: 9px;
+
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  transition: all .25s ease;
+
+  box-sizing: border-box;
+
+}
+
+
+/* ================================================= */
+/* ICONES */
+/* ================================================= */
+
+.sidebar-staff .material-icons {
+
+  width: 22px;
+
+  font-size: 21px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  flex-shrink: 0;
+
+}
+
+
+/* ================================================= */
+/* HOVER */
+/* ================================================= */
+
+.sidebar-staff .menu a:hover {
+
+  background: white;
+
+  color: #0b5ed7;
+
+  transform: translateX(3px);
+
+}
+
+
+/* ================================================= */
+/* ELEMENT ACTIF */
+/* ================================================= */
+
+.sidebar-staff .menu a.active {
+
+  background: white;
+
+  color: #0b5ed7;
+
+  font-weight: 700;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+
+}
+
+
+/* ================================================= */
+/* SEPARATION */
+/* ================================================= */
+
+.sidebar-staff .sidebar-separator {
+
+  height: 1px;
+
+  margin: 8px 20px;
+
+  background: rgba(255, 255, 255, .25);
+
+  flex-shrink: 0;
+
+}
+
+
+/* ================================================= */
+/* MENU DU BAS */
+/* ================================================= */
+
+.sidebar-staff .sidebar-bottom {
+
+  padding: 10px 12px 18px;
+
+  flex-shrink: 0;
+
+}
+
+
+/* ================================================= */
+/* ELEMENTS DU BAS */
+/* ================================================= */
+
+.sidebar-staff .bottom-item {
+
+  width: 100%;
+
+  min-height: 45px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 0 15px;
+
+  margin-bottom: 5px;
+
+  border-radius: 9px;
+
+  box-sizing: border-box;
+
+  color: white;
+
+  text-decoration: none;
+
+  background: transparent;
+
+  border: none;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: all .25s ease;
+
+}
+
+
+/* ================================================= */
+/* HOVER MENU BAS */
+/* ================================================= */
+
+.sidebar-staff .bottom-item:hover {
+
+  background: white;
+
+  color: #0b5ed7;
+
+}
+
+
+/* ================================================= */
+/* ELEMENT ACTIF */
+/* ================================================= */
+
+.sidebar-staff .bottom-item.active {
+
+  background: white;
+
+  color: #0b5ed7;
+
+  font-weight: 700;
+
+}
+
+
+/* ================================================= */
+/* DECONNEXION */
+/* ================================================= */
+
+.sidebar-staff .bottom-item.logout {
+
+  color: #ffdede;
+
+}
+
+
+.sidebar-staff .bottom-item.logout:hover {
+
+  background: #dc3545;
+
+  color: white;
+
+}
+
+
+.sidebar-staff .bottom-item.logout .material-icons {
+
+  color: #ffdede;
+
+}
+
+
+.sidebar-staff .bottom-item.logout:hover .material-icons {
+
+  color: white;
+
+}
+
+
+/* ================================================= */
+/* SCROLLBAR */
+/* ================================================= */
+
+.sidebar-staff .sidebar-main::-webkit-scrollbar {
+
+  width: 5px;
+
+}
+
+
+.sidebar-staff .sidebar-main::-webkit-scrollbar-thumb {
+
+  background: rgba(255, 255, 255, .35);
+
+  border-radius: 10px;
+
+}
+
+
+.sidebar-staff .sidebar-main::-webkit-scrollbar-track {
+
+  background: transparent;
+
+}
+
+
+/* ================================================= */
+/* RESPONSIVE */
+/* ================================================= */
+
+@media (max-width: 900px) {
+
+  .sidebar-staff {
+
+    width: 230px;
+
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .sidebar-staff {
+
+    width: 220px;
+
+  }
+
+}

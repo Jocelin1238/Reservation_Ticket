@@ -1,0 +1,49 @@
+<div class="table-card">
+
+    <h3>Dernières réservations</h3>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Client</th>
+                <th>Trajet</th>
+                <th>Date</th>
+                <th>Montant</th>
+                <th>Statut</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let booking of bookings">
+
+                <td>{{ booking.client }}</td>
+
+                <td>{{ booking.trajet }}</td>
+
+                <td>{{ booking.date }}</td>
+
+                <td>{{ booking.montant }}</td>
+
+                <td>
+
+                    <span
+                        class="status"
+                        [class.pending]="booking.statut === 'En attente'">
+
+                        {{ booking.statut }}
+
+                    </span>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>

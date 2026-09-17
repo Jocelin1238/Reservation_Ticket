@@ -1,0 +1,79 @@
+
+<div class="table-card">
+
+    <div class="table-header">
+
+        <h3>Derniers voyages</h3>
+
+        <button
+            class="btn-view-all"
+            (click)="voirTousLesVoyages()">
+
+            Voir tout
+
+            <span class="material-icons">
+                arrow_forward
+            </span>
+
+        </button>
+
+    </div>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Voyage</th>
+                <th>Départ</th>
+                <th>Destination</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let trip of trips">
+
+                <td>
+                    {{ trip.numeroVoyage }}
+                </td>
+
+                <td>
+                    {{ trip.trajet?.villeDepart }}
+                </td>
+
+                <td>
+                    {{ trip.trajet?.villeArrivee }}
+                </td>
+
+                <td>
+                    {{ trip.dateDepart }}
+                </td>
+
+                <td>
+                    {{ trip.heureDepart }}
+                </td>
+
+                <td>
+                    <span class="status">
+                        {{ trip.statut }}
+                    </span>
+                </td>
+
+            </tr>
+
+            <tr *ngIf="trips.length === 0">
+
+                <td colspan="6">
+                    Aucun voyage récent
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>

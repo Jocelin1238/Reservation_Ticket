@@ -1,0 +1,74 @@
+
+
+
+<section class="login-container">
+
+
+    <div class="login-card">
+
+
+        <div class="title">
+
+            <h1>Connexion</h1>
+
+            <p>
+                Bienvenue sur Voyage Express
+            </p>
+
+        </div>
+
+
+
+        <form (ngSubmit)="login()">
+
+
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input 
+                type="email"
+                placeholder="Votre email"
+                [(ngModel)]="email"
+                name="email">
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>Mot de passe</label>
+
+                <input 
+                type="password"
+                placeholder="Votre mot de passe"
+                [(ngModel)]="password"
+                name="password">
+
+            </div>
+
+
+
+
+            <button type="submit">
+                Se connecter
+            </button>
+<button
+  type="button"
+  class="forgot-password"
+  (click)="allerMotDePasseOublie()">
+
+  Mot de passe oublié ?
+
+</button>
+
+        </form>
+
+
+
+    </div>
+
+
+</section>

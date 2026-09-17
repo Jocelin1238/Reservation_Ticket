@@ -1,0 +1,176 @@
+<app-sidebar></app-sidebar>
+
+<div class="main-content">
+
+    <app-topbar></app-topbar>
+
+    <div class="page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Gestion des administrateurs
+            </h1>
+
+            <p>
+                Gérer les comptes administrateurs de Voyage Express.
+            </p>
+
+        </div>
+
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="openDialog()">
+
+            <mat-icon>
+                person_add
+            </mat-icon>
+
+            Ajouter un administrateur
+
+        </button>
+
+    </div>
+
+    <!-- Recherche -->
+
+    <mat-form-field
+        appearance="outline"
+        class="search">
+
+        <mat-label>
+            Rechercher
+        </mat-label>
+
+        <input
+            matInput
+            placeholder="Nom ou email"
+            [(ngModel)]="searchText"
+            (input)="filterUsers()">
+
+        <mat-icon matSuffix>
+            search
+        </mat-icon>
+
+    </mat-form-field>
+
+    <!-- Tableau -->
+
+    <table
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z2">
+
+        <!-- Nom -->
+
+        <ng-container matColumnDef="nom">
+
+            <th mat-header-cell *matHeaderCellDef>
+                Nom
+            </th>
+
+            <td mat-cell *matCellDef="let user">
+                {{ user.nom }}
+            </td>
+
+        </ng-container>
+
+        <!-- Email -->
+
+        <ng-container matColumnDef="email">
+
+            <th mat-header-cell *matHeaderCellDef>
+                Email
+            </th>
+
+            <td mat-cell *matCellDef="let user">
+                {{ user.email }}
+            </td>
+
+        </ng-container>
+
+        <!-- Rôle -->
+
+        <ng-container matColumnDef="role">
+
+            <th mat-header-cell *matHeaderCellDef>
+                Rôle
+            </th>
+
+            <td mat-cell *matCellDef="let user">
+
+                <span class="role">
+                    {{ user.roles?.[0]?.role }}
+                </span>
+
+            </td>
+
+        </ng-container>
+
+        <!-- Actions -->
+
+        <ng-container matColumnDef="actions">
+
+            <th mat-header-cell *matHeaderCellDef>
+                Actions
+            </th>
+
+            <td mat-cell *matCellDef="let user">
+
+                <button
+                    mat-icon-button
+                    color="primary"
+                    matTooltip="Voir"
+                    (click)="viewUser(user)">
+
+                    <mat-icon>
+                        visibility
+                    </mat-icon>
+
+                </button>
+
+                <button
+                    mat-icon-button
+                    color="accent"
+                    matTooltip="Modifier"
+                    (click)="openEditDialog(user)">
+
+                    <mat-icon>
+                        edit
+                    </mat-icon>
+
+                </button>
+
+                <button
+                    mat-icon-button
+                    color="warn"
+                    matTooltip="Supprimer"
+                    (click)="deleteUser(user.id!)">
+
+                    <mat-icon>
+                        delete
+                    </mat-icon>
+
+                </button>
+
+            </td>
+
+        </ng-container>
+
+        <tr
+            mat-header-row
+            *matHeaderRowDef="displayedColumns">
+        </tr>
+
+        <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+
+    </table>
+
+</div>
+</div>

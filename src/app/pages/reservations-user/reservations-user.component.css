@@ -1,0 +1,1224 @@
+/* =========================================================
+   PAGE
+========================================================= */
+
+.reservations-page {
+
+  /* espace réservé à la navbar */
+  padding: 105px 30px 30px 30px;
+
+  background: #f6f8fc;
+
+  min-height: 100vh;
+
+  box-sizing: border-box;
+
+  color: #172033;
+}
+/* =========================================================
+   HEADER
+========================================================= */
+
+.page-header {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 25px;
+
+  margin-bottom: 30px;
+
+}
+
+
+.header-left {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+
+}
+
+
+/* =========================================================
+   BOUTON RETOUR
+========================================================= */
+
+.back-button {
+
+  width: fit-content;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 7px 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #64748b;
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition: all .2s ease;
+
+}
+
+
+.back-button:hover {
+
+  color: #0b5ed7;
+
+  transform: translateX(-2px);
+
+}
+
+
+.back-button .material-icons {
+
+  font-size: 18px;
+
+}
+
+
+/* =========================================================
+   TITRE
+========================================================= */
+
+.title-area {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+}
+
+
+.title-icon {
+
+  width: 52px;
+
+  height: 52px;
+
+  min-width: 52px;
+
+  border-radius: 14px;
+
+  background: #e8f1ff;
+
+  color: #0b5ed7;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+.title-icon .material-icons {
+
+  font-size: 27px;
+
+}
+
+
+.title-area h1 {
+
+  margin: 0;
+
+  font-size: 27px;
+
+  font-weight: 700;
+
+  color: #172033;
+
+}
+
+
+.title-area p {
+
+  margin: 5px 0 0;
+
+  color: #7b8798;
+
+  font-size: 13px;
+
+}
+
+
+/* =========================================================
+   BOUTON PRINCIPAL
+========================================================= */
+
+.btn-primary {
+
+  min-height: 45px;
+
+  padding: 0 18px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #0b5ed7;
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all .2s ease;
+
+  box-shadow: 0 5px 15px rgba(11, 94, 215, .18);
+
+}
+
+
+.btn-primary:hover {
+
+  background: #084298;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 8px 20px rgba(11, 94, 215, .25);
+
+}
+
+
+.btn-primary .material-icons {
+
+  font-size: 19px;
+
+}
+
+
+/* =========================================================
+   STATISTIQUES
+========================================================= */
+
+.stats-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 28px;
+
+}
+
+
+.stat-card {
+
+  background: white;
+
+  border: 1px solid #edf1f6;
+
+  border-radius: 14px;
+
+  min-height: 105px;
+
+  padding: 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  box-sizing: border-box;
+
+  box-shadow: 0 5px 18px rgba(20, 35, 60, .04);
+
+  transition: all .2s ease;
+
+}
+
+
+.stat-card:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 25px rgba(20, 35, 60, .07);
+
+}
+
+
+/* =========================================================
+   ICÔNES STATISTIQUES
+========================================================= */
+
+.stat-icon {
+
+  width: 48px;
+
+  height: 48px;
+
+  min-width: 48px;
+
+  border-radius: 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+.stat-icon .material-icons {
+
+  font-size: 23px;
+
+}
+
+
+/* TOTAL */
+
+.stat-icon.blue {
+
+  background: #e8f1ff;
+
+  color: #0b5ed7;
+
+}
+
+
+/* CONFIRMÉES */
+
+.stat-icon.green {
+
+  background: #e9f8f0;
+
+  color: #198754;
+
+}
+
+
+/* EN ATTENTE */
+
+.stat-icon.orange {
+
+  background: #fff4df;
+
+  color: #f59e0b;
+
+}
+
+
+/* ANNULÉES */
+
+.stat-icon.red {
+
+  background: #fff0f0;
+
+  color: #dc3545;
+
+}
+
+
+/* =========================================================
+   TEXTE STATISTIQUES
+========================================================= */
+
+.stat-card span {
+
+  display: block;
+
+  color: #8994a5;
+
+  font-size: 12px;
+
+  margin-bottom: 5px;
+
+}
+
+
+.stat-card strong {
+
+  display: block;
+
+  color: #172033;
+
+  font-size: 24px;
+
+  font-weight: 700;
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading-card {
+
+  min-height: 300px;
+
+  background: white;
+
+  border-radius: 16px;
+
+  border: 1px solid #edf1f6;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-shadow: 0 5px 18px rgba(20, 35, 60, .04);
+
+}
+
+
+.spinner {
+
+  width: 38px;
+
+  height: 38px;
+
+  border: 4px solid #e5edfb;
+
+  border-top-color: #0b5ed7;
+
+  border-radius: 50%;
+
+  animation: spin .8s linear infinite;
+
+}
+
+
+@keyframes spin {
+
+  to {
+
+    transform: rotate(360deg);
+
+  }
+
+}
+
+
+.loading-card h3 {
+
+  margin: 18px 0 5px;
+
+  font-size: 15px;
+
+  color: #172033;
+
+}
+
+
+.loading-card p {
+
+  margin: 0;
+
+  color: #8994a5;
+
+  font-size: 12px;
+
+}
+
+
+/* =========================================================
+   ERREUR
+========================================================= */
+
+.error-card {
+
+  background: white;
+
+  border: 1px solid #ffd7d7;
+
+  border-radius: 14px;
+
+  padding: 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin-bottom: 25px;
+
+  box-shadow: 0 5px 18px rgba(20, 35, 60, .04);
+
+}
+
+
+.error-card > .material-icons {
+
+  color: #dc3545;
+
+  font-size: 30px;
+
+}
+
+
+.error-card strong {
+
+  font-size: 14px;
+
+  color: #172033;
+
+}
+
+
+.error-card p {
+
+  margin: 4px 0 0;
+
+  color: #8994a5;
+
+  font-size: 12px;
+
+}
+
+
+/* =========================================================
+   BOUTON RÉESSAYER
+========================================================= */
+
+.retry-button {
+
+  margin-left: auto;
+
+  padding: 9px 15px;
+
+  border: 1px solid #0b5ed7;
+
+  border-radius: 8px;
+
+  background: white;
+
+  color: #0b5ed7;
+
+  cursor: pointer;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  transition: all .2s ease;
+
+}
+
+
+.retry-button:hover {
+
+  background: #e8f1ff;
+
+}
+
+
+/* =========================================================
+   CONTENEUR DES RÉSERVATIONS
+========================================================= */
+
+.reservations-container {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+
+}
+
+
+/* =========================================================
+   CARTE RÉSERVATION
+========================================================= */
+
+.reservation-card {
+
+  background: white;
+
+  border: 1px solid #e8edf5;
+
+  border-radius: 16px;
+
+  min-height: 190px;
+
+  display: flex;
+
+  overflow: hidden;
+
+  box-shadow: 0 5px 18px rgba(20, 35, 60, .05);
+
+  transition: all .2s ease;
+
+}
+
+
+.reservation-card:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 25px rgba(20, 35, 60, .08);
+
+}
+
+
+/* =========================================================
+   PARTIE PRINCIPALE
+========================================================= */
+
+.reservation-main {
+
+  flex: 1;
+
+  display: flex;
+
+  gap: 18px;
+
+  padding: 22px;
+
+  min-width: 0;
+
+}
+
+
+/* =========================================================
+   ICÔNE RÉSERVATION
+========================================================= */
+
+.reservation-icon {
+
+  width: 52px;
+
+  height: 52px;
+
+  min-width: 52px;
+
+  border-radius: 13px;
+
+  background: #eaf2ff;
+
+  color: #0b5ed7;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+.reservation-icon .material-icons {
+
+  font-size: 26px;
+
+}
+
+
+/* =========================================================
+   INFORMATIONS
+========================================================= */
+
+.reservation-info {
+
+  flex: 1;
+
+  min-width: 0;
+
+}
+
+
+/* =========================================================
+   PARTIE SUPÉRIEURE
+========================================================= */
+
+.reservation-top {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 22px;
+
+}
+
+
+.reservation-label {
+
+  display: block;
+
+  color: #9aa4b2;
+
+  font-size: 10px;
+
+  text-transform: uppercase;
+
+  letter-spacing: .8px;
+
+  font-weight: 700;
+
+}
+
+
+.reservation-top h2 {
+
+  margin: 4px 0 0;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  color: #172033;
+
+}
+
+
+.route-arrow {
+
+  color: #0b5ed7;
+
+  margin: 0 5px;
+
+  font-weight: 700;
+
+}
+
+
+/* =========================================================
+   STATUT
+========================================================= */
+
+.status {
+
+  padding: 6px 11px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  display: inline-flex;
+
+  align-items: center;
+
+}
+
+
+/* RÉSERVATION CONFIRMÉE / PAYÉE */
+
+.status.success {
+
+  background: #e9f8f0;
+
+  color: #198754;
+
+}
+
+
+/* EN ATTENTE */
+
+.status.pending {
+
+  background: #fff4df;
+
+  color: #d97706;
+
+}
+
+
+/* ANNULÉE */
+
+.status.cancelled {
+
+  background: #fff0f0;
+
+  color: #dc3545;
+
+}
+
+
+/* STATUT INCONNU */
+
+.status.default {
+
+  background: #f1f3f6;
+
+  color: #6c7685;
+
+}
+
+
+/* PETIT POINT */
+
+.status-dot {
+
+  display: inline-block;
+
+  width: 6px;
+
+  height: 6px;
+
+  margin-right: 5px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+
+}
+
+
+/* =========================================================
+   DÉTAILS
+========================================================= */
+
+.reservation-details {
+
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(150px, 1fr));
+
+  gap: 18px;
+
+}
+
+
+/* =========================================================
+   DÉTAIL
+========================================================= */
+
+.detail {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+
+}
+
+
+/* =========================================================
+   ICÔNE DÉTAIL
+========================================================= */
+
+.detail-icon {
+
+  width: 34px;
+
+  height: 34px;
+
+  min-width: 34px;
+
+  border-radius: 9px;
+
+  background: #f4f7fb;
+
+  color: #0b5ed7;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+.detail-icon .material-icons {
+
+  font-size: 17px;
+
+}
+
+
+/* =========================================================
+   CONTENU DÉTAIL
+========================================================= */
+
+.detail-content {
+
+  min-width: 0;
+
+}
+
+
+.detail-content small {
+
+  display: block;
+
+  color: #9aa4b2;
+
+  font-size: 10px;
+
+  margin-bottom: 3px;
+
+}
+
+
+.detail-content strong {
+
+  display: block;
+
+  color: #4c586a;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+}
+
+
+/* =========================================================
+   AUCUNE RÉSERVATION
+========================================================= */
+
+.empty-card {
+
+  background: white;
+
+  border: 1px solid #edf1f6;
+
+  border-radius: 16px;
+
+  padding: 60px 30px;
+
+  text-align: center;
+
+  box-shadow: 0 5px 18px rgba(20, 35, 60, .04);
+
+}
+
+
+/* =========================================================
+   ICÔNE EMPTY
+========================================================= */
+
+.empty-icon {
+
+  width: 70px;
+
+  height: 70px;
+
+  margin: 0 auto 15px;
+
+  border-radius: 50%;
+
+  background: #eaf2ff;
+
+  color: #0b5ed7;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+.empty-icon .material-icons {
+
+  font-size: 34px;
+
+}
+
+
+/* =========================================================
+   EMPTY TITRE
+========================================================= */
+
+.empty-card h2 {
+
+  margin: 0 0 8px;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  color: #172033;
+
+}
+
+
+/* =========================================================
+   EMPTY TEXTE
+========================================================= */
+
+.empty-card p {
+
+  margin: 0 auto 20px;
+
+  max-width: 400px;
+
+  color: #8994a5;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLETTE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .stats-grid {
+
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+
+
+  .reservation-details {
+
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE LARGE
+========================================================= */
+
+@media (max-width: 800px) {
+
+  .reservations-page {
+
+    padding: 20px;
+
+  }
+
+
+  .page-header {
+
+    align-items: flex-start;
+
+    flex-direction: column;
+
+  }
+
+
+  .btn-primary {
+
+    width: 100%;
+
+  }
+
+
+  .reservation-card {
+
+    flex-direction: column;
+
+  }
+
+
+  .reservation-main {
+
+    padding: 18px;
+
+  }
+
+
+  .retry-button {
+
+    margin-left: 0;
+
+  }
+
+
+  .error-card {
+
+    align-items: flex-start;
+
+    flex-wrap: wrap;
+
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .reservations-page {
+
+    padding: 15px;
+
+  }
+
+
+  .stats-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+
+  .title-area {
+
+    align-items: flex-start;
+
+  }
+
+
+  .title-area h1 {
+
+    font-size: 22px;
+
+  }
+
+
+  .title-icon {
+
+    width: 46px;
+
+    height: 46px;
+
+    min-width: 46px;
+
+  }
+
+
+  .reservation-main {
+
+    flex-direction: column;
+
+    padding: 17px;
+
+  }
+
+
+  .reservation-top {
+
+    flex-direction: column;
+
+  }
+
+
+  .reservation-details {
+
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+
+  }
+
+
+  .status {
+
+    width: fit-content;
+
+  }
+
+
+  .reservation-top h2 {
+
+    font-size: 16px;
+
+  }
+
+}
+
+
+/* =========================================================
+   TRÈS PETITS ÉCRANS
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .reservations-page {
+
+    padding: 12px;
+
+  }
+
+
+  .title-area {
+
+    gap: 10px;
+
+  }
+
+
+  .title-area h1 {
+
+    font-size: 20px;
+
+  }
+
+
+  .title-area p {
+
+    font-size: 11px;
+
+  }
+
+
+  .stat-card {
+
+    padding: 16px;
+
+  }
+
+
+  .reservation-main {
+
+    padding: 15px;
+
+  }
+
+}

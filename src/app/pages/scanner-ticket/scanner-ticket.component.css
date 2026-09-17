@@ -1,0 +1,1050 @@
+/* =====================================================
+   PAGE SCANNER
+===================================================== */
+
+.scanner-page {
+  min-height: 100%;
+  padding: 30px;
+  background: #f5f7fb;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.page-header {
+  margin-bottom: 28px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-icon {
+  width: 54px;
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: #e8f0ff;
+}
+
+.header-icon .material-icons {
+  font-size: 30px;
+  color: #2563eb;
+}
+
+.header-left h1 {
+  margin: 0 0 5px;
+
+  font-size: 27px;
+  font-weight: 700;
+
+  color: #172033;
+}
+
+.header-left p {
+  margin: 0;
+
+  font-size: 14px;
+  color: #7a8497;
+}
+
+
+/* =====================================================
+   CONTENU
+===================================================== */
+
+.scanner-content {
+  display: grid;
+
+  grid-template-columns: minmax(500px, 1fr) 360px;
+
+  gap: 24px;
+
+  align-items: start;
+}
+
+
+/* =====================================================
+   CARTE SCANNER
+===================================================== */
+
+.scanner-card {
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  padding: 25px;
+
+  box-shadow:
+    0 8px 25px rgba(25, 40, 70, 0.06);
+
+  border: 1px solid #edf0f5;
+}
+
+
+/* =====================================================
+   HEADER CARTE
+===================================================== */
+
+.card-header {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: flex-start;
+
+  margin-bottom: 22px;
+}
+
+.card-header h2 {
+  margin: 0 0 6px;
+
+  font-size: 19px;
+  font-weight: 700;
+
+  color: #172033;
+}
+
+.card-header p {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: #8992a3;
+}
+
+.card-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: #f0f5ff;
+
+  color: #2563eb;
+
+  font-size: 22px;
+}
+
+
+/* =====================================================
+   CAMERA
+===================================================== */
+
+.camera-wrapper {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 440px;
+
+  overflow: hidden;
+
+  border-radius: 16px;
+
+  background: #10141d;
+}
+
+.camera-wrapper video {
+  display: block;
+
+  width: 100%;
+  height: 440px;
+
+  object-fit: cover;
+}
+
+
+/* =====================================================
+   OVERLAY
+===================================================== */
+
+.scan-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+}
+
+.scan-frame {
+  position: relative;
+
+  width: 260px;
+  height: 260px;
+}
+
+
+/* =====================================================
+   COINS DU CADRE
+===================================================== */
+
+.corner {
+  position: absolute;
+
+  width: 42px;
+  height: 42px;
+
+  border: 4px solid #ffffff;
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+
+  border-right: none;
+  border-bottom: none;
+
+  border-radius: 8px 0 0 0;
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+
+  border-left: none;
+  border-bottom: none;
+
+  border-radius: 0 8px 0 0;
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+
+  border-right: none;
+  border-top: none;
+
+  border-radius: 0 0 0 8px;
+}
+
+.bottom-right {
+  right: 0;
+  bottom: 0;
+
+  border-left: none;
+  border-top: none;
+
+  border-radius: 0 0 8px 0;
+}
+
+
+/* =====================================================
+   LIGNE DE SCAN
+===================================================== */
+
+.scan-line {
+  position: absolute;
+
+  left: 10px;
+  right: 10px;
+
+  top: 50%;
+
+  height: 2px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.8);
+
+  animation: scanAnimation 2s infinite ease-in-out;
+}
+
+@keyframes scanAnimation {
+
+  0% {
+    top: 10%;
+  }
+
+  50% {
+    top: 90%;
+  }
+
+  100% {
+    top: 10%;
+  }
+
+}
+
+
+/* =====================================================
+   MESSAGE CAMERA
+===================================================== */
+
+.camera-message {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 20px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  color: #ffffff;
+
+  font-size: 13px;
+
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.camera-message .material-icons {
+  font-size: 19px;
+}
+
+
+/* =====================================================
+   MESSAGE SUCCÈS
+===================================================== */
+
+.scanner-message {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 18px;
+
+  padding: 14px 16px;
+
+  border-radius: 10px;
+
+  background: #ecfdf3;
+
+  color: #16803d;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.scanner-message .material-icons {
+  font-size: 20px;
+}
+
+
+/* =====================================================
+   MESSAGE ERREUR
+===================================================== */
+
+.scanner-error {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 18px;
+
+  padding: 14px 16px;
+
+  border-radius: 10px;
+
+  background: #fff1f2;
+
+  color: #dc2626;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.scanner-error .material-icons {
+  font-size: 20px;
+}
+
+
+/* =====================================================
+   RESULTAT
+===================================================== */
+
+.code-result {
+  margin-top: 20px;
+
+  padding: 20px;
+
+  border-radius: 14px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e8edf4;
+}
+
+.result-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 16px;
+}
+
+.result-header > .material-icons {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #e8f0ff;
+
+  color: #2563eb;
+}
+
+.result-header h3 {
+  margin: 0 0 4px;
+
+  font-size: 15px;
+
+  color: #172033;
+}
+
+.result-header p {
+  margin: 0;
+
+  font-size: 12px;
+
+  color: #8992a3;
+}
+
+
+/* =====================================================
+   CODE
+===================================================== */
+
+.code-box {
+  padding: 14px 16px;
+
+  margin-bottom: 15px;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  border: 1px dashed #cbd5e1;
+
+  overflow-wrap: anywhere;
+
+  font-family: monospace;
+
+  font-size: 13px;
+
+  color: #334155;
+}
+
+
+/* =====================================================
+   BOUTON
+===================================================== */
+
+.scan-again-button {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  width: 100%;
+
+  padding: 12px 18px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.scan-again-button:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-1px);
+}
+
+.scan-again-button .material-icons {
+  font-size: 19px;
+}
+
+
+/* =====================================================
+   INFORMATION
+===================================================== */
+
+.scanner-info {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 10px;
+
+  margin-top: 20px;
+
+  padding: 14px 16px;
+
+  border-radius: 10px;
+
+  background: #f8fafc;
+
+  border: 1px solid #edf0f5;
+}
+
+.scanner-info .material-icons {
+  font-size: 19px;
+
+  color: #64748b;
+}
+
+.scanner-info p {
+  margin: 0;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+
+  color: #64748b;
+}
+
+
+/* =====================================================
+   CARTE INSTRUCTIONS
+===================================================== */
+
+.instruction-card {
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  padding: 25px;
+
+  box-shadow:
+    0 8px 25px rgba(25, 40, 70, 0.06);
+
+  border: 1px solid #edf0f5;
+}
+
+.instruction-icon {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 16px;
+
+  border-radius: 13px;
+
+  background: #eef4ff;
+}
+
+.instruction-icon .material-icons {
+  font-size: 26px;
+
+  color: #2563eb;
+}
+
+.instruction-card h2 {
+  margin: 0 0 22px;
+
+  font-size: 18px;
+
+  color: #172033;
+}
+
+
+/* =====================================================
+   ETAPES
+===================================================== */
+
+.steps {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 22px;
+}
+
+.step {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 13px;
+}
+
+.step-number {
+  flex-shrink: 0;
+
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+.step h3 {
+  margin: 0 0 5px;
+
+  font-size: 14px;
+
+  color: #273248;
+}
+
+.step p {
+  margin: 0;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+
+  color: #8992a3;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1100px) {
+
+  .scanner-content {
+    grid-template-columns: 1fr;
+  }
+
+  .instruction-card {
+    width: 100%;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .scanner-page {
+    padding: 18px;
+  }
+
+  .scanner-card {
+    padding: 18px;
+  }
+
+  .camera-wrapper {
+    min-height: 350px;
+  }
+
+  .camera-wrapper video {
+    height: 350px;
+  }
+
+  .scan-frame {
+    width: 220px;
+    height: 220px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .header-left h1 {
+    font-size: 22px;
+  }
+
+  .camera-wrapper {
+    min-height: 300px;
+  }
+
+  .camera-wrapper video {
+    height: 300px;
+  }
+
+  .scan-frame {
+    width: 190px;
+    height: 190px;
+  }
+
+}
+/* =====================================================
+   CHARGEMENT TICKET
+===================================================== */
+
+.ticket-loading {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-weight: 600;
+  color: #475569;
+}
+
+.ticket-loading .material-icons {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =====================================================
+   RESULTAT TICKET
+===================================================== */
+
+.ticket-result {
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+
+
+/* =====================================================
+   HEADER TICKET
+===================================================== */
+
+.ticket-result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.ticket-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ticket-icon {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  background: #eef4ff;
+}
+
+.ticket-icon .material-icons {
+  color: #2563eb;
+}
+
+.ticket-title h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #172033;
+}
+
+.ticket-title p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+
+/* =====================================================
+   STATUT
+===================================================== */
+
+.ticket-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 14px;
+  border-radius: 999px;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.status-valid {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-used {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.status-cancelled {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.ticket-section {
+  margin-bottom: 22px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 14px;
+}
+
+.section-title h3 {
+  margin: 0;
+  color: #172033;
+  font-size: 16px;
+}
+
+.section-title .material-icons {
+  color: #2563eb;
+}
+
+
+/* =====================================================
+   GRID INFOS
+===================================================== */
+
+.ticket-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.ticket-info {
+  padding: 14px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.ticket-info .label {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.ticket-info strong {
+  color: #172033;
+  font-size: 14px;
+}
+
+
+/* =====================================================
+   TRAJET
+===================================================== */
+
+.route-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  padding: 20px;
+  border-radius: 14px;
+
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.route-point {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.route-point .material-icons {
+  color: #2563eb;
+}
+
+.route-point span {
+  display: block;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.route-point strong {
+  color: #172033;
+}
+
+.route-arrow {
+  color: #94a3b8;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.ticket-actions {
+  margin-top: 24px;
+}
+
+.validate-button {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 14px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #16a34a;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: .2s;
+}
+
+.validate-button:hover {
+  background: #15803d;
+}
+
+.validate-button:disabled {
+  opacity: .7;
+  cursor: not-allowed;
+}
+
+
+/* =====================================================
+   TICKET UTILISE / ANNULE
+===================================================== */
+
+.already-used {
+  margin-top: 20px;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  padding: 16px;
+
+  border-radius: 12px;
+
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+}
+
+.already-used .material-icons {
+  color: #dc2626;
+}
+
+.already-used strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.already-used p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+}
+.back-button-container {
+  margin-bottom: 18px;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  border: none;
+  background: transparent;
+
+  color: #64748b;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  padding: 8px 12px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.back-button mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.back-button:hover {
+  background: #eff6ff;
+  color: #2563eb;
+  transform: translateX(-2px);
+}

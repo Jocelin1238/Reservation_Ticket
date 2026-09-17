@@ -1,0 +1,491 @@
+/* ================================================= */
+/* SIDEBAR ADMIN */
+/* ================================================= */
+
+.sidebar-admin {
+
+  width: 270px;
+  height: 100vh;
+
+  background: #0b5ed7;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+
+  left: 0;
+  top: 0;
+
+  z-index: 1000;
+
+  box-sizing: border-box;
+
+}
+
+
+/* ================================================= */
+/* LOGO */
+/* ================================================= */
+
+.logo {
+
+  height: 100px;
+
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, .20);
+
+  flex-shrink: 0;
+
+}
+
+
+/* ================================================= */
+/* LOGO ICON */
+/* ================================================= */
+
+.logo-icon {
+
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255, 255, 255, .15);
+
+  border:
+    1px solid rgba(255, 255, 255, .25);
+
+  border-radius: 12px;
+
+  flex-shrink: 0;
+
+}
+
+
+.logo-icon .material-icons {
+
+  font-size: 26px;
+
+  color: white;
+
+}
+
+
+/* ================================================= */
+/* LOGO TEXTE */
+/* ================================================= */
+
+.logo-text {
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+
+}
+
+
+.logo-text h2 {
+
+  margin: 0;
+
+  color: white;
+
+  font-size: 19px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+}
+
+
+.logo-text span {
+
+  margin-top: 4px;
+
+  color: rgba(255, 255, 255, .75);
+
+  font-size: 11px;
+
+  font-weight: 400;
+
+}
+
+
+/* ================================================= */
+/* MENU PRINCIPAL */
+/* ================================================= */
+
+.sidebar-main {
+
+  flex: 1;
+
+  overflow-y: auto;
+
+  overflow-x: hidden;
+
+}
+
+
+.menu {
+
+  list-style: none;
+
+  padding: 20px 15px;
+
+  margin: 0;
+
+}
+
+
+.menu li {
+
+  margin: 6px 0;
+
+}
+
+
+/* ================================================= */
+/* LIENS */
+/* ================================================= */
+
+.menu a {
+
+  min-height: 46px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 0 13px;
+
+  box-sizing: border-box;
+
+  color: white;
+
+  text-decoration: none;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  font-weight: 400;
+
+  transition:
+    background .25s ease,
+    color .25s ease,
+    transform .20s ease;
+
+}
+
+
+/* ================================================= */
+/* ICÔNES */
+/* ================================================= */
+
+.menu a .material-icons {
+
+  width: 23px;
+
+  font-size: 21px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+}
+
+
+/* ================================================= */
+/* HOVER */
+/* ================================================= */
+
+.menu a:hover {
+
+  background: white;
+
+  color: #0b5ed7;
+
+  transform: translateX(3px);
+
+}
+
+
+/* ================================================= */
+/* ÉLÉMENT ACTIF */
+/* ================================================= */
+
+.menu a.active {
+
+  background: white;
+
+  color: #0b5ed7;
+
+  font-weight: 600;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, .08);
+
+}
+
+
+.menu a.active .material-icons {
+
+  color: #0b5ed7;
+
+}
+
+
+/* ================================================= */
+/* SÉPARATION */
+/* ================================================= */
+
+.sidebar-separator {
+
+  height: 1px;
+
+  margin: 0 20px;
+
+  background:
+    rgba(255, 255, 255, .25);
+
+  flex-shrink: 0;
+
+}
+
+
+/* ================================================= */
+/* MENU DU BAS */
+/* ================================================= */
+
+.sidebar-bottom {
+
+  padding: 12px 15px 18px;
+
+  flex-shrink: 0;
+
+}
+
+
+/* ================================================= */
+/* ELEMENTS DU BAS */
+/* ================================================= */
+
+.bottom-item {
+
+  width: 100%;
+
+  min-height: 45px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 0 13px;
+
+  margin-bottom: 5px;
+
+  box-sizing: border-box;
+
+  border-radius: 10px;
+
+  border: none;
+
+  background: transparent;
+
+  color: white;
+
+  text-decoration: none;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  transition:
+    background .25s ease,
+    color .25s ease,
+    transform .20s ease;
+
+}
+
+
+/* ================================================= */
+/* ICÔNES MENU BAS */
+/* ================================================= */
+
+.bottom-item .material-icons {
+
+  width: 23px;
+
+  font-size: 21px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+}
+
+
+/* ================================================= */
+/* HOVER MENU BAS */
+/* ================================================= */
+
+.bottom-item:hover {
+
+  background: white;
+
+  color: #0b5ed7;
+
+  transform: translateX(3px);
+
+}
+
+
+/* ================================================= */
+/* ACTIF MENU BAS */
+/* ================================================= */
+
+.bottom-item.active {
+
+  background: white;
+
+  color: #0b5ed7;
+
+  font-weight: 600;
+
+}
+
+
+/* ================================================= */
+/* DÉCONNEXION */
+/* ================================================= */
+
+.bottom-item.logout {
+
+  color: #ffdddd;
+
+}
+
+
+.bottom-item.logout .material-icons {
+
+  color: #ffdddd;
+
+}
+
+
+/* ================================================= */
+/* HOVER DÉCONNEXION */
+/* ================================================= */
+
+.bottom-item.logout:hover {
+
+  background: #dc3545;
+
+  color: white;
+
+  transform: translateX(3px);
+
+}
+
+
+.bottom-item.logout:hover .material-icons {
+
+  color: white;
+
+}
+
+
+/* ================================================= */
+/* SCROLLBAR */
+/* ================================================= */
+
+.sidebar-main::-webkit-scrollbar {
+
+  width: 5px;
+
+}
+
+
+.sidebar-main::-webkit-scrollbar-thumb {
+
+  background:
+    rgba(255, 255, 255, .35);
+
+  border-radius: 10px;
+
+}
+
+
+.sidebar-main::-webkit-scrollbar-track {
+
+  background: transparent;
+
+}
+
+
+/* ================================================= */
+/* RESPONSIVE */
+/* ================================================= */
+
+@media (max-width: 768px) {
+
+  .sidebar-admin {
+
+    width: 230px;
+
+  }
+
+
+  .logo-text h2 {
+
+    font-size: 16px;
+
+  }
+
+
+  .menu a,
+  .bottom-item {
+
+    font-size: 13px;
+
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .sidebar-admin {
+
+    width: 220px;
+
+  }
+
+}

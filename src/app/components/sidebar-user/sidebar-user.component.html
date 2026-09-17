@@ -1,0 +1,202 @@
+<aside class="sidebar-user">
+
+  <!-- ========================================= -->
+  <!-- LOGO -->
+  <!-- ========================================= -->
+
+  <div class="logo">
+
+    <h2>Voyage Express</h2>
+
+    <span>Client</span>
+
+  </div>
+
+
+  <!-- ========================================= -->
+  <!-- MENU PRINCIPAL -->
+  <!-- ========================================= -->
+
+  <div class="sidebar-main">
+
+    <ul class="menu">
+
+      <!-- TABLEAU DE BORD -->
+
+      <li>
+
+        <a
+          routerLink="/dashboard-user"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+
+          <span class="material-icons">
+            dashboard
+          </span>
+
+          <span>
+            Tableau de bord
+          </span>
+
+        </a>
+
+      </li>
+
+
+      <!-- VOYAGES -->
+
+      <li>
+
+        <a
+          routerLink="/voyages"
+          routerLinkActive="active">
+
+          <span class="material-icons">
+            directions_bus
+          </span>
+
+          <span>
+            Voyages
+          </span>
+
+        </a>
+
+      </li>
+
+
+      <!-- MES RESERVATIONS -->
+
+      <li>
+
+        <a
+          routerLink="/reservations-user"
+          routerLinkActive="active">
+
+          <span class="material-icons">
+            confirmation_number
+          </span>
+
+          <span>
+            Mes réservations
+          </span>
+
+        </a>
+
+      </li>
+
+
+      <!-- MES TICKETS -->
+
+      <li>
+
+        <a
+          routerLink="/tickets-user"
+          routerLinkActive="active">
+
+          <span class="material-icons">
+            confirmation_number
+          </span>
+
+          <span>
+            Mes tickets
+          </span>
+
+        </a>
+
+      </li>
+
+
+      <!-- MES PAIEMENTS -->
+
+      <li>
+
+        <a
+          routerLink="/paiements-user"
+          routerLinkActive="active">
+
+          <span class="material-icons">
+            payments
+          </span>
+
+          <span>
+            Mes paiements
+          </span>
+
+        </a>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+
+  <!-- ========================================= -->
+  <!-- SEPARATION -->
+  <!-- ========================================= -->
+
+  <div class="sidebar-separator"></div>
+
+
+  <!-- ========================================= -->
+  <!-- MENU DU BAS -->
+  <!-- ========================================= -->
+
+  <div class="sidebar-bottom">
+
+    <!-- PROFIL -->
+
+    <a
+      routerLink="/profil"
+      routerLinkActive="active"
+      class="bottom-item">
+
+      <span class="material-icons">
+        person
+      </span>
+
+      <span>
+        Mon profil
+      </span>
+
+    </a>
+
+
+    <!-- PARAMETRES -->
+
+    <a
+      routerLink="/parametres"
+      routerLinkActive="active"
+      class="bottom-item">
+
+      <span class="material-icons">
+        settings
+      </span>
+
+      <span>
+        Paramètres
+      </span>
+
+    </a>
+
+
+    <!-- DECONNEXION -->
+
+    <button
+      type="button"
+      class="bottom-item logout"
+      (click)="logout()">
+
+      <span class="material-icons">
+        logout
+      </span>
+
+      <span>
+        Déconnexion
+      </span>
+
+    </button>
+
+  </div>
+
+</aside>

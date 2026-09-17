@@ -1,0 +1,513 @@
+<app-navbar></app-navbar>
+<div class="reservations-page">
+
+  <!-- ===================================================== -->
+  <!-- HEADER -->
+  <!-- ===================================================== -->
+
+  <div class="page-header">
+
+    <div class="header-left">
+
+     
+      <div class="title-area">
+
+        <div class="title-icon">
+
+          <span class="material-icons">
+            event_note
+          </span>
+
+        </div>
+
+        <div>
+
+          <h1>
+            Mes réservations
+          </h1>
+
+          <p>
+            Retrouvez ici toutes vos réservations de voyage.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ACTUALISER -->
+    <button
+      type="button"
+      class="btn-primary"
+      (click)="chargerReservations()">
+
+      <span class="material-icons">
+        refresh
+      </span>
+
+      Actualiser
+
+    </button>
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- CHARGEMENT -->
+  <!-- ===================================================== -->
+
+  <div
+    class="loading-card"
+    *ngIf="chargement">
+
+    <div class="spinner"></div>
+
+    <h3>
+      Chargement de vos réservations...
+    </h3>
+
+    <p>
+      Veuillez patienter quelques instants.
+    </p>
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- ERREUR -->
+  <!-- ===================================================== -->
+
+  <div
+    class="error-card"
+    *ngIf="!chargement && erreur">
+
+    <span class="material-icons">
+      error_outline
+    </span>
+
+    <div>
+
+      <strong>
+        Une erreur est survenue
+      </strong>
+
+      <p>
+        {{ erreur }}
+      </p>
+
+    </div>
+
+    <button
+      type="button"
+      class="retry-button"
+      (click)="chargerReservations()">
+
+      Réessayer
+
+    </button>
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- CONTENU -->
+  <!-- ===================================================== -->
+
+  <ng-container *ngIf="!chargement && !erreur">
+
+
+    <!-- =================================================== -->
+    <!-- STATISTIQUES -->
+    <!-- =================================================== -->
+
+    <div class="stats-grid">
+
+
+      <!-- TOTAL -->
+
+      <div class="stat-card">
+
+        <div class="stat-icon blue">
+
+          <span class="material-icons">
+            event_note
+          </span>
+
+        </div>
+
+        <div>
+
+          <span>
+            Total réservations
+          </span>
+
+          <strong>
+            {{ reservations.length }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- CONFIRMÉES -->
+
+      <div class="stat-card">
+
+        <div class="stat-icon green">
+
+          <span class="material-icons">
+            check_circle
+          </span>
+
+        </div>
+
+        <div>
+
+          <span>
+            Confirmées
+          </span>
+
+          <strong>
+            {{
+              reservations.filter(r =>
+                r.statut?.toUpperCase() === 'CONFIRMEE' ||
+                r.statut?.toUpperCase() === 'CONFIRMÉE' ||
+                r.statut?.toUpperCase() === 'PAYEE' ||
+                r.statut?.toUpperCase() === 'PAYÉE'
+              ).length
+            }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- EN ATTENTE -->
+
+      <div class="stat-card">
+
+        <div class="stat-icon orange">
+
+          <span class="material-icons">
+            schedule
+          </span>
+
+        </div>
+
+        <div>
+
+          <span>
+            En attente
+          </span>
+
+          <strong>
+            {{
+              reservations.filter(r =>
+                r.statut?.toUpperCase() === 'EN_ATTENTE'
+              ).length
+            }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- ANNULÉES -->
+
+      <div class="stat-card">
+
+        <div class="stat-icon red">
+
+          <span class="material-icons">
+            cancel
+          </span>
+
+        </div>
+
+        <div>
+
+          <span>
+            Annulées
+          </span>
+
+          <strong>
+            {{
+              reservations.filter(r =>
+                r.statut?.toUpperCase() === 'ANNULEE' ||
+                r.statut?.toUpperCase() === 'ANNULÉE'
+              ).length
+            }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================== -->
+    <!-- AUCUNE RESERVATION -->
+    <!-- =================================================== -->
+
+    <div
+      class="empty-card"
+      *ngIf="reservations.length === 0">
+
+      <div class="empty-icon">
+
+        <span class="material-icons">
+          event_note
+        </span>
+
+      </div>
+
+      <h2>
+        Aucune réservation
+      </h2>
+
+      <p>
+        Vous n'avez encore effectué aucune réservation de voyage.
+      </p>
+
+      <button
+        type="button"
+        class="btn-primary"
+        (click)="allerVoyages()">
+
+        <span class="material-icons">
+          directions_bus
+        </span>
+
+        Découvrir les voyages
+
+      </button>
+
+    </div>
+
+
+    <!-- =================================================== -->
+    <!-- LISTE DES RESERVATIONS -->
+    <!-- =================================================== -->
+
+    <div
+      class="reservations-container"
+      *ngIf="reservations.length > 0">
+
+
+      <div
+        class="reservation-card"
+        *ngFor="let reservation of reservations">
+
+
+        <!-- =============================================== -->
+        <!-- PARTIE PRINCIPALE -->
+        <!-- =============================================== -->
+
+        <div class="reservation-main">
+
+
+          <!-- ICÔNE -->
+
+          <div class="reservation-icon">
+
+            <span class="material-icons">
+              event_note
+            </span>
+
+          </div>
+
+
+          <!-- INFORMATIONS -->
+
+          <div class="reservation-info">
+
+
+            <div class="reservation-top">
+
+              <div>
+
+                <span class="reservation-label">
+                  RÉSERVATION #{{ reservation.id }}
+                </span>
+
+                <h2>
+
+                  {{
+                    reservation.voyage?.trajet?.villeDepart ||
+                    'Départ'
+                  }}
+
+                  <span class="route-arrow">
+                    →
+                  </span>
+
+                  {{
+                    reservation.voyage?.trajet?.villeArrivee ||
+                    'Destination'
+                  }}
+
+                </h2>
+
+              </div>
+
+
+              <!-- STATUT -->
+
+              <span
+                class="status"
+                [ngClass]="getStatutClass(reservation.statut)">
+
+                <span class="status-dot"></span>
+
+                {{ getStatutLabel(reservation.statut) }}
+
+              </span>
+
+            </div>
+
+
+            <!-- INFORMATIONS -->
+
+            <div class="reservation-details">
+
+
+              <!-- DATE RESERVATION -->
+
+              <div class="detail">
+
+                <div class="detail-icon">
+
+                  <span class="material-icons">
+                    calendar_today
+                  </span>
+
+                </div>
+
+                <div class="detail-content">
+
+                  <small>
+                    Réservation
+                  </small>
+
+                  <strong>
+                    {{ formatDate(reservation.dateReservation) }}
+                  </strong>
+
+                </div>
+
+              </div>
+
+
+              <!-- VOYAGE -->
+
+              <div class="detail">
+
+                <div class="detail-icon">
+
+                  <span class="material-icons">
+                    directions_bus
+                  </span>
+
+                </div>
+
+                <div class="detail-content">
+
+                  <small>
+                    Voyage
+                  </small>
+
+                  <strong>
+                    #{{ reservation.voyage?.id || '-' }}
+                  </strong>
+
+                </div>
+
+              </div>
+
+
+              <!-- TRAJET -->
+
+              <div class="detail">
+
+                <div class="detail-icon">
+
+                  <span class="material-icons">
+                    route
+                  </span>
+
+                </div>
+
+                <div class="detail-content">
+
+                  <small>
+                    Trajet
+                  </small>
+
+                  <strong>
+
+                    {{
+                      reservation.voyage?.trajet?.villeDepart ||
+                      '-'
+                    }}
+
+                    →
+
+                    {{
+                      reservation.voyage?.trajet?.villeArrivee ||
+                      '-'
+                    }}
+
+                  </strong>
+
+                </div>
+
+              </div>
+
+
+              <!-- STATUT -->
+
+              <div class="detail">
+
+                <div class="detail-icon">
+
+                  <span class="material-icons">
+                    verified
+                  </span>
+
+                </div>
+
+                <div class="detail-content">
+
+                  <small>
+                    État
+                  </small>
+
+                  <strong>
+                    {{ getStatutLabel(reservation.statut) }}
+                  </strong>
+
+                </div>
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</div>

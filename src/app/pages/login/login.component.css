@@ -1,0 +1,182 @@
+.login-container{
+
+min-height:calc(100vh - 80px);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:#f5f9ff;
+
+}
+
+
+
+.login-card{
+
+
+width:420px;
+
+background:white;
+
+padding:40px;
+
+border-radius:20px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.12);
+
+
+}
+
+
+
+.title{
+
+text-align:center;
+
+margin-bottom:30px;
+
+}
+
+
+
+.title h1{
+
+color:blue;
+
+font-size:32px;
+
+margin-bottom:10px;
+
+}
+
+
+
+.title p{
+
+color:#777;
+
+font-size:16px;
+
+}
+
+
+
+.form-group{
+
+margin-bottom:20px;
+
+}
+
+
+
+.form-group label{
+
+display:block;
+
+margin-bottom:8px;
+
+font-weight:600;
+
+color:#333;
+
+}
+
+
+
+.form-group input{
+
+
+width:100%;
+
+padding:14px;
+
+border-radius:10px;
+
+border:1px solid #ddd;
+
+font-size:15px;
+
+}
+
+
+
+.form-group input:focus{
+
+
+outline:none;
+
+border-color:#0066ff;
+
+
+}
+
+
+
+button{
+
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:10px;
+
+background:blue;
+
+color:white;
+
+font-size:16px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+
+}
+
+
+
+button:hover{
+
+background:#0066ff;
+
+}
+.forgot-password {
+  display: block;
+  width: fit-content;
+  margin: 8px 0 0 auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.forgot-password:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.forgot-password:active {
+  transform: scale(0.98);
+}
+
+.forgot-password:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+  border-radius: 4px;
+}

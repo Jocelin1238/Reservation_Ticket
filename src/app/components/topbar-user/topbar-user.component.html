@@ -1,0 +1,553 @@
+<header class="topbar-user">
+
+  <!-- ================================================= -->
+  <!-- BARRE DE RECHERCHE -->
+  <!-- ================================================= -->
+
+  <div class="search-wrapper">
+
+    <span class="material-icons search-icon">
+      search
+    </span>
+
+    <input
+      type="text"
+      placeholder="Rechercher un voyage..."
+      [(ngModel)]="recherche"
+      (input)="rechercher()"
+    />
+
+    <button
+      type="button"
+      class="search-button"
+      *ngIf="recherche"
+      (click)="viderRecherche()">
+
+      <span class="material-icons">
+        close
+      </span>
+
+    </button>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- DROITE -->
+  <!-- ================================================= -->
+
+  <div class="topbar-right">
+
+
+    <!-- ================================================= -->
+    <!-- NOTIFICATIONS -->
+    <!-- ================================================= -->
+
+    <div
+      class="notification-wrapper"
+      (click)="$event.stopPropagation()">
+
+
+      <!-- ================================================= -->
+      <!-- BOUTON CLOCHE -->
+      <!-- ================================================= -->
+
+      <button
+        type="button"
+        class="icon-button notification-button"
+        title="Notifications"
+        (click)="toggleNotifications()">
+
+        <span class="material-icons">
+          notifications
+        </span>
+
+
+        <!-- COMPTEUR -->
+
+        <span
+          class="badge"
+          *ngIf="nombreNotificationsNonLues > 0">
+
+          {{
+            nombreNotificationsNonLues > 99
+              ? '99+'
+              : nombreNotificationsNonLues
+          }}
+
+        </span>
+
+      </button>
+
+
+      <!-- ================================================= -->
+      <!-- PANNEAU NOTIFICATIONS -->
+      <!-- ================================================= -->
+
+      <div
+        class="notification-panel"
+        *ngIf="afficherNotifications">
+
+
+        <!-- ================================================= -->
+        <!-- HEADER -->
+        <!-- ================================================= -->
+
+        <div class="notification-header">
+
+          <div>
+
+            <span class="notification-label">
+              CENTRE DE NOTIFICATIONS
+            </span>
+
+            <h3>
+              Notifications
+            </h3>
+
+          </div>
+
+
+          <!-- TOUT LIRE -->
+
+          <button
+            type="button"
+            class="read-all-button"
+            *ngIf="nombreNotificationsNonLues > 0"
+            (click)="marquerToutCommeLu()">
+
+            Tout lire
+
+          </button>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- CHARGEMENT -->
+        <!-- ================================================= -->
+
+        <div
+          class="notification-loading"
+          *ngIf="chargementNotifications">
+
+          <span class="material-icons spinning">
+            refresh
+          </span>
+
+          <span>
+            Chargement...
+          </span>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- ERREUR -->
+        <!-- ================================================= -->
+
+        <div
+          class="notification-error"
+          *ngIf="
+            !chargementNotifications &&
+            erreurNotifications
+          ">
+
+          <span class="material-icons">
+            error_outline
+          </span>
+
+          <p>
+            {{ erreurNotifications }}
+          </p>
+
+          <button
+            type="button"
+            (click)="chargerNotifications()">
+
+            Réessayer
+
+          </button>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- LISTE -->
+        <!-- ================================================= -->
+
+        <div
+          class="notification-list"
+          *ngIf="
+            !chargementNotifications &&
+            !erreurNotifications &&
+            notifications.length > 0
+          ">
+
+
+          <!-- NOTIFICATION -->
+          
+          <div
+            class="notification-item"
+            *ngFor="let notification of notifications"
+            [class.unread]="!notification.lu"
+            [class.read]="notification.lu"
+            (click)="marquerCommeLue(notification)">
+
+
+            <!-- ICÔNE -->
+
+            <div
+              class="notification-icon"
+              [ngClass]="
+                getNotificationClass(
+                  notification.type
+                )
+              ">
+
+              <span class="material-icons">
+
+                {{
+                  getNotificationIcon(
+                    notification.type
+                  )
+                }}
+
+              </span>
+
+            </div>
+
+
+            <!-- CONTENU -->
+
+            <div class="notification-content">
+
+              <div class="notification-title-row">
+
+                <strong>
+
+                  {{
+                    getNotificationType(
+                      notification.type
+                    )
+                  }}
+
+                </strong>
+
+
+                <!-- POINT NON LU -->
+
+                <span
+                  class="unread-dot"
+                  *ngIf="!notification.lu">
+                </span>
+
+              </div>
+
+
+              <p>
+                {{ notification.message }}
+              </p>
+
+
+              <div class="notification-date">
+
+                <span class="material-icons">
+                  schedule
+                </span>
+
+                <span>
+                  {{
+                    formatDateNotification(
+                      notification.dateCreation
+                    )
+                  }}
+                </span>
+
+                <span>
+                  à
+                </span>
+
+                <span>
+                  {{
+                    formatHeureNotification(
+                      notification.dateCreation
+                    )
+                  }}
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- SUPPRIMER -->
+
+            <button
+              type="button"
+              class="delete-notification"
+              title="Supprimer"
+              (click)="
+                $event.stopPropagation();
+                supprimerNotification(notification)
+              ">
+
+              <span class="material-icons">
+                delete_outline
+              </span>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- AUCUNE NOTIFICATION -->
+        <!-- ================================================= -->
+
+        <div
+          class="notification-empty"
+          *ngIf="
+            !chargementNotifications &&
+            !erreurNotifications &&
+            notifications.length === 0
+          ">
+
+          <div class="empty-notification-icon">
+
+            <span class="material-icons">
+              notifications_none
+            </span>
+
+          </div>
+
+          <strong>
+            Aucune notification
+          </strong>
+
+          <p>
+            Vous n'avez aucune nouvelle notification
+            pour le moment.
+          </p>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- FOOTER -->
+        <!-- ================================================= -->
+
+        <div
+          class="notification-footer"
+          *ngIf="
+            !chargementNotifications &&
+            !erreurNotifications &&
+            notifications.length > 0
+          ">
+
+          <span>
+
+            {{
+              notifications.length
+            }}
+
+            notification{{
+              notifications.length > 1
+                ? 's'
+                : ''
+            }}
+
+          </span>
+
+
+          <span
+            *ngIf="nombreNotificationsNonLues > 0">
+
+            {{
+              nombreNotificationsNonLues
+            }}
+            non lue{{
+              nombreNotificationsNonLues > 1
+                ? 's'
+                : ''
+            }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- PROFIL -->
+    <!-- ================================================= -->
+
+    <div
+      class="profile-wrapper"
+      (click)="$event.stopPropagation()">
+
+
+      <button
+        type="button"
+        class="profile-button"
+        (click)="toggleProfil()">
+
+
+        <!-- AVATAR -->
+
+        <div class="avatar">
+
+          {{ initiales }}
+
+        </div>
+
+
+        <!-- INFORMATIONS -->
+
+        <div class="profile-info">
+
+          <strong>
+            {{ nomComplet }}
+          </strong>
+
+          <span>
+            {{ roleAffiche }}
+          </span>
+
+        </div>
+
+
+        <!-- FLECHE -->
+
+        <span class="material-icons">
+
+          {{
+            afficherProfil
+              ? 'expand_less'
+              : 'expand_more'
+          }}
+
+        </span>
+
+      </button>
+
+
+      <!-- ================================================= -->
+      <!-- MENU PROFIL -->
+      <!-- ================================================= -->
+
+      <div
+        class="profile-menu"
+        *ngIf="afficherProfil">
+
+
+        <!-- EN-TÊTE -->
+
+        <div class="profile-header">
+
+          <div class="large-avatar">
+
+            {{ initiales }}
+
+          </div>
+
+
+          <div class="profile-user-info">
+
+            <strong>
+              {{ nomComplet }}
+            </strong>
+
+            <span>
+              {{ utilisateur?.email }}
+            </span>
+
+            <small>
+              Client
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <div class="divider"></div>
+
+
+        <!-- MON PROFIL -->
+
+        <button
+          type="button"
+          class="profile-item"
+          (click)="ouvrirProfil()">
+
+          <span class="material-icons">
+            person
+          </span>
+
+          <span>
+            Mon profil
+          </span>
+
+          <span class="material-icons arrow">
+            chevron_right
+          </span>
+
+        </button>
+
+
+        <!-- PARAMETRES -->
+
+        <button
+          type="button"
+          class="profile-item"
+          (click)="ouvrirParametres()">
+
+          <span class="material-icons">
+            settings
+          </span>
+
+          <span>
+            Paramètres
+          </span>
+
+          <span class="material-icons arrow">
+            chevron_right
+          </span>
+
+        </button>
+
+
+        <div class="divider"></div>
+
+
+        <!-- DECONNEXION -->
+
+        <button
+          type="button"
+          class="profile-item logout"
+          (click)="logout()">
+
+          <span class="material-icons">
+            logout
+          </span>
+
+          <span>
+            Déconnexion
+          </span>
+
+        </button>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>

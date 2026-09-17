@@ -1,0 +1,92 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { Trajet } from '../models/trajet';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class TrajetService {
+
+  private apiUrl = 'http://localhost:8080/api/trajets';
+
+  constructor(
+    private http: HttpClient
+  ) {}
+
+  // ==============================
+  // AFFICHER TOUS LES TRAJETS
+  // ==============================
+
+  getAllTrajets(): Observable<Trajet[]> {
+
+    return this.http.get<Trajet[]>(
+      this.apiUrl
+    );
+
+  }
+
+  // ==============================
+  // AFFICHER UN TRAJET
+  // ==============================
+
+  getById(
+    id: number
+  ): Observable<Trajet> {
+
+    return this.http.get<Trajet>(
+      `${this.apiUrl}/${id}`
+    );
+
+  }
+
+  // ==============================
+  // AJOUTER
+  // ==============================
+
+  ajouterTrajet(
+    trajet: Trajet
+  ): Observable<Trajet> {
+
+    return this.http.post<Trajet>(
+      this.apiUrl,
+      trajet
+    );
+
+  }
+
+  // ==============================
+  // MODIFIER
+  // ==============================
+
+  modifierTrajet(
+    id: number,
+    trajet: Trajet
+  ): Observable<Trajet> {
+
+    return this.http.put<Trajet>(
+      `${this.apiUrl}/${id}`,
+      trajet
+    );
+
+  }
+
+  // ==============================
+  // SUPPRIMER
+  // ==============================
+
+  supprimerTrajet(
+    id: number
+  ): Observable<string> {
+
+    return this.http.delete<string>(
+      `${this.apiUrl}/${id}`,
+      {
+        responseType: 'text' as 'json'
+      }
+    );
+
+  }
+
+}

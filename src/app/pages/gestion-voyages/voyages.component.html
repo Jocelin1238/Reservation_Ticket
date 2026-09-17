@@ -1,0 +1,772 @@
+<app-sidebar
+  *ngIf="roleUtilisateur === 'ROLE_SUPER_ADMIN'">
+</app-sidebar>
+
+<app-sidebar-admin
+  *ngIf="roleUtilisateur === 'ROLE_ADMIN'">
+</app-sidebar-admin>
+
+<app-sidebar-staff
+  *ngIf="roleUtilisateur === 'ROLE_STAFF'">
+</app-sidebar-staff>
+
+    <!-- =============================== -->
+    <!-- CONTENU -->
+    <!-- =============================== -->
+
+    <div class="main-content">
+
+        <!-- =============================== -->
+        <!-- TOPBAR STAFF -->
+        <!-- =============================== -->
+
+        <app-topbar-staff
+            *ngIf="roleUtilisateur === 'ROLE_STAFF'">
+        </app-topbar-staff>
+
+
+        <!-- =============================== -->
+        <!-- TOPBAR ADMIN / SUPER ADMIN -->
+        <!-- =============================== -->
+
+        <app-topbar
+            *ngIf="
+                roleUtilisateur === 'ROLE_ADMIN' ||
+                roleUtilisateur === 'ROLE_SUPER_ADMIN'
+            ">
+        </app-topbar>
+
+
+        <div class="content">
+
+            <!-- ================================================= -->
+            <!-- HEADER -->
+            <!-- ================================================= -->
+
+            <div class="page-header">
+
+                <div class="header-info">
+
+                    <h1>
+                        Gestion des voyages
+                    </h1>
+
+                    <p>
+                        Gérez les voyages, les horaires,
+                        les trajets et les disponibilités.
+                    </p>
+
+                </div>
+
+                <!-- AJOUT : ADMIN + SUPER ADMIN UNIQUEMENT -->
+                <button
+                    *ngIf="peutModifierVoyage"
+                    class="btn-add"
+                    type="button"
+                    (click)="ouvrirAjout()">
+
+                    <mat-icon>add</mat-icon>
+
+                    Ajouter un voyage
+
+                </button>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- FORMULAIRE -->
+            <!-- ADMIN + SUPER ADMIN UNIQUEMENT -->
+            <!-- ================================================= -->
+
+            <div
+                class="form-card"
+                *ngIf="afficherFormulaire && peutModifierVoyage">
+
+                <div class="form-header">
+
+                    <div>
+
+                        <span class="form-badge">
+                            {{
+                                modeModification
+                                ? 'MODIFICATION'
+                                : 'NOUVEAU VOYAGE'
+                            }}
+                        </span>
+
+                        <h2>
+                            {{
+                                modeModification
+                                ? 'Modifier un voyage'
+                                : 'Ajouter un voyage'
+                            }}
+                        </h2>
+
+                        <p>
+                            Renseignez les informations du voyage.
+                        </p>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="close-btn"
+                        (click)="fermerFormulaire()"
+                        title="Fermer">
+
+                        <mat-icon>close</mat-icon>
+
+                    </button>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- FORMULAIRE GRID -->
+                <!-- ================================================= -->
+
+                <div class="form-grid">
+
+                    <!-- NUMERO -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Numéro du voyage
+                        </label>
+
+                        <input
+                            type="text"
+                            [(ngModel)]="voyage.numeroVoyage"
+                            placeholder="Ex : V005">
+
+                    </div>
+
+
+                    <!-- TRAJET -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Trajet
+                        </label>
+
+                        <select
+                            [(ngModel)]="voyage.trajet.id">
+
+                            <option [ngValue]="null">
+                                -- Choisir un trajet --
+                            </option>
+
+                            <option
+                                *ngFor="let trajet of trajets"
+                                [ngValue]="trajet.id">
+
+                                {{ trajet.villeDepart }}
+                                →
+                                {{ trajet.villeArrivee }}
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- DATE DEPART -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Date de départ
+                        </label>
+
+                        <input
+                            type="date"
+                            [(ngModel)]="voyage.dateDepart">
+
+                    </div>
+
+
+                    <!-- HEURE DEPART -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Heure de départ
+                        </label>
+
+                        <input
+                            type="time"
+                            [(ngModel)]="voyage.heureDepart">
+
+                    </div>
+
+
+                    <!-- DATE ARRIVEE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Date d'arrivée
+                        </label>
+
+                        <input
+                            type="date"
+                            [(ngModel)]="voyage.dateArrivee">
+
+                    </div>
+
+
+                    <!-- HEURE ARRIVEE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Heure d'arrivée
+                        </label>
+
+                        <input
+                            type="time"
+                            [(ngModel)]="voyage.heureArrivee">
+
+                    </div>
+
+
+                    <!-- PRIX -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Prix
+                        </label>
+
+                        <div class="input-suffix">
+
+                            <input
+                                type="number"
+                                min="0"
+                                [(ngModel)]="voyage.prix"
+                                placeholder="5000">
+
+                            <span>
+                                FCFA
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- NOMBRE PLACES -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Nombre de places
+                        </label>
+
+                        <input
+                            type="number"
+                            min="1"
+                            [(ngModel)]="voyage.nombrePlaces"
+                            (ngModelChange)="changerNombrePlaces()"
+                            placeholder="50">
+
+                    </div>
+
+
+                    <!-- PLACES DISPONIBLES -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Places disponibles
+                        </label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            [max]="voyage.nombrePlaces"
+                            [(ngModel)]="voyage.placesDisponibles"
+                            placeholder="50">
+
+                    </div>
+
+
+                    <!-- CONFORT -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Confort
+                        </label>
+
+                        <select
+                            [(ngModel)]="voyage.confort.id">
+
+                            <option [ngValue]="null">
+                                -- Aucun confort --
+                            </option>
+
+                            <option
+                                *ngFor="let confort of conforts"
+                                [ngValue]="confort.id">
+
+                                {{ confort.nom }}
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- STATUT -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Statut
+                        </label>
+
+                        <select
+                            [(ngModel)]="voyage.statut">
+
+                            <option value="DISPONIBLE">
+                                Disponible
+                            </option>
+
+                            <option value="PROGRAMME">
+                                Programmé
+                            </option>
+
+                            <option value="EN_COURS">
+                                En cours
+                            </option>
+
+                            <option value="TERMINE">
+                                Terminé
+                            </option>
+
+                            <option value="ANNULE">
+                                Annulé
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group full">
+
+                        <label>
+                            Description
+                        </label>
+
+                        <textarea
+                            rows="4"
+                            [(ngModel)]="voyage.description"
+                            placeholder="Décrivez le voyage...">
+                        </textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- BOUTONS -->
+                <!-- ================================================= -->
+
+                <div class="buttons">
+
+                    <button
+                        type="button"
+                        class="cancel"
+                        (click)="fermerFormulaire()">
+
+                        <mat-icon>close</mat-icon>
+
+                        Annuler
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="save"
+                        (click)="enregistrerVoyage()">
+
+                        <mat-icon>check</mat-icon>
+
+                        {{
+                            modeModification
+                            ? 'Enregistrer les modifications'
+                            : 'Créer le voyage'
+                        }}
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- TABLEAU -->
+            <!-- STAFF + ADMIN + SUPER ADMIN -->
+            <!-- ================================================= -->
+
+            <div class="table-card">
+
+                <div class="table-header">
+
+                    <div>
+
+                        <span class="table-badge">
+                            VOYAGES
+                        </span>
+
+                        <h2>
+                            Liste des voyages
+                        </h2>
+
+                        <p>
+                            {{ voyages.length }}
+                            voyage(s) enregistré(s)
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Voyage
+                                </th>
+
+                                <th>
+                                    Trajet
+                                </th>
+
+                                <th>
+                                    Départ
+                                </th>
+
+                                <th>
+                                    Prix
+                                </th>
+
+                                <th>
+                                    Places
+                                </th>
+
+                                <th>
+                                    Statut
+                                </th>
+
+                                <!-- ACTIONS uniquement Admin -->
+                                <th *ngIf="peutModifierVoyage">
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr
+                                *ngFor="let voyage of voyages">
+
+                                <!-- VOYAGE -->
+
+                                <td>
+
+                                    <div class="voyage-info">
+
+                                        <div class="voyage-icon">
+
+                                            <mat-icon>
+                                                directions_bus
+                                            </mat-icon>
+
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                {{ voyage.numeroVoyage }}
+                                            </strong>
+
+                                            <small>
+                                                ID #{{ voyage.id }}
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- TRAJET -->
+
+                                <td>
+
+                                    <div class="trajet">
+
+                                        <div class="city">
+
+                                            <strong>
+                                                {{
+                                                    voyage.villeDepart
+                                                    || 'Non défini'
+                                                }}
+                                            </strong>
+
+                                        </div>
+
+                                        <span class="arrow">
+
+                                            <mat-icon>
+                                                east
+                                            </mat-icon>
+
+                                        </span>
+
+                                        <div class="city">
+
+                                            <strong>
+                                                {{
+                                                    voyage.villeArrivee
+                                                    || 'Non défini'
+                                                }}
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- DEPART -->
+
+                                <td>
+
+                                    <div class="departure">
+
+                                        <strong>
+                                            {{ voyage.dateDepart }}
+                                        </strong>
+
+                                        <span>
+                                            {{ voyage.heureDepart }}
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- PRIX -->
+
+                                <td>
+
+                                    <strong class="price">
+
+                                        {{
+                                            voyage.prix
+                                            | number:'1.0-0'
+                                        }}
+
+                                        <small>
+                                            FCFA
+                                        </small>
+
+                                    </strong>
+
+                                </td>
+
+
+                                <!-- PLACES -->
+
+                                <td>
+
+                                    <div class="places-container">
+
+                                        <div class="places">
+
+                                            <strong>
+                                                {{
+                                                    voyage.placesDisponibles
+                                                }}
+                                            </strong>
+
+                                            <span>
+                                                /
+                                                {{ voyage.nombrePlaces }}
+                                            </span>
+
+                                        </div>
+
+                                        <div class="places-bar">
+
+                                            <div
+                                                class="places-progress"
+                                                [style.width.%]="
+                                                    voyage.nombrePlaces
+                                                    ? (
+                                                        voyage.placesDisponibles
+                                                        / voyage.nombrePlaces
+                                                    ) * 100
+                                                    : 0
+                                                ">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- STATUT -->
+
+                                <td>
+
+                                    <span
+                                        class="status"
+                                        [class.disponible]="
+                                            voyage.statut === 'DISPONIBLE'
+                                        "
+                                        [class.programme]="
+                                            voyage.statut === 'PROGRAMME'
+                                        "
+                                        [class.en-cours]="
+                                            voyage.statut === 'EN_COURS'
+                                        "
+                                        [class.termine]="
+                                            voyage.statut === 'TERMINE'
+                                        "
+                                        [class.annule]="
+                                            voyage.statut === 'ANNULE'
+                                        ">
+
+                                        <span class="status-dot"></span>
+
+                                        {{
+                                            voyage.statut === 'DISPONIBLE'
+                                            ? 'Disponible'
+                                            : voyage.statut === 'PROGRAMME'
+                                            ? 'Programmé'
+                                            : voyage.statut === 'EN_COURS'
+                                            ? 'En cours'
+                                            : voyage.statut === 'TERMINE'
+                                            ? 'Terminé'
+                                            : 'Annulé'
+                                        }}
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- ================================================= -->
+                                <!-- ACTIONS -->
+                                <!-- ADMIN + SUPER ADMIN UNIQUEMENT -->
+                                <!-- ================================================= -->
+
+                                <td *ngIf="peutModifierVoyage">
+
+                                    <div class="actions">
+
+                                        <button
+                                            type="button"
+                                            class="action-btn edit"
+                                            (click)="modifierVoyage(voyage)"
+                                            title="Modifier">
+
+                                            <mat-icon>
+                                                edit
+                                            </mat-icon>
+
+                                        </button>
+
+
+                                        <button
+                                            type="button"
+                                            class="action-btn delete"
+                                            (click)="supprimerVoyage(voyage.id)"
+                                            title="Supprimer">
+
+                                            <mat-icon>
+                                                delete
+                                            </mat-icon>
+
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- ================================================= -->
+                            <!-- AUCUN VOYAGE -->
+                            <!-- ================================================= -->
+
+                            <tr
+                                *ngIf="voyages.length === 0">
+
+                                <td
+                                    [attr.colspan]="peutModifierVoyage ? 7 : 6"
+                                    class="empty">
+
+                                    <div class="empty-icon">
+
+                                        <mat-icon>
+                                            directions_bus
+                                        </mat-icon>
+
+                                    </div>
+
+                                    <h3>
+                                        Aucun voyage
+                                    </h3>
+
+                                    <p>
+                                        Commencez par créer votre premier voyage.
+                                    </p>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+

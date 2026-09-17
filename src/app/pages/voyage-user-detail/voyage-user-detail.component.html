@@ -1,0 +1,493 @@
+<div class="voyage-detail-page">
+
+  <!-- ===================================================== -->
+  <!-- HEADER -->
+  <!-- ===================================================== -->
+
+  <div class="page-header">
+
+    <div class="header-left">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="retourVoyages()">
+
+        <span class="material-icons">
+          arrow_back
+        </span>
+
+        Retour aux voyages
+
+      </button>
+
+      <div class="title-area">
+
+        <div class="title-icon">
+
+          <span class="material-icons">
+            directions_bus
+          </span>
+
+        </div>
+
+        <div>
+
+          <span class="page-label">
+            DÉTAIL DU VOYAGE
+          </span>
+
+          <h1>
+            Voyage {{ voyage?.numeroVoyage || '' }}
+          </h1>
+
+          <p>
+            Consultez toutes les informations avant de réserver.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- CHARGEMENT -->
+  <!-- ===================================================== -->
+
+  <div
+    class="loading-card"
+    *ngIf="chargement">
+
+    <div class="spinner"></div>
+
+    <h3>
+      Chargement du voyage...
+    </h3>
+
+    <p>
+      Veuillez patienter quelques instants.
+    </p>
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- ERREUR -->
+  <!-- ===================================================== -->
+
+  <div
+    class="error-card"
+    *ngIf="!chargement && erreur">
+
+    <span class="material-icons">
+      error_outline
+    </span>
+
+    <div>
+
+      <strong>
+        Voyage indisponible
+      </strong>
+
+      <p>
+        {{ erreur }}
+      </p>
+
+    </div>
+
+    <button
+      type="button"
+      class="retry-button"
+      (click)="chargerVoyage()">
+
+      Réessayer
+
+    </button>
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- CONTENU -->
+  <!-- ===================================================== -->
+
+  <ng-container
+    *ngIf="!chargement && !erreur && voyage">
+
+
+    <!-- =================================================== -->
+    <!-- CARTE PRINCIPALE -->
+    <!-- =================================================== -->
+
+    <div class="voyage-card">
+
+
+      <!-- =============================================== -->
+      <!-- BANDEAU -->
+      <!-- =============================================== -->
+
+      <div class="voyage-banner">
+
+        <div class="banner-left">
+
+          <div class="bus-icon">
+
+            <span class="material-icons">
+              directions_bus
+            </span>
+
+          </div>
+
+          <div>
+
+            <span>
+              NUMÉRO DU VOYAGE
+            </span>
+
+            <strong>
+              {{ voyage.numeroVoyage }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <span
+          class="status"
+          [ngClass]="getStatutClass(voyage.statut)">
+
+          <span class="status-dot"></span>
+
+          {{ getStatutLabel(voyage.statut) }}
+
+        </span>
+
+      </div>
+
+
+      <!-- =============================================== -->
+      <!-- TRAJET -->
+      <!-- =============================================== -->
+
+      <div class="route-section">
+
+        <div class="route-point">
+
+          <span class="route-label">
+            DÉPART
+          </span>
+
+          <h2>
+            {{ voyage.villeDepart || 'Départ' }}
+          </h2>
+
+          <div class="route-date">
+
+            <span class="material-icons">
+              calendar_today
+            </span>
+
+            {{ formatDateCourte(voyage.dateDepart) }}
+
+          </div>
+
+          <strong class="route-time">
+            {{ formatHeure(voyage.heureDepart) }}
+          </strong>
+
+        </div>
+
+
+        <div class="route-line">
+
+          <div class="route-line-top"></div>
+
+          <div class="route-bus">
+
+            <span class="material-icons">
+              directions_bus
+            </span>
+
+          </div>
+
+          <div class="route-line-bottom"></div>
+
+        </div>
+
+
+        <div class="route-point arrival">
+
+          <span class="route-label">
+            ARRIVÉE
+          </span>
+
+          <h2>
+            {{ voyage.villeArrivee || 'Destination' }}
+          </h2>
+
+          <div class="route-date">
+
+            <span class="material-icons">
+              calendar_today
+            </span>
+
+            {{ formatDateCourte(voyage.dateArrivee) }}
+
+          </div>
+
+          <strong class="route-time">
+            {{ formatHeure(voyage.heureArrivee) }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- =============================================== -->
+      <!-- INFORMATIONS -->
+      <!-- =============================================== -->
+
+      <div class="details-section">
+
+        <div class="section-title">
+
+          <span class="material-icons">
+            info
+          </span>
+
+          Informations du voyage
+
+        </div>
+
+
+        <div class="details-grid">
+
+
+          <!-- PRIX -->
+
+          <div class="detail-box">
+
+            <div class="detail-icon price">
+
+              <span class="material-icons">
+                payments
+              </span>
+
+            </div>
+
+            <div>
+
+              <small>
+                Prix du billet
+              </small>
+
+              <strong class="price-value">
+                {{ formatPrix(voyage.prix) }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- PLACES -->
+
+          <div class="detail-box">
+
+            <div class="detail-icon places">
+
+              <span class="material-icons">
+                event_seat
+              </span>
+
+            </div>
+
+            <div>
+
+              <small>
+                Places disponibles
+              </small>
+
+              <strong>
+                {{ voyage.placesDisponibles }}
+                / {{ voyage.nombrePlaces }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- TRANSPORT -->
+
+          <div class="detail-box">
+
+            <div class="detail-icon transport">
+
+              <span class="material-icons">
+                airport_shuttle
+              </span>
+
+            </div>
+
+            <div>
+
+              <small>
+                Transport
+              </small>
+
+              <strong>
+                {{ voyage.transport || 'Non précisé' }}
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- CONFORT -->
+
+          <div class="detail-box">
+
+            <div class="detail-icon confort">
+
+              <span class="material-icons">
+                airline_seat_recline_extra
+              </span>
+
+            </div>
+
+            <div>
+
+              <small>
+                Confort
+              </small>
+
+              <strong>
+                {{ voyage.confort || 'Non précisé' }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =============================================== -->
+      <!-- PLACES -->
+      <!-- =============================================== -->
+
+      <div class="places-section">
+
+        <div class="places-header">
+
+          <div>
+
+            <strong>
+              Disponibilité
+            </strong>
+
+            <span>
+              {{ voyage.placesDisponibles }}
+              place(s) disponible(s)
+            </span>
+
+          </div>
+
+          <strong>
+            {{ pourcentagePlaces }}%
+          </strong>
+
+        </div>
+
+        <div class="progress">
+
+          <div
+            class="progress-bar"
+            [style.width.%]="pourcentagePlaces">
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =============================================== -->
+      <!-- DESCRIPTION -->
+      <!-- =============================================== -->
+
+      <div
+        class="description-section"
+        *ngIf="voyage.description">
+
+        <div class="section-title">
+
+          <span class="material-icons">
+            description
+          </span>
+
+          Description
+
+        </div>
+
+        <p>
+          {{ voyage.description }}
+        </p>
+
+      </div>
+
+
+      <!-- =============================================== -->
+      <!-- ACTIONS -->
+      <!-- =============================================== -->
+
+      <div class="actions">
+
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="retourVoyages()">
+
+          <span class="material-icons">
+            arrow_back
+          </span>
+
+          Retour
+
+        </button>
+
+
+        <button
+          type="button"
+          class="primary-button"
+          [disabled]="!peutReserver()"
+          (click)="reserverVoyage()">
+
+          <span class="material-icons">
+            confirmation_number
+          </span>
+
+          {{
+            peutReserver()
+              ? 'Réserver ce voyage'
+              : 'Voyage indisponible'
+          }}
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</div>

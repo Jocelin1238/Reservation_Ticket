@@ -1,0 +1,612 @@
+<!-- SIDEBAR -->
+<app-sidebar></app-sidebar>
+
+<!-- CONTENU PRINCIPAL -->
+<div class="main-content">
+
+  <!-- TOPBAR -->
+  <app-topbar></app-topbar>
+
+  <div class="content">
+
+    <!-- ========================= -->
+    <!-- HEADER -->
+    <!-- ========================= -->
+
+    <div class="page-header">
+
+      <div>
+
+        <h1>
+          Gestion des trajets
+        </h1>
+
+        <p>
+          Gérez les itinéraires utilisés pour vos voyages.
+        </p>
+
+      </div>
+
+      <button
+        class="btn-add"
+        (click)="ouvrirAjout()">
+
+        <mat-icon>
+          add
+        </mat-icon>
+
+        Ajouter un trajet
+
+      </button>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- STATISTIQUES -->
+    <!-- ========================= -->
+
+    <div class="trajet-cards">
+
+
+      <!-- TOTAL TRAJETS -->
+
+      <div class="trajet-card">
+
+        <div class="trajet-icon">
+
+          <mat-icon>
+            route
+          </mat-icon>
+
+        </div>
+
+        <div class="trajet-info">
+
+          <span>
+            Total trajets
+          </span>
+
+          <strong>
+            {{ trajets.length }}
+          </strong>
+
+          <small>
+            trajets enregistrés
+          </small>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- DISTANCE -->
+
+      <div class="trajet-card">
+
+        <div class="trajet-icon">
+
+          <mat-icon>
+            straighten
+          </mat-icon>
+
+        </div>
+
+        <div class="trajet-info">
+
+          <span>
+            Distance totale
+          </span>
+
+          <strong>
+            {{ distanceTotale() }} km
+          </strong>
+
+          <small>
+            distance cumulée
+          </small>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- DUREE -->
+
+      <div class="trajet-card">
+
+        <div class="trajet-icon">
+
+          <mat-icon>
+            schedule
+          </mat-icon>
+
+        </div>
+
+        <div class="trajet-info">
+
+          <span>
+            Durée totale
+          </span>
+
+          <strong>
+            {{ formaterDuree(dureeTotale()) }}
+          </strong>
+
+          <small>
+            durée cumulée
+          </small>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- FORMULAIRE -->
+    <!-- ========================= -->
+
+    <div
+      class="form-card"
+      *ngIf="afficherFormulaire">
+
+
+      <!-- HEADER FORMULAIRE -->
+
+      <div class="form-header">
+
+        <div>
+
+          <h2>
+
+            {{
+              modeModification
+                ? 'Modifier un trajet'
+                : 'Ajouter un trajet'
+            }}
+
+          </h2>
+
+          <p>
+            Informations du trajet
+          </p>
+
+        </div>
+
+
+        <!-- FERMER -->
+
+        <button
+          class="close-btn"
+          (click)="fermerFormulaire()">
+
+          <mat-icon>
+            close
+          </mat-icon>
+
+        </button>
+
+      </div>
+
+
+
+      <!-- ========================= -->
+      <!-- CHAMPS -->
+      <!-- ========================= -->
+
+     <div class="form-group">
+
+  <label>
+    Ville de départ
+  </label>
+
+  <select
+    [(ngModel)]="trajet.villeDepart"
+    name="villeDepart">
+
+    <option value="">
+      -- Choisir une ville --
+    </option>
+
+    <option
+      *ngFor="let ville of villes"
+      [value]="ville.nom">
+
+      {{ ville.nom }}
+
+    </option>
+
+  </select>
+
+</div>
+
+
+        <!-- VILLE ARRIVEE -->
+<div class="form-group">
+
+  <label>
+    Ville d'arrivée
+  </label>
+
+  <select
+    [(ngModel)]="trajet.villeArrivee"
+    name="villeArrivee">
+
+    <option value="">
+      -- Choisir une ville --
+    </option>
+
+    <option
+      *ngFor="let ville of villes"
+      [value]="ville.nom">
+
+      {{ ville.nom }}
+
+    </option>
+
+  </select>
+
+</div>
+
+
+        <!-- DISTANCE -->
+
+      <div class="form-group">
+
+  <label>
+    Distance (km)
+  </label>
+
+  <input
+    type="number"
+    min="0"
+    [(ngModel)]="trajet.distance"
+    name="distance"
+    placeholder="Ex : 290">
+
+</div>
+
+
+
+        <!-- DUREE -->
+<div class="form-group">
+
+  <label>
+    Durée (minutes)
+  </label>
+
+  <input
+    type="number"
+    min="0"
+    [(ngModel)]="trajet.duree"
+    name="duree"
+    placeholder="Ex : 240">
+
+</div>
+
+
+
+      <!-- ========================= -->
+      <!-- ACTIONS FORMULAIRE -->
+      <!-- ========================= -->
+
+      <div class="form-actions">
+
+
+        <!-- ANNULER -->
+
+        <button
+          class="btn-cancel"
+          (click)="fermerFormulaire()">
+
+          <mat-icon>
+            close
+          </mat-icon>
+
+          Annuler
+
+        </button>
+
+
+
+        <!-- ENREGISTRER -->
+
+        <button
+          class="btn-save"
+          (click)="enregistrerTrajet()">
+
+          <mat-icon>
+            {{
+              modeModification
+                ? 'edit'
+                : 'save'
+            }}
+          </mat-icon>
+
+          {{
+            modeModification
+              ? 'Modifier'
+              : 'Enregistrer'
+          }}
+
+        </button>
+
+
+      </div>
+
+
+    </div>
+
+
+
+    <!-- ========================= -->
+    <!-- TABLEAU -->
+    <!-- ========================= -->
+
+    <div class="table-card">
+
+
+      <!-- HEADER TABLEAU -->
+
+      <div class="table-header">
+
+        <div>
+
+          <h2>
+            Liste des trajets
+          </h2>
+
+          <p>
+            {{ trajets.length }} trajet(s)
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- TABLE CONTAINER -->
+
+      <div class="table-container">
+
+        <table>
+
+
+          <!-- ========================= -->
+          <!-- ENTETE -->
+          <!-- ========================= -->
+
+          <thead>
+
+            <tr>
+
+              <th>
+                Départ
+              </th>
+
+              <th>
+                Arrivée
+              </th>
+
+              <th>
+                Distance
+              </th>
+
+              <th>
+                Durée
+              </th>
+
+              <th>
+                Actions
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+
+          <!-- ========================= -->
+          <!-- DONNEES -->
+          <!-- ========================= -->
+
+          <tbody>
+
+
+            <tr
+              *ngFor="let trajet of trajets">
+
+
+              <!-- DEPART -->
+
+              <td>
+
+                <div class="ville">
+
+                  <div class="ville-icon">
+
+                    <mat-icon>
+                      location_on
+                    </mat-icon>
+
+                  </div>
+
+                  <strong>
+                    {{ trajet.villeDepart }}
+                  </strong>
+
+                </div>
+
+              </td>
+
+
+
+              <!-- ARRIVEE -->
+
+              <td>
+
+                <div class="ville">
+
+                  <div class="ville-icon">
+
+                    <mat-icon>
+                      flag
+                    </mat-icon>
+
+                  </div>
+
+                  <strong>
+                    {{ trajet.villeArrivee }}
+                  </strong>
+
+                </div>
+
+              </td>
+
+
+
+              <!-- DISTANCE -->
+
+              <td>
+
+                <span class="distance">
+
+                  <mat-icon class="inline-icon">
+                    straighten
+                  </mat-icon>
+
+                  {{ trajet.distance }} km
+
+                </span>
+
+              </td>
+
+
+
+              <!-- DUREE -->
+
+              <td>
+
+                <span class="duree">
+
+                  <mat-icon class="inline-icon">
+                    schedule
+                  </mat-icon>
+
+                  {{ formaterDuree(trajet.duree) }}
+
+                </span>
+
+              </td>
+
+
+
+              <!-- ACTIONS -->
+
+              <td>
+
+                <div class="actions">
+
+
+                  <!-- MODIFIER -->
+
+                  <button
+                    class="edit"
+                    (click)="modifierTrajet(trajet)">
+
+                    <mat-icon>
+                      edit
+                    </mat-icon>
+
+                    Modifier
+
+                  </button>
+
+
+
+                  <!-- SUPPRIMER -->
+
+                  <button
+                    class="delete"
+                    (click)="supprimerTrajet(trajet.id)">
+
+                    <mat-icon>
+                      delete
+                    </mat-icon>
+
+                    Supprimer
+
+                  </button>
+
+
+                </div>
+
+              </td>
+
+
+            </tr>
+
+
+
+            <!-- ========================= -->
+            <!-- AUCUN TRAJET -->
+            <!-- ========================= -->
+
+            <tr
+              *ngIf="trajets.length === 0">
+
+              <td
+                colspan="5"
+                class="empty">
+
+
+                <div class="empty-content">
+
+
+                  <div class="empty-icon">
+
+                    <mat-icon>
+                      directions_bus
+                    </mat-icon>
+
+                  </div>
+
+
+                  <h3>
+                    Aucun trajet
+                  </h3>
+
+
+                  <p>
+                    Commencez par ajouter un trajet.
+                  </p>
+
+
+                </div>
+
+
+              </td>
+
+            </tr>
+
+
+          </tbody>
+
+
+        </table>
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+</div>

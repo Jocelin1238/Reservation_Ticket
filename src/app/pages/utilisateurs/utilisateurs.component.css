@@ -1,0 +1,111 @@
+/* =========================
+   CONTENU PRINCIPAL
+========================= */
+
+.main-content {
+    margin-left: 270px;
+    width: calc(100% - 270px);
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+.page {
+    padding: 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.page-header h1 {
+    color: #0d6efd;
+    margin: 0;
+}
+
+.page-header p {
+    color: #777;
+    margin-top: 8px;
+}
+
+
+/* =========================
+   RECHERCHE UTILISATEURS
+========================= */
+
+.search {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   TABLEAU
+========================= */
+
+table {
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   ROLE
+========================= */
+
+.role {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+
+/* =========================
+   BOUTONS
+========================= */
+
+button {
+    margin-right: 5px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .main-content {
+        margin-left: 270px;
+        width: calc(100% - 270px);
+    }
+
+    .page {
+        padding: 20px;
+    }
+
+}

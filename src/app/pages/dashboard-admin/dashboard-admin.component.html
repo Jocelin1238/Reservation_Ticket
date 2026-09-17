@@ -1,0 +1,341 @@
+<app-sidebar-admin></app-sidebar-admin>
+
+
+<div class="main-content">
+
+    <app-topbar></app-topbar>
+
+    <div class="content">
+
+        <!-- ================================================= -->
+        <!-- HEADER -->
+        <!-- ================================================= -->
+
+        <h1>
+            Tableau de bord
+        </h1>
+
+        <p>
+            Bienvenue dans votre espace d'administration de Voyage Express.
+        </p>
+
+
+        <!-- ================================================= -->
+        <!-- STATISTIQUES -->
+        <!-- ================================================= -->
+
+        <div class="stats-grid">
+
+            <!-- UTILISATEURS -->
+
+            <app-stat-card
+                title="Utilisateurs"
+                [value]="stats.utilisateurs.toString()"
+                icon="people">
+            </app-stat-card>
+
+
+            <!-- STAFF -->
+
+            <app-stat-card
+                title="Staff"
+                [value]="stats.staff.toString()"
+                icon="staff">
+            </app-stat-card>
+
+
+            <!-- VOYAGES -->
+
+            <app-stat-card
+                title="Voyages"
+                [value]="stats.voyages.toString()"
+                icon="bus">
+            </app-stat-card>
+
+
+            <!-- RÉSERVATIONS -->
+
+            <app-stat-card
+                title="Réservations"
+                [value]="stats.reservations.toString()"
+                icon="ticket">
+            </app-stat-card>
+
+
+            <!-- REVENUS -->
+
+            <app-stat-card
+                title="Revenus"
+                [value]="stats.revenus + ' FCFA'"
+                icon="money">
+            </app-stat-card>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- GRAPHIQUES -->
+        <!-- ================================================= -->
+
+        <div class="charts-container">
+
+            <!-- RÉSERVATIONS -->
+
+            <div class="chart-card">
+
+                <h3>
+                    Évolution des réservations
+                </h3>
+
+                <app-reservation-chart>
+                </app-reservation-chart>
+
+            </div>
+
+
+            <!-- REVENUS -->
+
+            <div class="chart-card">
+
+                <h3>
+                    Évolution des revenus
+                </h3>
+
+                <app-revenue-chart>
+                </app-revenue-chart>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- TABLEAUX -->
+        <!-- ================================================= -->
+
+        <div class="dashboard-grid">
+
+
+            <!-- ================================================= -->
+            <!-- UTILISATEURS -->
+            <!-- ================================================= -->
+
+            <div class="table-card">
+
+                <h3>
+                    Derniers utilisateurs
+                </h3>
+
+                <button
+                    class="btn-view"
+                    routerLink="/admin/utilisateurs">
+
+                    Voir tout
+
+                </button>
+
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Nom
+                            </th>
+
+                            <th>
+                                Email
+                            </th>
+
+                            <th>
+                                Rôle
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr
+                            *ngFor="let user of recentUsers">
+
+                            <td>
+                                {{ user.nom }}
+                                {{ user.prenom }}
+                            </td>
+
+                            <td>
+                                {{ user.email }}
+                            </td>
+
+                            <td>
+
+                                <span
+                                    *ngFor="let role of user.roles">
+
+                                    {{
+                                        role.role?.replace(
+                                            'ROLE_',
+                                            ''
+                                        )
+                                    }}
+
+                                </span>
+
+
+                                <span
+                                    *ngIf="
+                                        !user.roles ||
+                                        user.roles.length === 0
+                                    ">
+
+                                    USER
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            *ngIf="
+                                recentUsers.length === 0
+                            ">
+
+                            <td colspan="3">
+
+                                Aucun utilisateur récent
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- RÉSERVATIONS -->
+            <!-- ================================================= -->
+
+            <div class="table-card">
+
+                <h3>
+                    Dernières réservations
+                </h3>
+
+
+                <button
+                    class="btn-view"
+                    routerLink="/admin/reservation">
+
+                    Voir tout
+
+                </button>
+
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Client
+                            </th>
+
+                            <th>
+                                Trajet
+                            </th>
+
+                            <th>
+                                Statut
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr
+                            *ngFor="
+                                let reservation of reservations
+                            ">
+
+                            <td>
+                                {{ reservation.client }}
+                            </td>
+
+                            <td>
+                                {{ reservation.trajet }}
+                            </td>
+
+                            <td>
+
+                                <span
+                                    [class.success]="
+                                        reservation.statut ===
+                                        'CONFIRMEE'
+                                    "
+
+                                    [class.warning]="
+                                        reservation.statut ===
+                                        'EN_ATTENTE'
+                                    "
+
+                                    [class.danger]="
+                                        reservation.statut ===
+                                        'ANNULEE'
+                                    ">
+
+                                    {{ reservation.statut }}
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            *ngIf="
+                                reservations.length === 0
+                            ">
+
+                            <td colspan="3">
+
+                                Aucune réservation récente
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- VOYAGES RÉCENTS -->
+        <!-- ================================================= -->
+
+        <app-recent-trips>
+        </app-recent-trips>
+
+    </div>
+
+</div>

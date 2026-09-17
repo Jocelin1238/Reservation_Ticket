@@ -1,0 +1,206 @@
+
+<div class="sidebar">
+
+    <!-- ============================== -->
+    <!-- LOGO -->
+    <!-- ============================== -->
+
+    <div class="logo">
+
+
+        <h2>Voyage Express</h2>
+<span>{{ roleAffiche }}</span>
+    </div>
+
+
+    <!-- ============================== -->
+    <!-- ZONE PRINCIPALE -->
+    <!-- ============================== -->
+
+    <div class="sidebar-main">
+
+        <ul class="menu">
+
+            <!-- Tableau de bord -->
+            <li routerLinkActive="active">
+                <a routerLink="/dashboard-superadmin">
+                    <mat-icon>dashboard</mat-icon>
+                    <span>Tableau de bord</span>
+                </a>
+            </li>
+
+
+            <!-- Utilisateurs -->
+            <li routerLinkActive="active">
+                <a routerLink="/utilisateurs">
+                    <mat-icon>people</mat-icon>
+                    <span>Utilisateurs</span>
+                </a>
+            </li>
+
+
+            <!-- Administrateurs -->
+            <li routerLinkActive="active">
+                <a routerLink="/administrateurs">
+                    <mat-icon>admin_panel_settings</mat-icon>
+                    <span>Administrateurs</span>
+                </a>
+            </li>
+
+
+            <!-- Staff -->
+            <li routerLinkActive="active">
+                <a routerLink="/staff">
+                    <mat-icon>badge</mat-icon>
+                    <span>Staff</span>
+                </a>
+            </li>
+
+ <li>
+
+        <a
+          routerLink="/admin/voyages"
+          routerLinkActive="active">
+
+          <span class="material-icons">
+            directions_bus
+          </span>
+
+          <span>
+            Voyages
+          </span>
+
+        </a>
+
+      </li>
+
+
+            <!-- Réservations -->
+            <li routerLinkActive="active">
+                <a routerLink="/reservations">
+                    <mat-icon>confirmation_number</mat-icon>
+                    <span>Réservations</span>
+                </a>
+            </li>
+
+
+            <!-- Paiements -->
+            <li routerLinkActive="active">
+                <a
+                    routerLink="/paiement"
+                    routerLinkActive="active">
+
+                    <mat-icon>payments</mat-icon>
+
+                    <span>Paiements</span>
+
+                </a>
+            </li>
+
+
+            <!-- Transports -->
+            <li routerLinkActive="active">
+                <a routerLink="/transport">
+                    <mat-icon>directions_bus</mat-icon>
+                    <span>Transports</span>
+                </a>
+            </li>
+
+
+            <!-- Trajets -->
+            <li routerLinkActive="active">
+                <a routerLink="/trajet">
+                    <mat-icon>route</mat-icon>
+                    <span>Trajets</span>
+                </a>
+            </li>
+
+      <!-- TICKETS -->
+
+      <li>
+
+        <a
+          routerLink="/tickets"
+          routerLinkActive="active">
+
+          <span class="material-icons">
+            confirmation_number
+          </span>
+
+          <span>
+            Tickets
+          </span>
+
+        </a>
+
+      </li>
+
+
+           
+        </ul>
+
+    </div>
+
+
+    <!-- ============================== -->
+    <!-- SEPARATION -->
+    <!-- ============================== -->
+
+    <div class="sidebar-separator"></div>
+
+
+    <!-- ============================== -->
+    <!-- ZONE BASSE -->
+    <!-- ============================== -->
+
+    <div class="sidebar-bottom">
+
+
+      
+
+        <!-- PROFIL -->
+
+        <a
+            routerLink="/profil"
+            routerLinkActive="active"
+            class="bottom-item">
+
+            <mat-icon>person</mat-icon>
+
+            <span>
+                Mon profil
+            </span>
+
+        </a>
+<a
+  routerLink="/superadmin/parametres"
+  routerLinkActive="active"
+  class="bottom-item">
+
+  <span class="material-icons">
+    settings
+  </span>
+
+  <span>
+    Paramètres
+  </span>
+
+</a>
+
+        <!-- DECONNEXION -->
+<button
+    type="button"
+    class="bottom-item logout"
+    (click)="logout()">
+
+    <mat-icon>logout</mat-icon>
+
+    <span>Déconnexion</span>
+
+</button>
+
+    </div>
+
+</div>
+
+

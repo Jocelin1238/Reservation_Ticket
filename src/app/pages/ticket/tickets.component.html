@@ -1,0 +1,564 @@
+<div class="tickets-page">
+<div class="back-button-container">
+  <button
+    type="button"
+    class="back-button"
+    (click)="retourDashboard()">
+
+    <mat-icon>arrow_back</mat-icon>
+
+    <span>Retour au dashboard</span>
+
+  </button>
+</div>
+  <!-- ============================= -->
+  <!-- HEADER -->
+  <!-- ============================= -->
+
+  <div class="page-header">
+
+    <div class="header-left">
+
+      <div class="header-icon">
+
+        <mat-icon>
+          confirmation_number
+        </mat-icon>
+
+      </div>
+
+      <div>
+
+        <h1>Gestion des tickets</h1>
+
+        <p>
+          Consultez et contrôlez les tickets de voyage.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="scanner-button"
+      type="button"
+      (click)="scannerTicket()">
+
+      <mat-icon>
+        qr_code_scanner
+      </mat-icon>
+
+      <span>
+        Scanner un ticket
+      </span>
+
+    </button>
+
+  </div>
+
+
+  <!-- ============================= -->
+  <!-- STATISTIQUES -->
+  <!-- ============================= -->
+
+  <div class="stats-grid">
+
+    <!-- TOTAL -->
+
+    <div class="stat-card">
+
+      <div class="stat-icon total">
+
+        <mat-icon>
+          confirmation_number
+        </mat-icon>
+
+      </div>
+
+      <div class="stat-content">
+
+        <span>
+          Total tickets
+        </span>
+
+        <strong>
+          {{ totalTickets }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- VALIDES -->
+
+    <div class="stat-card">
+
+      <div class="stat-icon valide">
+
+        <mat-icon>
+          check_circle
+        </mat-icon>
+
+      </div>
+
+      <div class="stat-content">
+
+        <span>
+          Tickets valides
+        </span>
+
+        <strong>
+          {{ ticketsValides }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- UTILISES -->
+
+    <div class="stat-card">
+
+      <div class="stat-icon utilise">
+
+        <mat-icon>
+          verified
+        </mat-icon>
+
+      </div>
+
+      <div class="stat-content">
+
+        <span>
+          Tickets utilisés
+        </span>
+
+        <strong>
+          {{ ticketsUtilises }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- ANNULES -->
+
+    <div class="stat-card">
+
+      <div class="stat-icon annule">
+
+        <mat-icon>
+          block
+        </mat-icon>
+
+      </div>
+
+      <div class="stat-content">
+
+        <span>
+          Tickets annulés
+        </span>
+
+        <strong>
+          {{ ticketsAnnules }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ============================= -->
+  <!-- FILTRES -->
+  <!-- ============================= -->
+
+  <div class="filters-card">
+
+    <div class="search-box">
+
+      <mat-icon>
+        search
+      </mat-icon>
+
+      <input
+        type="text"
+        [(ngModel)]="recherche"
+        (input)="rechercher()"
+        placeholder="Rechercher par code, passager ou voyage..."
+      />
+
+    </div>
+
+
+    <div class="filter-select">
+
+      <mat-icon>
+        filter_list
+      </mat-icon>
+
+      <select
+        [(ngModel)]="statutFiltre"
+        (change)="appliquerFiltres()">
+
+        <option value="TOUS">
+          Tous les statuts
+        </option>
+
+        <option value="VALIDE">
+          Valides
+        </option>
+
+        <option value="UTILISE">
+          Utilisés
+        </option>
+
+        <option value="ANNULE">
+          Annulés
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+  <!-- ============================= -->
+  <!-- ERREUR -->
+  <!-- ============================= -->
+
+  <div
+    class="error-card"
+    *ngIf="erreur">
+
+    <mat-icon>
+      error
+    </mat-icon>
+
+    <span>
+      {{ erreur }}
+    </span>
+
+  </div>
+
+
+  <!-- ============================= -->
+  <!-- CHARGEMENT -->
+  <!-- ============================= -->
+
+  <div
+    class="loading-card"
+    *ngIf="chargement">
+
+    <mat-icon>
+      sync
+    </mat-icon>
+
+    <span>
+      Chargement des tickets...
+    </span>
+
+  </div>
+
+
+  <!-- ============================= -->
+  <!-- TABLE -->
+  <!-- ============================= -->
+
+  <div
+    class="table-card"
+    *ngIf="!chargement && !erreur">
+
+    <div class="table-header">
+
+      <div>
+
+        <h2>
+          Liste des tickets
+        </h2>
+
+        <p>
+          {{ ticketsFiltres.length }} ticket(s)
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Ticket
+            </th>
+
+            <th>
+              Passager
+            </th>
+
+            <th>
+              Voyage
+            </th>
+
+            <th>
+              Départ
+            </th>
+
+            <th>
+              Statut
+            </th>
+
+            <th>
+              Actions
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr
+            *ngFor="let ticket of ticketsFiltres">
+
+            <!-- TICKET -->
+
+            <td>
+
+              <div class="ticket-cell">
+
+                <div class="ticket-small-icon">
+
+                  <mat-icon>
+                    confirmation_number
+                  </mat-icon>
+
+                </div>
+
+                <div>
+
+                  <strong>
+                    {{ ticket.codeTicket }}
+                  </strong>
+
+                  <span>
+                    ID #{{ ticket.id }}
+                  </span>
+
+                </div>
+
+              </div>
+
+            </td>
+
+
+            <!-- PASSAGER -->
+
+            <td>
+
+              <div class="passenger-cell">
+
+                <strong>
+
+                  {{
+                    ticket.reservation?.utilisateur?.nom
+                    || '-'
+                  }}
+
+                  {{
+                    ticket.reservation?.utilisateur?.prenom
+                    || ''
+                  }}
+
+                </strong>
+
+                <span>
+
+                  {{
+                    ticket.reservation?.utilisateur?.email
+                    || '-'
+                  }}
+
+                </span>
+
+              </div>
+
+            </td>
+
+
+            <!-- VOYAGE -->
+
+            <td>
+
+              <div class="voyage-cell">
+
+                <strong>
+
+                  {{
+                    ticket.reservation?.voyage?.numeroVoyage
+                    || '-'
+                  }}
+
+                </strong>
+
+                <span>
+
+                  {{
+                    ticket.reservation?.voyage?.trajet?.villeDepart
+                    || '-'
+                  }}
+
+                  →
+
+                  {{
+                    ticket.reservation?.voyage?.trajet?.villeArrivee
+                    || '-'
+                  }}
+
+                </span>
+
+              </div>
+
+            </td>
+
+
+            <!-- DEPART -->
+
+            <td>
+
+              <div class="departure-cell">
+
+                <strong>
+
+                  {{
+                    ticket.reservation?.voyage?.dateDepart
+                    || '-'
+                  }}
+
+                </strong>
+
+                <span>
+
+                  {{
+                    ticket.reservation?.voyage?.heureDepart
+                    || '-'
+                  }}
+
+                </span>
+
+              </div>
+
+            </td>
+
+
+            <!-- STATUT -->
+
+            <td>
+
+              <div
+                class="status-badge"
+                [ngClass]="getClasseStatut(ticket.statut)">
+
+                <mat-icon>
+
+                  {{
+                    getIconStatut(ticket.statut)
+                  }}
+
+                </mat-icon>
+
+                <span>
+                  {{ ticket.statut }}
+                </span>
+
+              </div>
+
+            </td>
+
+
+            <!-- ACTIONS -->
+
+            <td>
+
+              <div class="actions">
+
+                <button
+                  type="button"
+                  class="action-button view"
+                  title="Voir le ticket"
+                  (click)="voirTicket(ticket)">
+
+                  <mat-icon>
+                    visibility
+                  </mat-icon>
+
+                </button>
+
+
+                <button
+                  type="button"
+                  class="action-button scan"
+                  title="Scanner"
+                  *ngIf="ticket.statut === 'VALIDE'"
+                  (click)="scannerTicket()">
+
+                  <mat-icon>
+                    qr_code_scanner
+                  </mat-icon>
+
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+
+          <!-- AUCUN RESULTAT -->
+
+          <tr
+            *ngIf="ticketsFiltres.length === 0">
+
+            <td
+              colspan="6"
+              class="empty-state">
+
+              <mat-icon>
+                confirmation_number
+              </mat-icon>
+
+              <strong>
+                Aucun ticket trouvé
+              </strong>
+
+              <span>
+                Aucun ticket ne correspond à votre recherche.
+              </span>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

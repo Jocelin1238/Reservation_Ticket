@@ -1,0 +1,151 @@
+<h2 mat-dialog-title>
+Modifier utilisateur
+</h2>
+
+
+<mat-dialog-content>
+
+
+<form [formGroup]="userForm">
+
+
+<mat-form-field appearance="outline">
+
+<mat-label>
+Nom
+</mat-label>
+
+<input matInput formControlName="nom">
+
+</mat-form-field>
+
+
+
+<mat-form-field appearance="outline">
+
+<mat-label>
+Prénom
+</mat-label>
+
+<input matInput formControlName="prenom">
+
+</mat-form-field>
+
+
+
+<mat-form-field appearance="outline">
+
+<mat-label>
+Email
+</mat-label>
+
+<input matInput formControlName="email">
+
+</mat-form-field>
+
+
+
+<mat-form-field appearance="outline">
+
+<mat-label>
+Téléphone
+</mat-label>
+
+<input matInput formControlName="telephone">
+
+</mat-form-field>
+
+
+
+<mat-form-field appearance="outline">
+
+<mat-label>
+Adresse
+</mat-label>
+
+<input matInput formControlName="adresse">
+
+</mat-form-field>
+
+
+
+<mat-form-field appearance="outline">
+
+<mat-label>
+Rôle
+</mat-label>
+
+
+<mat-select formControlName="role">
+
+
+<mat-option value="ROLE_USER">
+Client
+</mat-option>
+<mat-option value="ROLE_STAFF">
+  Staff
+</mat-option>
+
+<mat-option value="ROLE_ADMIN">
+Admin
+</mat-option>
+
+
+<mat-option value="ROLE_SUPER_ADMIN">
+Super Admin
+</mat-option>
+
+
+</mat-select>
+
+
+</mat-form-field>
+
+
+
+<mat-form-field appearance="outline">
+
+<mat-label>
+Nouveau mot de passe
+</mat-label>
+
+<input 
+matInput 
+type="password"
+formControlName="motDePasse">
+
+</mat-form-field>
+
+
+
+</form>
+
+
+</mat-dialog-content>
+
+
+
+<mat-dialog-actions align="end">
+
+
+<button 
+mat-button
+(click)="close()">
+
+Annuler
+
+</button>
+
+
+
+<button 
+mat-raised-button
+color="primary"
+(click)="save()">
+
+Modifier
+
+</button>
+
+
+</mat-dialog-actions>

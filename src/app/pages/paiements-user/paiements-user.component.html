@@ -1,0 +1,603 @@
+<app-navbar></app-navbar>
+<div class="paiements-page">
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <div class="page-header">
+
+    <div class="header-left">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="retourDashboard()">
+
+        <span class="material-icons">
+          arrow_back
+        </span>
+
+        Retour au dashboard
+
+      </button>
+
+
+      <div class="title-area">
+
+        <div class="title-icon">
+
+          <span class="material-icons">
+            payments
+          </span>
+
+        </div>
+
+        <div>
+
+          <h1>
+            Mes paiements
+          </h1>
+
+          <p>
+            Consultez l'historique de vos paiements et transactions.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- BOUTON VOYAGES -->
+
+    <button
+      type="button"
+      class="btn-primary"
+      (click)="allerVoyages()">
+
+      <span class="material-icons">
+        directions_bus
+      </span>
+
+      Réserver un voyage
+
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       STATISTIQUES
+  ====================================================== -->
+
+  <div class="stats-grid">
+
+
+    <!-- TOTAL PAYÉ -->
+
+    <div class="stat-card">
+
+      <div class="stat-icon blue">
+
+        <span class="material-icons">
+          account_balance_wallet
+        </span>
+
+      </div>
+
+      <div class="stat-info">
+
+        <span>
+          Total payé
+        </span>
+
+        <strong>
+          {{ totalPaye | number:'1.0-0' }} FCFA
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- NOMBRE PAIEMENTS -->
+
+    <div class="stat-card">
+
+      <div class="stat-icon purple">
+
+        <span class="material-icons">
+          receipt_long
+        </span>
+
+      </div>
+
+      <div class="stat-info">
+
+        <span>
+          Nombre de paiements
+        </span>
+
+        <strong>
+          {{ paiements.length }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- PAIEMENTS RÉUSSIS -->
+
+    <div class="stat-card">
+
+      <div class="stat-icon green">
+
+        <span class="material-icons">
+          check_circle
+        </span>
+
+      </div>
+
+      <div class="stat-info">
+
+        <span>
+          Paiements réussis
+        </span>
+
+        <strong>
+          {{ nombrePaiementsReussis }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- EN ATTENTE -->
+
+    <div class="stat-card">
+
+      <div class="stat-icon orange">
+
+        <span class="material-icons">
+          schedule
+        </span>
+
+      </div>
+
+      <div class="stat-info">
+
+        <span>
+          En attente
+        </span>
+
+        <strong>
+          {{ nombrePaiementsEnAttente }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CHARGEMENT
+  ====================================================== -->
+
+  <div
+    class="loading-card"
+    *ngIf="chargement">
+
+    <div class="spinner"></div>
+
+    <h3>
+      Chargement de vos paiements...
+    </h3>
+
+    <p>
+      Veuillez patienter quelques instants.
+    </p>
+
+  </div>
+
+
+  <!-- =====================================================
+       ERREUR
+  ====================================================== -->
+
+  <div
+    class="error-card"
+    *ngIf="!chargement && erreur">
+
+    <span class="material-icons">
+      error_outline
+    </span>
+
+    <div>
+
+      <strong>
+        Impossible de récupérer vos paiements
+      </strong>
+
+      <p>
+        {{ erreur }}
+      </p>
+
+    </div>
+
+    <button
+      type="button"
+      class="retry-button"
+      (click)="chargerPaiements()">
+
+      Réessayer
+
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       CONTENU
+  ====================================================== -->
+
+  <ng-container
+    *ngIf="!chargement && !erreur">
+
+
+    <!-- ===================================================
+         AUCUN PAIEMENT
+    ==================================================== -->
+
+    <div
+      class="empty-card"
+      *ngIf="paiements.length === 0">
+
+      <div class="empty-icon">
+
+        <span class="material-icons">
+          receipt_long
+        </span>
+
+      </div>
+
+      <h2>
+        Aucun paiement
+      </h2>
+
+      <p>
+        Vous n'avez encore effectué aucun paiement.
+        Vos transactions apparaîtront ici.
+      </p>
+
+      <button
+        type="button"
+        class="btn-primary"
+        (click)="allerVoyages()">
+
+        <span class="material-icons">
+          directions_bus
+        </span>
+
+        Consulter les voyages
+
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         TABLEAU DES PAIEMENTS
+    ==================================================== -->
+
+    <div
+      class="payments-card"
+      *ngIf="paiements.length > 0">
+
+
+      <!-- HEADER TABLEAU -->
+
+      <div class="card-header">
+
+        <div>
+
+          <h2>
+            Historique des paiements
+          </h2>
+
+          <p>
+            Retrouvez toutes vos transactions.
+          </p>
+
+        </div>
+
+        <span class="payment-count">
+
+          {{ paiements.length }}
+
+          paiement(s)
+
+        </span>
+
+      </div>
+
+
+      <!-- TABLEAU -->
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>
+                Référence
+              </th>
+
+              <th>
+                Voyage
+              </th>
+
+              <th>
+                Montant
+              </th>
+
+              <th>
+                Date
+              </th>
+
+              <th>
+                Moyen
+              </th>
+
+              <th>
+                Statut
+              </th>
+
+              <th>
+                Action
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <tr
+              *ngFor="let paiement of paiements">
+
+
+              <!-- RÉFÉRENCE -->
+
+              <td>
+
+                <div class="reference">
+
+                  <div class="reference-icon">
+
+                    <span class="material-icons">
+                      receipt
+                    </span>
+
+                  </div>
+
+                  <strong>
+
+                    {{
+                      paiement.reference ||
+                      paiement.referencePaiement ||
+                      paiement.id ||
+                      '-'
+                    }}
+
+                  </strong>
+
+                </div>
+
+              </td>
+
+
+              <!-- VOYAGE -->
+
+              <td>
+
+                <div class="voyage-info">
+
+                  <strong>
+
+                    {{
+                      paiement.reservation?.voyage?.nom ||
+                      paiement.voyage?.nom ||
+                      'Voyage'
+                    }}
+
+                  </strong>
+
+                  <small>
+
+                    {{
+                      paiement.reservation?.voyage?.trajet?.villeDepart ||
+                      paiement.voyage?.trajet?.villeDepart ||
+                      paiement.trajet?.villeDepart ||
+                      '-'
+                    }}
+
+                    →
+
+                    {{
+                      paiement.reservation?.voyage?.trajet?.villeArrivee ||
+                      paiement.voyage?.trajet?.villeArrivee ||
+                      paiement.trajet?.villeArrivee ||
+                      '-'
+                    }}
+
+                  </small>
+
+                </div>
+
+              </td>
+
+
+              <!-- MONTANT -->
+
+              <td>
+
+                <strong class="amount">
+
+                  {{
+                    paiement.montant || 0
+                      | number:'1.0-0'
+                  }}
+
+                  FCFA
+
+                </strong>
+
+              </td>
+
+
+              <!-- DATE -->
+
+              <td>
+
+                <div class="date-info">
+
+                  <strong>
+
+                    {{
+                      formatDate(
+                        paiement.datePaiement ||
+                        paiement.dateCreation ||
+                        paiement.createdAt
+                      )
+                    }}
+
+                  </strong>
+
+                  <small>
+
+                    {{
+                      formatHeure(
+                        paiement.datePaiement ||
+                        paiement.dateCreation ||
+                        paiement.createdAt
+                      )
+                    }}
+
+                  </small>
+
+                </div>
+
+              </td>
+
+
+              <!-- MOYEN DE PAIEMENT -->
+
+              <td>
+
+                <div class="payment-method">
+
+                  <span class="material-icons">
+
+                    {{
+                      paiement.moyenPaiement === 'MTN'
+                        ? 'phone_android'
+                        : paiement.moyenPaiement === 'ORANGE'
+                        ? 'phone_android'
+                        : 'payments'
+                    }}
+
+                  </span>
+
+                  <span>
+
+                    {{
+                      paiement.moyenPaiement ||
+                      paiement.modePaiement ||
+                      'Paiement'
+                    }}
+
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <!-- STATUT -->
+
+              <td>
+
+                <span
+                  class="status"
+                  [ngClass]="
+                    getStatutClass(paiement.statut)
+                  ">
+
+                  {{
+                    getStatutLabel(paiement.statut)
+                  }}
+
+                </span>
+
+              </td>
+
+
+              <!-- ACTION -->
+
+              <td>
+
+                <button
+                  type="button"
+                  class="details-button"
+                  (click)="voirDetails(paiement)">
+
+                  <span class="material-icons">
+                    visibility
+                  </span>
+
+                  Détails
+
+                </button>
+
+              </td>
+
+            </tr>
+
+
+            <!-- AUCUNE LIGNE -->
+
+            <tr
+              *ngIf="paiements.length === 0">
+
+              <td
+                colspan="7"
+                class="empty-row">
+
+                Aucun paiement disponible.
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</div>
+

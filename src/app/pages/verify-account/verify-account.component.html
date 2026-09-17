@@ -1,0 +1,337 @@
+
+<div class="verify-page">
+
+  <!-- =====================================================
+       FOND / DECORATION
+  ====================================================== -->
+
+  <div class="background-decoration decoration-one"></div>
+  <div class="background-decoration decoration-two"></div>
+
+
+  <!-- =====================================================
+       CONTENU PRINCIPAL
+  ====================================================== -->
+
+  <div class="verify-container">
+
+
+    <!-- ===================================================
+         LOGO / BRAND
+    ==================================================== -->
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        <span class="material-icons">
+          directions_bus
+        </span>
+      </div>
+
+      <div class="brand-text">
+        <h1>
+          Voyage<span>Express</span>
+        </h1>
+
+        <p>
+          Votre voyage commence ici
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         CARTE VERIFICATION
+    ==================================================== -->
+
+    <div class="verify-card">
+
+
+      <!-- ICONE -->
+      <div class="verification-icon">
+
+        <span class="material-icons">
+          mark_email_read
+        </span>
+
+      </div>
+
+
+      <!-- TITRE -->
+
+      <div class="card-header">
+
+        <h2>
+          Vérifiez votre compte
+        </h2>
+
+        <p>
+          Nous avons envoyé un code de vérification
+          à votre adresse email.
+        </p>
+
+      </div>
+
+
+      <!-- =================================================
+           MESSAGE EMAIL
+      ================================================== -->
+
+      <div class="email-info">
+
+        <span class="material-icons">
+          email
+        </span>
+
+        <div>
+
+          <small>
+            Code envoyé à
+          </small>
+
+          <strong>
+            {{ email || 'Votre adresse email' }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           MESSAGE ERREUR
+      ================================================== -->
+
+      <div
+        class="alert alert-error"
+        *ngIf="erreur">
+
+        <span class="material-icons">
+          error_outline
+        </span>
+
+        <span>
+          {{ erreur }}
+        </span>
+
+      </div>
+
+
+      <!-- =================================================
+           MESSAGE SUCCES
+      ================================================== -->
+
+      <div
+        class="alert alert-success"
+        *ngIf="succes">
+
+        <span class="material-icons">
+          check_circle
+        </span>
+
+        <span>
+          {{ succes }}
+        </span>
+
+      </div>
+
+
+      <!-- =================================================
+           FORMULAIRE
+      ================================================== -->
+
+      <form
+        #verifyForm="ngForm"
+        (ngSubmit)="verifierCompte(verifyForm)"
+        novalidate>
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+          <label for="email">
+            Adresse email
+          </label>
+
+          <div class="input-wrapper">
+
+            <span class="material-icons">
+              email
+            </span>
+
+            <input
+              id="email"
+              name="email"
+              type="email"
+              [(ngModel)]="email"
+              required
+              email
+              placeholder="exemple@gmail.com"
+              autocomplete="email">
+
+          </div>
+
+        </div>
+
+
+        <!-- OTP -->
+
+        <div class="form-group">
+
+          <label for="otp">
+            Code de vérification
+          </label>
+
+          <div class="input-wrapper otp-input">
+
+            <span class="material-icons">
+              password
+            </span>
+
+            <input
+              id="otp"
+              name="otp"
+              type="text"
+              [(ngModel)]="otp"
+              required
+              minlength="6"
+              maxlength="6"
+              pattern="[0-9]{6}"
+              placeholder="••••••"
+              inputmode="numeric"
+              autocomplete="one-time-code">
+
+          </div>
+
+          <small class="input-help">
+            Entrez le code à 6 chiffres reçu par email.
+          </small>
+
+        </div>
+
+
+        <!-- =================================================
+             BOUTON VERIFIER
+        ================================================== -->
+
+        <button
+          type="submit"
+          class="verify-button"
+          [disabled]="chargement">
+
+          <span
+            class="material-icons"
+            *ngIf="!chargement">
+            verified
+          </span>
+
+          <span
+            class="button-spinner"
+            *ngIf="chargement">
+          </span>
+
+          <span>
+            {{
+              chargement
+                ? 'Vérification...'
+                : 'Vérifier mon compte'
+            }}
+          </span>
+
+        </button>
+
+      </form>
+
+
+      <!-- =================================================
+           RENVOYER OTP
+      ================================================== -->
+
+      <div class="resend-section">
+
+        <p>
+          Vous n'avez pas reçu le code ?
+        </p>
+
+        <button
+          type="button"
+          class="resend-button"
+          (click)="renvoyerOtp()"
+          [disabled]="chargement">
+
+          <span class="material-icons">
+            refresh
+          </span>
+
+          Renvoyer le code
+
+        </button>
+
+      </div>
+
+
+      <!-- =================================================
+           SEPARATEUR
+      ================================================== -->
+
+      <div class="separator">
+        <span></span>
+        <small>OU</small>
+        <span></span>
+      </div>
+
+
+      <!-- =================================================
+           NAVIGATION
+      ================================================== -->
+
+      <div class="navigation-links">
+
+        <button
+          type="button"
+          (click)="retournerInscription()">
+
+          <span class="material-icons">
+            arrow_back
+          </span>
+
+          Modifier mes informations
+
+        </button>
+
+
+        <button
+          type="button"
+          (click)="allerLogin()">
+
+          Aller à la connexion
+
+          <span class="material-icons">
+            arrow_forward
+          </span>
+
+        </button>
+
+      </div>
+
+
+    </div>
+
+
+    <!-- ===================================================
+         FOOTER
+    ==================================================== -->
+
+    <p class="footer-text">
+      © 2026 VoyageExpress.
+      Tous droits réservés.
+    </p>
+
+
+  </div>
+
+</div>
+
+

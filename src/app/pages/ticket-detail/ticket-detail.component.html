@@ -1,0 +1,531 @@
+<div class="ticket-detail-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+
+    <div class="header-left">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="retourTickets()">
+
+        <mat-icon>
+          arrow_back
+        </mat-icon>
+
+      </button>
+
+      <div class="header-icon">
+
+        <mat-icon>
+          confirmation_number
+        </mat-icon>
+
+      </div>
+
+      <div>
+
+        <h1>Détail du ticket</h1>
+
+        <p>
+          Consultez les informations du ticket de voyage.
+        </p>
+
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      class="scanner-button"
+      (click)="scannerTicket()">
+
+      <mat-icon>
+        qr_code_scanner
+      </mat-icon>
+
+      Scanner un ticket
+
+    </button>
+
+  </div>
+
+
+  <!-- CHARGEMENT -->
+  <div
+    class="loading-card"
+    *ngIf="chargement">
+
+    <mat-icon>
+      sync
+    </mat-icon>
+
+    <span>
+      Chargement du ticket...
+    </span>
+
+  </div>
+
+
+  <!-- ERREUR -->
+  <div
+    class="error-card"
+    *ngIf="!chargement && erreur">
+
+    <mat-icon>
+      error
+    </mat-icon>
+
+    <span>
+      {{ erreur }}
+    </span>
+
+  </div>
+
+
+  <!-- CONTENU -->
+  <div
+    class="ticket-content"
+    *ngIf="!chargement && ticket">
+
+    <!-- IDENTIFICATION -->
+    <div class="ticket-main-card">
+
+      <div class="ticket-card-header">
+
+        <div>
+
+          <span class="section-label">
+            TICKET DE VOYAGE
+          </span>
+
+          <h2>
+            {{ ticket.codeTicket }}
+          </h2>
+
+          <span class="ticket-id">
+            Ticket #{{ ticket.id }}
+          </span>
+
+        </div>
+
+        <div
+          class="status-badge"
+          [ngClass]="getClasseStatut(ticket.statut)">
+
+          <mat-icon>
+            {{ getIconStatut(ticket.statut) }}
+          </mat-icon>
+
+          {{ ticket.statut }}
+
+        </div>
+
+      </div>
+
+
+      <div class="ticket-info-grid">
+
+        <div class="info-item">
+
+          <span>
+            Date de création
+          </span>
+
+          <strong>
+            {{ ticket.dateCreation | date:'dd/MM/yyyy HH:mm' }}
+          </strong>
+
+        </div>
+
+        <div class="info-item">
+
+          <span>
+            Dernière modification
+          </span>
+
+          <strong>
+            {{ ticket.dateModification | date:'dd/MM/yyyy HH:mm' }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PASSAGER -->
+    <div class="detail-card">
+
+      <div class="card-title">
+
+        <mat-icon>
+          person
+        </mat-icon>
+
+        <h2>
+          Passager
+        </h2>
+
+      </div>
+
+
+      <div class="passenger-profile">
+
+        <div class="avatar">
+
+          <mat-icon>
+            person
+          </mat-icon>
+
+        </div>
+
+        <div>
+
+          <h3>
+            {{
+              ticket.reservation?.utilisateur?.nom || ''
+            }}
+
+            {{
+              ticket.reservation?.utilisateur?.prenom || ''
+            }}
+          </h3>
+
+          <p>
+            {{
+              ticket.reservation?.utilisateur?.email || '-'
+            }}
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="info-grid">
+
+        <div class="info-item">
+
+          <span>
+            Téléphone
+          </span>
+
+          <strong>
+            {{
+              ticket.reservation?.utilisateur?.telephone || '-'
+            }}
+          </strong>
+
+        </div>
+
+        <div class="info-item">
+
+          <span>
+            Adresse
+          </span>
+
+          <strong>
+            {{
+              ticket.reservation?.utilisateur?.adresse || '-'
+            }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- VOYAGE -->
+    <div class="detail-card">
+
+      <div class="card-title">
+
+        <mat-icon>
+          directions_bus
+        </mat-icon>
+
+        <h2>
+          Voyage
+        </h2>
+
+      </div>
+
+
+      <div class="voyage-header">
+
+        <div>
+
+          <span>
+            Numéro du voyage
+          </span>
+
+          <strong>
+            {{
+              ticket.reservation?.voyage?.numeroVoyage || '-'
+            }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="route-display">
+
+        <div class="route-point">
+
+          <span class="route-label">
+            Départ
+          </span>
+
+          <strong>
+            {{
+              ticket.reservation?.voyage?.trajet?.villeDepart
+              || '-'
+            }}
+          </strong>
+
+          <span>
+
+            {{
+              ticket.reservation?.voyage?.dateDepart
+              || '-'
+            }}
+
+            à
+
+            {{
+              ticket.reservation?.voyage?.heureDepart
+              || '-'
+            }}
+
+          </span>
+
+        </div>
+
+
+        <div class="route-line">
+
+          <mat-icon>
+            arrow_forward
+          </mat-icon>
+
+        </div>
+
+
+        <div class="route-point">
+
+          <span class="route-label">
+            Arrivée
+          </span>
+
+          <strong>
+            {{
+              ticket.reservation?.voyage?.trajet?.villeArrivee
+              || '-'
+            }}
+          </strong>
+
+          <span>
+
+            {{
+              ticket.reservation?.voyage?.dateArrivee
+              || '-'
+            }}
+
+            à
+
+            {{
+              ticket.reservation?.voyage?.heureArrivee
+              || '-'
+            }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="info-grid">
+
+        <div class="info-item">
+
+          <span>
+            Prix
+          </span>
+
+          <strong>
+            {{
+              ticket.reservation?.voyage?.prix
+              | number:'1.0-0'
+            }}
+            FCFA
+          </strong>
+
+        </div>
+
+        <div class="info-item">
+
+          <span>
+            Distance
+          </span>
+
+          <strong>
+            {{
+              ticket.reservation?.voyage?.trajet?.distance
+              || '-'
+            }}
+            km
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PAIEMENT -->
+    <div class="detail-card">
+
+      <div class="card-title">
+
+        <mat-icon>
+          payments
+        </mat-icon>
+
+        <h2>
+          Paiement
+        </h2>
+
+      </div>
+
+
+      <ng-container
+        *ngIf="
+          ticket.reservation?.paiements?.length;
+          else aucunPaiement
+        ">
+
+        <div
+          class="payment-item"
+          *ngFor="
+            let paiement
+            of ticket.reservation?.paiements
+          ">
+
+          <div>
+
+            <span>
+              Référence
+            </span>
+
+            <strong>
+              {{ paiement.referenceTransaction }}
+            </strong>
+
+          </div>
+
+          <div>
+
+            <span>
+              Montant
+            </span>
+
+            <strong>
+              {{ paiement.montant | number:'1.0-0' }}
+              FCFA
+            </strong>
+
+          </div>
+
+          <div>
+
+            <span>
+              Méthode
+            </span>
+
+            <strong>
+              {{ paiement.methode }}
+            </strong>
+
+          </div>
+
+          <div>
+
+            <span>
+              Statut
+            </span>
+
+            <strong class="payment-success">
+              {{ paiement.statut }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </ng-container>
+
+
+      <ng-template #aucunPaiement>
+
+        <div class="empty-payment">
+
+          <mat-icon>
+            payments
+          </mat-icon>
+
+          <span>
+            Aucun paiement enregistré.
+          </span>
+
+        </div>
+
+      </ng-template>
+
+    </div>
+
+
+    <!-- ACTIONS -->
+    <div class="bottom-actions">
+
+      <button
+        type="button"
+        class="secondary-button"
+        (click)="retourTickets()">
+
+        <mat-icon>
+          arrow_back
+        </mat-icon>
+
+        Retour aux tickets
+
+      </button>
+
+
+      <button
+        type="button"
+        class="primary-button"
+        *ngIf="ticket.statut === 'VALIDE'"
+        (click)="scannerTicket()">
+
+        <mat-icon>
+          qr_code_scanner
+        </mat-icon>
+
+        Scanner le ticket
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

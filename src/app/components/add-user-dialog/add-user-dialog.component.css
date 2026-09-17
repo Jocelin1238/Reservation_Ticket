@@ -1,0 +1,15 @@
+mat-form-field{
+
+    width:100%;
+
+    margin-bottom:15px;
+
+}
+
+mat-dialog-content{
+
+    width:500px;
+
+    max-width:100%;
+
+}
