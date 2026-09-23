@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Ticket } from '../models/ticket';
+import { API_URL } from '../app.constants';// 👈 Ajustez le chemin '../' selon l'emplacement de votre fichier app-constants.ts
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,7 @@ export class TicketService {
 
   private readonly apiUrl =
     'http://localhost:8080/api/tickets';
+private baseUrl = API_URL; // 👈 Utilise directement la constante centralisée
 
   constructor(
     private http: HttpClient

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, tap, shareReplay, catchError, finalize } from 'rxjs';
 
 import { voyages } from '../models/voyages';
+import { API_URL } from '../app.constants';// 👈 Ajustez le chemin '../' selon l'emplacement de votre fichier app-constants.ts
 
 // =====================================================
 // DTO VOYAGE
@@ -55,6 +56,7 @@ export class VoyageService {
 
   private apiUrl =
     'http://localhost:8080/api/voyages';
+private baseUrl = API_URL; // 👈 Utilise directement la constante centralisée
 
 
   // =====================================================

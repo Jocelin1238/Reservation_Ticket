@@ -911,7 +911,7 @@ export class AccueilComponent implements OnInit {
       default:
 
         this.router.navigate([
-          '/login'
+          '/register'
         ]);
 
         break;

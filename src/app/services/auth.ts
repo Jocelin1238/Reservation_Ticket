@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { API_URL } from '../app.constants';// 👈 Ajustez le chemin '../' selon l'emplacement de votre fichier app-constants.ts
 
 export interface VerifyAccountRequest {
   email: string;
@@ -20,7 +21,8 @@ export interface AuthenticationResponse {
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:8080/api/auth';
+  // 👇 On utilise la constante centralisée (qui pointe vers Render en production)
+  private apiUrl = `${API_URL}/auth`;
 
   constructor(
     private http: HttpClient

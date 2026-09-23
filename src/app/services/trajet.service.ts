@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Trajet } from '../models/trajet';
-
+import { API_URL } from '../app.constants';// 👈 Ajustez le chemin '../' selon l'emplacement de votre fichier app-constants.ts
 @Injectable({
   providedIn: 'root'
 })
 export class TrajetService {
 
   private apiUrl = 'http://localhost:8080/api/trajets';
+private baseUrl = API_URL; // 👈 Utilise directement la constante centralisée
 
   constructor(
     private http: HttpClient

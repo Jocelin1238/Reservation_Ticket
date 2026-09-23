@@ -8,6 +8,7 @@ from '../models/dashboard-reservation';
 import { Utilisateur } from '../models/utilisateur';
 import { DashboardVoyage } from '../models/dashboard-voyage';
 import { RevenueStats } from '../models/revenue-stats';
+import { API_URL } from '../app.constants';// 👈 Ajustez le chemin '../' selon l'emplacement de votre fichier app-constants.ts
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class DashboardService {
 
   private apiUrl =
     'http://localhost:8080/api/dashboard';
+private baseUrl = API_URL; // 👈 Utilise directement la constante centralisée
 
 
   constructor(

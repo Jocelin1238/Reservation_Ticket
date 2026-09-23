@@ -1,1 +1,1 @@
-export const API_URL = 'https://systeme-reservation.onrender.com';
+export const API_URL = 'https://systeme-reservation.onrender.com/api';
