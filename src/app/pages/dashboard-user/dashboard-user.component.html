@@ -1,0 +1,641 @@
+
+<app-sidebar-user></app-sidebar-user>
+
+<div class="main-content">
+
+    <!-- ================================================= -->
+    <!-- TOPBAR -->
+    <!-- ================================================= -->
+
+    <app-topbar-user></app-topbar-user>
+
+
+    <main class="content">
+
+        <!-- ================================================= -->
+        <!-- HEADER -->
+        <!-- ================================================= -->
+
+        <section class="dashboard-header">
+
+            <div class="welcome-content">
+
+              
+
+                <h1>
+                    Tableau de bord
+                </h1>
+
+                <p>
+                    Bienvenue {{ nomComplet }} dans votre espace
+                    Voyage Express.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- ACTION PRINCIPALE -->
+        <!-- ================================================= -->
+
+        <section class="booking-banner">
+
+            <div class="booking-info">
+
+                <div class="booking-icon">
+
+                    <span class="material-icons">
+                        directions_bus
+                    </span>
+
+                </div>
+
+                <div>
+
+                    <span class="booking-label">
+                        VOTRE PROCHAIN VOYAGE
+                    </span>
+
+                    <h2>
+                        Trouvez votre prochain trajet
+                    </h2>
+
+                    <p>
+                        Consultez les voyages disponibles et
+                        réservez votre place facilement.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="booking-button"
+                (click)="allerVoyages()">
+
+                <span class="material-icons">
+                    search
+                </span>
+
+                Consulter les voyages
+
+                <span class="material-icons">
+                    arrow_forward
+                </span>
+
+            </button>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- STATISTIQUES -->
+        <!-- ================================================= -->
+
+        <section class="stats-grid">
+
+
+            <!-- RÉSERVATIONS -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon blue">
+
+                        <span class="material-icons">
+                            confirmation_number
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <strong class="stat-number">
+                    {{ nombreReservations }}
+                </strong>
+
+                <span class="stat-title">
+                    Mes réservations
+                </span>
+
+                <span class="stat-description">
+                    Réservations effectuées
+                </span>
+
+            </div>
+
+
+            <!-- TICKETS -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon purple">
+
+                        <span class="material-icons">
+                            local_activity
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <strong class="stat-number">
+                    {{ nombreTickets }}
+                </strong>
+
+                <span class="stat-title">
+                    Mes tickets
+                </span>
+
+                <span class="stat-description">
+                    Tickets disponibles
+                </span>
+
+            </div>
+
+
+            <!-- PAIEMENTS -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon green">
+
+                        <span class="material-icons">
+                            payments
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <strong class="stat-number">
+                    {{ nombrePaiements }}
+                </strong>
+
+                <span class="stat-title">
+                    Mes paiements
+                </span>
+
+                <span class="stat-description">
+                    Paiements effectués
+                </span>
+
+            </div>
+
+
+            <!-- VOYAGES -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon orange">
+
+                        <span class="material-icons">
+                            directions_bus
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <strong class="stat-number">
+                    —
+                </strong>
+
+                <span class="stat-title">
+                    Voyages disponibles
+                </span>
+
+                <span class="stat-description">
+                    Consultez les trajets
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- SECTION PRINCIPALE -->
+        <!-- ================================================= -->
+
+        <section class="dashboard-columns">
+
+
+            <!-- ================================================= -->
+            <!-- MES RÉSERVATIONS -->
+            <!-- ================================================= -->
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="card-label">
+                            ACTIVITÉ
+                        </span>
+
+                        <h2>
+                            Mes dernières réservations
+                        </h2>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="view-button"
+                        (click)="allerReservations()">
+
+                        Voir tout
+
+                        <span class="material-icons">
+                            arrow_forward
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Voyage
+                                </th>
+
+                                <th>
+                                    Trajet
+                                </th>
+
+                                <th>
+                                    Date
+                                </th>
+
+                                <th>
+                                    Statut
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td colspan="4">
+
+                                    <div class="empty-state">
+
+                                        <div class="empty-icon">
+
+                                            <span class="material-icons">
+                                                confirmation_number
+                                            </span>
+
+                                        </div>
+
+                                        <strong>
+                                            Aucune réservation récente
+                                        </strong>
+
+                                        <p>
+                                            Vos dernières réservations
+                                            apparaîtront ici.
+                                        </p>
+
+                                        <button
+                                            type="button"
+                                            class="small-primary-button"
+                                            (click)="allerVoyages()">
+
+                                            Réserver un voyage
+
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- MES TICKETS -->
+            <!-- ================================================= -->
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="card-label">
+                            MES DOCUMENTS
+                        </span>
+
+                        <h2>
+                            Mes derniers tickets
+                        </h2>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="view-button"
+                        (click)="allerTickets()">
+
+                        Voir tout
+
+                        <span class="material-icons">
+                            arrow_forward
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <div class="ticket-empty">
+
+                    <div class="ticket-empty-icon">
+
+                        <span class="material-icons">
+                            qr_code_2
+                        </span>
+
+                    </div>
+
+                    <strong>
+                        Aucun ticket disponible
+                    </strong>
+
+                    <p>
+                        Vos tickets et QR codes apparaîtront
+                        ici après une réservation.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="outline-button"
+                        (click)="allerTickets()">
+
+                        Voir mes tickets
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- ACCÈS RAPIDES -->
+        <!-- ================================================= -->
+
+        <section class="quick-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="card-label">
+                        NAVIGATION
+                    </span>
+
+                    <h2>
+                        Accès rapides
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick-grid">
+
+
+                <!-- RÉSERVATIONS -->
+
+                <button
+                    type="button"
+                    class="quick-card"
+                    (click)="allerReservations()">
+
+                    <div class="quick-icon blue">
+
+                        <span class="material-icons">
+                            confirmation_number
+                        </span>
+
+                    </div>
+
+                    <div class="quick-content">
+
+                        <strong>
+                            Mes réservations
+                        </strong>
+
+                        <span>
+                            Consultez vos réservations
+                        </span>
+
+                    </div>
+
+                    <span class="material-icons quick-arrow">
+                        arrow_forward
+                    </span>
+
+                </button>
+
+
+                <!-- TICKETS -->
+
+                <button
+                    type="button"
+                    class="quick-card"
+                    (click)="allerTickets()">
+
+                    <div class="quick-icon purple">
+
+                        <span class="material-icons">
+                            qr_code
+                        </span>
+
+                    </div>
+
+                    <div class="quick-content">
+
+                        <strong>
+                            Mes tickets
+                        </strong>
+
+                        <span>
+                            Retrouvez vos QR codes
+                        </span>
+
+                    </div>
+
+                    <span class="material-icons quick-arrow">
+                        arrow_forward
+                    </span>
+
+                </button>
+
+
+                <!-- PAIEMENTS -->
+
+                <button
+                    type="button"
+                    class="quick-card"
+                    (click)="allerPaiements()">
+
+                    <div class="quick-icon green">
+
+                        <span class="material-icons">
+                            payments
+                        </span>
+
+                    </div>
+
+                    <div class="quick-content">
+
+                        <strong>
+                            Mes paiements
+                        </strong>
+
+                        <span>
+                            Historique des paiements
+                        </span>
+
+                    </div>
+
+                    <span class="material-icons quick-arrow">
+                        arrow_forward
+                    </span>
+
+                </button>
+
+
+                <!-- VOYAGES -->
+
+                <button
+                    type="button"
+                    class="quick-card"
+                    (click)="allerVoyages()">
+
+                    <div class="quick-icon orange">
+
+                        <span class="material-icons">
+                            directions_bus
+                        </span>
+
+                    </div>
+
+                    <div class="quick-content">
+
+                        <strong>
+                            Tous les voyages
+                        </strong>
+
+                        <span>
+                            Découvrir les trajets
+                        </span>
+
+                    </div>
+
+                    <span class="material-icons quick-arrow">
+                        arrow_forward
+                    </span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- BANNER FINAL -->
+        <!-- ================================================= -->
+
+        <section class="travel-banner">
+
+            <div class="travel-banner-content">
+
+                <div class="travel-banner-icon">
+
+                    <span class="material-icons">
+                        travel_explore
+                    </span>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        VOYAGE EXPRESS
+                    </span>
+
+                    <h2>
+                        Votre prochain voyage commence ici.
+                    </h2>
+
+                    <p>
+                        Choisissez votre destination,
+                        réservez votre place et voyagez sereinement.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="travel-button"
+                (click)="allerVoyages()">
+
+                Voir les voyages
+
+                <span class="material-icons">
+                    arrow_forward
+                </span>
+
+            </button>
+
+        </section>
+
+
+    </main>
+
+</div>
+

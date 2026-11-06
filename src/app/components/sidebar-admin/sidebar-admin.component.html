@@ -1,0 +1,231 @@
+<aside class="sidebar-admin">
+
+  <!-- ========================================= -->
+  <!-- LOGO -->
+  <!-- ========================================= -->
+
+  <div class="logo">
+
+    <div class="logo-icon">
+      <span class="material-icons">
+        directions_bus
+      </span>
+    </div>
+
+    <div class="logo-text">
+      <h2>Voyage Express</h2>
+      <span>Administrateur</span>
+    </div>
+
+  </div>
+
+
+  <!-- ========================================= -->
+  <!-- MENU PRINCIPAL -->
+  <!-- ========================================= -->
+
+  <div class="sidebar-main">
+
+    <ul class="menu">
+
+      <!-- TABLEAU DE BORD -->
+
+      <li>
+
+        <a
+          routerLink="/dashboard-admin"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+
+          <span class="material-icons">
+            dashboard
+          </span>
+
+          <span>
+            Tableau de bord
+          </span>
+
+        </a>
+
+      </li>
+
+
+      <!-- VOYAGES -->
+
+      <li>
+
+        <a
+          routerLink="/admin/voyages"
+          routerLinkActive="active">
+
+          <span class="material-icons">
+            directions_bus
+          </span>
+
+          <span>
+            Voyages
+          </span>
+
+        </a>
+
+      </li>
+
+
+      <!-- RÉSERVATIONS -->
+
+      <li>
+
+        <a
+          routerLink="/admin/reservations"
+          routerLinkActive="active">
+
+          <span class="material-icons">
+            confirmation_number
+          </span>
+
+          <span>
+            Réservations
+          </span>
+
+        </a>
+
+      </li>
+
+
+      <!-- UTILISATEURS -->
+
+      <li>
+
+        <a
+          routerLink="/admin/utilisateurs"
+          routerLinkActive="active">
+
+          <span class="material-icons">
+            people
+          </span>
+
+          <span>
+            Utilisateurs
+          </span>
+
+        </a>
+
+      </li>
+
+
+      <!-- PAIEMENTS -->
+
+      <li>
+
+        <a
+          routerLink="/admin/paiement"
+          routerLinkActive="active">
+
+          <span class="material-icons">
+            payments
+          </span>
+
+          <span>
+            Paiements
+          </span>
+
+        </a>
+
+      </li>
+
+
+      <!-- TICKETS -->
+
+      <li>
+
+        <a
+          routerLink="/admin/tickets"
+          routerLinkActive="active">
+
+          <span class="material-icons">
+            confirmation_number
+          </span>
+
+          <span>
+            Tickets
+          </span>
+
+        </a>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+
+  <!-- ========================================= -->
+  <!-- SÉPARATION -->
+  <!-- ========================================= -->
+
+  <div class="sidebar-separator"></div>
+
+
+  <!-- ========================================= -->
+  <!-- MENU SECONDAIRE -->
+  <!-- ========================================= -->
+
+  <div class="sidebar-bottom">
+
+
+    <!-- MON PROFIL -->
+
+    <a
+      routerLink="/profil"
+      routerLinkActive="active"
+      class="bottom-item">
+
+      <span class="material-icons">
+        person
+      </span>
+
+      <span>
+        Mon profil
+      </span>
+
+    </a>
+
+
+    <!-- PARAMÈTRES ADMIN -->
+
+    <a
+      routerLink="/admin/parametres"
+      routerLinkActive="active"
+      class="bottom-item">
+
+      <span class="material-icons">
+        settings
+      </span>
+
+      <span>
+        Paramètres
+      </span>
+
+    </a>
+
+
+    <!-- DÉCONNEXION -->
+
+    <button
+      type="button"
+      class="bottom-item logout"
+      (click)="logout()">
+
+      <span class="material-icons">
+        logout
+      </span>
+
+      <span>
+        Déconnexion
+      </span>
+
+    </button>
+
+  </div>
+
+</aside>

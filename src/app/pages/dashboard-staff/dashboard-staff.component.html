@@ -1,0 +1,701 @@
+<div class="staff-layout">
+
+  <!-- ================================================= -->
+  <!-- SIDEBAR -->
+  <!-- ================================================= -->
+
+  <app-sidebar-staff></app-sidebar-staff>
+
+
+  <!-- ================================================= -->
+  <!-- CONTENU PRINCIPAL -->
+  <!-- ================================================= -->
+
+  <main class="main-content">
+
+    <!-- TOPBAR -->
+
+    <app-topbar-staff></app-topbar-staff>
+
+
+    <!-- ================================================= -->
+    <!-- CONTENU -->
+    <!-- ================================================= -->
+
+    <div class="content">
+
+
+      <!-- ================================================= -->
+      <!-- HEADER -->
+      <!-- ================================================= -->
+
+      <div class="page-header">
+
+        <div>
+
+          <h1>
+            Tableau de bord
+          </h1>
+
+          <p>
+            Bienvenue {{ prenomStaff }} dans votre espace Staff.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- STATISTIQUES -->
+      <!-- ================================================= -->
+
+      <div class="stats-grid">
+
+
+        <!-- VOYAGES -->
+
+        <div class="stat-card">
+
+          <div class="stat-icon blue">
+
+            <span class="material-icons">
+              directions_bus
+            </span>
+
+          </div>
+
+          <div class="stat-info">
+
+            <span>
+              Voyages aujourd'hui
+            </span>
+
+            <strong>
+              {{ nombreVoyages }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- RESERVATIONS -->
+
+        <div class="stat-card">
+
+          <div class="stat-icon green">
+
+            <span class="material-icons">
+              confirmation_number
+            </span>
+
+          </div>
+
+          <div class="stat-info">
+
+            <span>
+              Réservations
+            </span>
+
+            <strong>
+              {{ nombreReservations }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- DEPARTS -->
+
+        <div class="stat-card">
+
+          <div class="stat-icon orange">
+
+            <span class="material-icons">
+              schedule
+            </span>
+
+          </div>
+
+          <div class="stat-info">
+
+            <span>
+              Départs aujourd'hui
+            </span>
+
+            <strong>
+              {{ nombreDeparts }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- TICKETS -->
+
+        <div class="stat-card">
+
+          <div class="stat-icon purple">
+
+            <span class="material-icons">
+              qr_code_scanner
+            </span>
+
+          </div>
+
+          <div class="stat-info">
+
+            <span>
+              Tickets scannés
+            </span>
+
+            <strong>
+              {{ ticketsScannes }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- BLOCS PRINCIPAUX -->
+      <!-- ================================================= -->
+
+      <div class="dashboard-grid">
+
+
+        <!-- ================================================= -->
+        <!-- PROCHAINS DEPARTS -->
+        <!-- ================================================= -->
+
+        <div class="table-card">
+
+          <div class="table-header">
+
+            <div>
+
+              <h3>
+                Prochains départs
+              </h3>
+
+              <p>
+                Départs prévus aujourd'hui
+              </p>
+
+            </div>
+
+            <button
+              class="btn-view"
+              (click)="voirDeparts()">
+
+              Voir tout
+
+            </button>
+
+          </div>
+
+
+          <div class="table-container">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Heure
+                  </th>
+
+                  <th>
+                    Trajet
+                  </th>
+
+                  <th>
+                    Places
+                  </th>
+
+                  <th>
+                    Statut
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                <tr
+                  *ngFor="let depart of prochainsDeparts">
+
+
+                  <td>
+
+                    <span class="time">
+
+                      <span class="material-icons">
+                        schedule
+                      </span>
+
+                      {{ depart.heure }}
+
+                    </span>
+
+                  </td>
+
+
+                  <td>
+
+                    <strong>
+                      {{ depart.depart }}
+                    </strong>
+
+                    →
+
+                    <strong>
+                      {{ depart.destination }}
+                    </strong>
+
+                  </td>
+
+
+                  <td>
+
+                    {{ depart.places }}
+
+                  </td>
+
+
+                  <td>
+
+                    <span
+                      class="status"
+                      [class.success]="depart.places > 0"
+                      [class.danger]="depart.places === 0">
+
+                      {{
+                        depart.places > 0
+                          ? 'OUVERT'
+                          : 'COMPLET'
+                      }}
+
+                    </span>
+
+                  </td>
+
+                </tr>
+
+
+                <tr
+                  *ngIf="prochainsDeparts.length === 0">
+
+                  <td
+                    colspan="4"
+                    class="empty">
+
+                    Aucun départ prévu.
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- RESERVATIONS -->
+        <!-- ================================================= -->
+
+        <div class="table-card">
+
+          <div class="table-header">
+
+            <div>
+
+              <h3>
+                Réservations récentes
+              </h3>
+
+              <p>
+                Dernières réservations clients
+              </p>
+
+            </div>
+
+            <button
+              class="btn-view"
+              (click)="voirReservations()">
+
+              Voir tout
+
+            </button>
+
+          </div>
+
+
+          <div class="table-container">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Numéro
+                  </th>
+
+                  <th>
+                    Client
+                  </th>
+
+                  <th>
+                    Trajet
+                  </th>
+
+                  <th>
+                    Statut
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                <tr
+                  *ngFor="
+                    let reservation
+                    of reservationsRecentes
+                  ">
+
+
+                  <td>
+
+                    <strong>
+                      {{ reservation.numero }}
+                    </strong>
+
+                  </td>
+
+
+                  <td>
+
+                    {{ reservation.client }}
+
+                  </td>
+
+
+                  <td>
+
+                    {{ reservation.trajet }}
+
+                  </td>
+
+
+                  <td>
+
+                    <span
+                      class="status"
+                      [class.success]="
+                        reservation.statut === 'CONFIRMEE'
+                      "
+                      [class.warning]="
+                        reservation.statut === 'EN_ATTENTE'
+                      "
+                      [class.danger]="
+                        reservation.statut === 'ANNULEE'
+                      ">
+
+                      {{ reservation.statut }}
+
+                    </span>
+
+                  </td>
+
+                </tr>
+
+
+                <tr
+                  *ngIf="
+                    reservationsRecentes.length === 0
+                  ">
+
+                  <td
+                    colspan="4"
+                    class="empty">
+
+                    Aucune réservation récente.
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- ACTIVITE STAFF -->
+      <!-- ================================================= -->
+
+      <div class="table-card activity-card">
+
+        <div class="table-header">
+
+          <div>
+
+            <h3>
+              Activité du Staff
+            </h3>
+
+            <p>
+              Résumé des opérations effectuées
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="activity-container">
+
+
+          <!-- RESERVATION -->
+
+          <div class="activity-item">
+
+            <div class="activity-icon reservation">
+
+              <span class="material-icons">
+                confirmation_number
+              </span>
+
+            </div>
+
+            <div class="activity-info">
+
+              <strong>
+                Réservations traitées
+              </strong>
+
+              <span>
+                Aujourd'hui
+              </span>
+
+            </div>
+
+            <strong class="activity-value">
+              {{ nombreReservations }}
+            </strong>
+
+          </div>
+
+
+          <!-- TICKETS -->
+
+          <div class="activity-item">
+
+            <div class="activity-icon ticket">
+
+              <span class="material-icons">
+                qr_code_scanner
+              </span>
+
+            </div>
+
+            <div class="activity-info">
+
+              <strong>
+                Tickets scannés
+              </strong>
+
+              <span>
+                Aujourd'hui
+              </span>
+
+            </div>
+
+            <strong class="activity-value">
+              {{ ticketsScannes }}
+            </strong>
+
+          </div>
+
+
+          <!-- VOYAGES -->
+
+          <div class="activity-item">
+
+            <div class="activity-icon voyage">
+
+              <span class="material-icons">
+                directions_bus
+              </span>
+
+            </div>
+
+            <div class="activity-info">
+
+              <strong>
+                Voyages disponibles
+              </strong>
+
+              <span>
+                Aujourd'hui
+              </span>
+
+            </div>
+
+            <strong class="activity-value">
+              {{ nombreVoyages }}
+            </strong>
+
+          </div>
+
+
+          <!-- DEPARTS -->
+
+          <div class="activity-item">
+
+            <div class="activity-icon depart">
+
+              <span class="material-icons">
+                schedule
+              </span>
+
+            </div>
+
+            <div class="activity-info">
+
+              <strong>
+                Départs programmés
+              </strong>
+
+              <span>
+                Aujourd'hui
+              </span>
+
+            </div>
+
+            <strong class="activity-value">
+              {{ nombreDeparts }}
+            </strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- ACTIONS RAPIDES -->
+      <!-- ================================================= -->
+
+      <div class="table-card trips-card">
+
+        <div class="table-header">
+
+          <div>
+
+            <h3>
+              Actions rapides
+            </h3>
+
+            <p>
+              Accès rapide aux opérations Staff
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+
+          <button
+            class="btn-action"
+            (click)="voirVoyages()">
+
+            <span class="material-icons">
+              directions_bus
+            </span>
+
+            Consulter les voyages
+
+          </button>
+
+
+          <button
+            class="btn-action"
+            (click)="voirReservations()">
+
+            <span class="material-icons">
+              confirmation_number
+            </span>
+
+            Gérer les réservations
+
+          </button>
+
+
+          <button
+            class="btn-action"
+            (click)="scannerTicket()">
+
+            <span class="material-icons">
+              qr_code_scanner
+            </span>
+
+            Scanner un ticket
+
+          </button>
+
+
+          <button
+            class="btn-action"
+            (click)="voirDeparts()">
+
+            <span class="material-icons">
+              schedule
+            </span>
+
+            Voir les départs
+
+          </button>
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </main>
+
+</div>

@@ -1,0 +1,465 @@
+<div class="parametres-page">
+
+  <!-- ================================================= -->
+  <!-- HEADER -->
+  <!-- ================================================= -->
+
+  <div class="page-header">
+
+    <div>
+
+      <button
+        type="button"
+        class="btn-retour"
+        (click)="retourTableauDeBord()">
+
+        <span class="material-icons">
+          arrow_back
+        </span>
+
+        Retour au tableau de bord
+
+      </button>
+
+      <h1>
+        Paramètres
+      </h1>
+
+      <p>
+        Gérez les paramètres de votre compte et de votre application.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- INFORMATIONS COMPTE -->
+  <!-- ================================================= -->
+
+  <div class="settings-card">
+
+    <div class="card-header">
+
+      <div class="card-icon blue">
+
+        <span class="material-icons">
+          person
+        </span>
+
+      </div>
+
+      <div>
+
+        <h2>
+          Informations du compte
+        </h2>
+
+        <p>
+          Modifiez vos informations personnelles.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label>
+          Prénom
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="prenom"
+          placeholder="Votre prénom">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Nom
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="nom"
+          placeholder="Votre nom">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Adresse email
+        </label>
+
+        <input
+          type="email"
+          [(ngModel)]="email"
+          placeholder="Votre email">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Téléphone
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="telephone"
+          placeholder="Votre téléphone">
+
+      </div>
+
+    </div>
+
+
+    <div class="card-actions">
+
+      <button
+        class="btn-primary"
+        (click)="sauvegarderParametres()">
+
+        <span class="material-icons">
+          save
+        </span>
+
+        Enregistrer les modifications
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- NOTIFICATIONS -->
+  <!-- ================================================= -->
+
+  <div class="settings-card">
+
+    <div class="card-header">
+
+      <div class="card-icon orange">
+
+        <span class="material-icons">
+          notifications
+        </span>
+
+      </div>
+
+      <div>
+
+        <h2>
+          Préférences de notifications
+        </h2>
+
+        <p>
+          Choisissez les notifications que vous souhaitez recevoir.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="preferences">
+
+
+      <div class="preference-item">
+
+        <div>
+
+          <strong>
+            Notifications système
+          </strong>
+
+          <span>
+            Recevoir les alertes importantes du système.
+          </span>
+
+        </div>
+
+        <label class="switch">
+
+          <input
+            type="checkbox"
+            [(ngModel)]="notificationsSysteme">
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+
+      <div class="preference-item">
+
+        <div>
+
+          <strong>
+            Nouvelles réservations
+          </strong>
+
+          <span>
+            Être informé lorsqu'une réservation est créée.
+          </span>
+
+        </div>
+
+        <label class="switch">
+
+          <input
+            type="checkbox"
+            [(ngModel)]="notificationsReservation">
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+
+      <div class="preference-item">
+
+        <div>
+
+          <strong>
+            Paiements
+          </strong>
+
+          <span>
+            Recevoir les notifications concernant les paiements.
+          </span>
+
+        </div>
+
+        <label class="switch">
+
+          <input
+            type="checkbox"
+            [(ngModel)]="notificationsPaiement">
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+
+      <div class="preference-item">
+
+        <div>
+
+          <strong>
+            Notifications par email
+          </strong>
+
+          <span>
+            Recevoir certaines notifications directement par email.
+          </span>
+
+        </div>
+
+        <label class="switch">
+
+          <input
+            type="checkbox"
+            [(ngModel)]="notificationsEmail">
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- SECURITE -->
+  <!-- ================================================= -->
+
+  <div class="settings-card">
+
+    <div class="card-header">
+
+      <div class="card-icon red">
+
+        <span class="material-icons">
+          lock
+        </span>
+
+      </div>
+
+      <div>
+
+        <h2>
+          Sécurité
+        </h2>
+
+        <p>
+          Modifiez le mot de passe de votre compte.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="password-form">
+
+      <div class="form-group">
+
+        <label>
+          Ancien mot de passe
+        </label>
+
+        <div class="password-input">
+
+          <input
+            [type]="
+              afficherAncienMotDePasse
+                ? 'text'
+                : 'password'
+            "
+            [(ngModel)]="ancienMotDePasse">
+
+          <button
+            type="button"
+            (click)="
+              afficherAncienMotDePasse =
+                !afficherAncienMotDePasse
+            ">
+
+            <span class="material-icons">
+
+              {{
+                afficherAncienMotDePasse
+                  ? 'visibility_off'
+                  : 'visibility'
+              }}
+
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Nouveau mot de passe
+        </label>
+
+        <div class="password-input">
+
+          <input
+            [type]="
+              afficherNouveauMotDePasse
+                ? 'text'
+                : 'password'
+            "
+            [(ngModel)]="nouveauMotDePasse">
+
+          <button
+            type="button"
+            (click)="
+              afficherNouveauMotDePasse =
+                !afficherNouveauMotDePasse
+            ">
+
+            <span class="material-icons">
+
+              {{
+                afficherNouveauMotDePasse
+                  ? 'visibility_off'
+                  : 'visibility'
+              }}
+
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Confirmer le nouveau mot de passe
+        </label>
+
+        <div class="password-input">
+
+          <input
+            [type]="
+              afficherConfirmation
+                ? 'text'
+                : 'password'
+            "
+            [(ngModel)]="confirmerMotDePasse">
+
+          <button
+            type="button"
+            (click)="
+              afficherConfirmation =
+                !afficherConfirmation
+            ">
+
+            <span class="material-icons">
+
+              {{
+                afficherConfirmation
+                  ? 'visibility_off'
+                  : 'visibility'
+              }}
+
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card-actions">
+
+      <button
+        class="btn-danger"
+        (click)="changerMotDePasse()">
+
+        <span class="material-icons">
+          lock_reset
+        </span>
+
+        Modifier le mot de passe
+
+      </button>
+
+    </div>
+
+  </div>
+

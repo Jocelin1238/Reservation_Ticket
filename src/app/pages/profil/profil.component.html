@@ -1,0 +1,272 @@
+
+<div class="profil-page">
+
+  <!-- Entête -->
+  <div class="page-header">
+    <div>
+      <h1>Mon Profil</h1>
+      <p>Gérez vos informations personnelles et paramètres de sécurité</p>
+    </div>
+    <button class="btn-retour" (click)="retourTableauDeBord()">
+      <span class="material-icons">arrow_back</span>
+      Retour au tableau de bord
+    </button>
+  </div>
+
+  <!-- État de chargement -->
+  <div class="loading" *ngIf="chargement">
+    <span class="material-icons">sync</span>
+    Chargement de votre profil...
+  </div>
+
+  <!-- Message d'erreur principal -->
+  <div class="error" *ngIf="erreur && !chargement">
+    <span class="material-icons">error_outline</span>
+    {{ erreur }}
+  </div>
+
+  <!-- Contenu Profil -->
+  <div class="profile-container" *ngIf="!chargement && utilisateur">
+
+    <!-- Carte latérale (Avatar & Rôle) -->
+    <div class="profile-card">
+      <div class="avatar-container">
+        <img 
+          *ngIf="utilisateur.photo" 
+          [src]="getPhotoUrl(utilisateur.photo)" 
+          alt="Avatar" 
+          class="avatar-image">
+        <div *ngIf="!utilisateur.photo" class="avatar">
+          {{ initiales }}
+        </div>
+        
+        <span class="online-indicator" [class.offline]="!utilisateur.actif"></span>
+
+        <!-- Bouton de téléversement photo -->
+        <label class="btn-upload-photo" title="Changer la photo">
+          <span class="material-icons" *ngIf="!uploadPhotoEnCours">photo_camera</span>
+          <span class="material-icons spinner" *ngIf="uploadPhotoEnCours">sync</span>
+          <input type="file" (change)="selectionnerPhoto($event)" accept="image/jpeg,image/png,image/webp" hidden>
+        </label>
+      </div>
+
+      <h2>{{ nomComplet }}</h2>
+      <p class="email">{{ utilisateur.email }}</p>
+
+      <div class="role-badge">
+        <span class="material-icons">badge</span>
+        {{ rolePrincipal }}
+      </div>
+
+      <div class="profile-status">
+        <span class="status-dot" [class.inactive]="!utilisateur.actif"></span>
+        {{ utilisateur.actif ? 'Compte Actif' : 'Compte Inactif' }}
+      </div>
+    </div>
+
+    <!-- Informations principales et sécurité -->
+    <div class="profile-details-wrapper">
+
+      <!-- Carte d'informations -->
+      <div class="information-card">
+        <div class="card-header">
+          <div>
+            <h2>Informations personnelles</h2>
+            <p>Vos coordonnées de contact et informations enregistrées</p>
+          </div>
+          <span>
+            <span class="material-icons">person</span>
+          </span>
+        </div>
+
+        <!-- Mode Lecture -->
+        <div class="information-grid" *ngIf="!modeEdition">
+          <div class="information-item">
+            <span class="material-icons">person_outline</span>
+            <div>
+              <label>Nom complet</label>
+              <strong>{{ nomComplet }}</strong>
+            </div>
+          </div>
+
+          <div class="information-item">
+            <span class="material-icons">email</span>
+            <div>
+              <label>Adresse e-mail</label>
+              <strong>{{ utilisateur.email }}</strong>
+            </div>
+          </div>
+
+          <div class="information-item">
+            <span class="material-icons">phone</span>
+            <div>
+              <label>Téléphone</label>
+              <strong>{{ utilisateur.telephone || 'Non renseigné' }}</strong>
+            </div>
+          </div>
+
+          <div class="information-item">
+            <span class="material-icons">location_on</span>
+            <div>
+              <label>Adresse</label>
+              <strong>{{ utilisateur.adresse || 'Non renseignée' }}</strong>
+            </div>
+          </div>
+
+          <div class="information-item">
+            <span class="material-icons">calendar_today</span>
+            <div>
+              <label>Membre depuis</label>
+              <strong>{{ formaterDate(utilisateur.dateCreation) }}</strong>
+            </div>
+          </div>
+
+          <div class="information-item">
+            <span class="material-icons">update</span>
+            <div>
+              <label>Dernière modification</label>
+              <strong>{{ formaterDate(utilisateur.dateModification) }}</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-actions-edit" *ngIf="!modeEdition">
+          <button class="btn-primary" (click)="activerModeEdition()">
+            <span class="material-icons">edit</span>
+            Modifier mes informations
+          </button>
+        </div>
+
+        <!-- Mode Édition en ligne -->
+        <div class="edit-form-wrapper" *ngIf="modeEdition">
+          <div class="information-grid">
+            <div class="form-group">
+              <label for="telephone">Téléphone</label>
+              <input 
+                type="text" 
+                id="telephone" 
+                [(ngModel)]="formDonnees.telephone" 
+                class="form-control" 
+                placeholder="Ex: +33 6 12 34 56 78">
+            </div>
+
+            <div class="form-group">
+              <label for="adresse">Adresse</label>
+              <input 
+                type="text" 
+                id="adresse" 
+                [(ngModel)]="formDonnees.adresse" 
+                class="form-control" 
+                placeholder="Ex: 12 Rue de la Paix, Paris">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" (click)="annulerEdition()" [disabled]="sauvegardeEnCours">
+              Annuler
+            </button>
+            <button type="button" class="btn-save" (click)="sauvegarderProfil()" [disabled]="sauvegardeEnCours">
+              <span class="material-icons spinner" *ngIf="sauvegardeEnCours">sync</span>
+              Enregistrer
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module Sécurité & Changement de mot de passe -->
+      <div class="security-card-container">
+        <div class="security-card">
+          <div class="security-icon">
+            <span class="material-icons">security</span>
+          </div>
+
+          <div class="security-content">
+            <h3>Sécurité du compte</h3>
+            <p>Gérez le mot de passe et la protection de votre compte.</p>
+          </div>
+
+          <button 
+            type="button" 
+            class="btn-toggle-password" 
+            (click)="toggleFormPassword()">
+            <span class="material-icons">lock</span>
+            {{ afficherFormPassword ? 'Masquer' : 'Modifier le mot de passe' }}
+          </button>
+        </div>
+
+        <!-- Formulaire déroulant -->
+        <div class="password-form-wrapper" *ngIf="afficherFormPassword">
+          <form [formGroup]="passwordForm" (ngSubmit)="changerMotDePasse()">
+            
+            <h4>Changer le mot de passe</h4>
+
+            <div class="alert alert-success" *ngIf="succesPassword">
+              <span class="material-icons">check_circle</span>
+              {{ succesPassword }}
+            </div>
+
+            <div class="alert alert-danger" *ngIf="erreurPassword">
+              <span class="material-icons">error_outline</span>
+              {{ erreurPassword }}
+            </div>
+
+            <div class="password-grid">
+              <div class="form-group">
+                <label for="ancienMotDePasse">Ancien mot de passe</label>
+                <input 
+                  type="password" 
+                  id="ancienMotDePasse"
+                  formControlName="ancienMotDePasse" 
+                  class="form-control"
+                  [class.is-invalid]="passwordForm.get('ancienMotDePasse')?.touched && passwordForm.get('ancienMotDePasse')?.invalid">
+                <small class="error-text" *ngIf="passwordForm.get('ancienMotDePasse')?.touched && passwordForm.get('ancienMotDePasse')?.errors?.['required']">
+                  L'ancien mot de passe est requis.
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label for="nouveauMotDePasse">Nouveau mot de passe</label>
+                <input 
+                  type="password" 
+                  id="nouveauMotDePasse"
+                  formControlName="nouveauMotDePasse" 
+                  class="form-control"
+                  [class.is-invalid]="passwordForm.get('nouveauMotDePasse')?.touched && passwordForm.get('nouveauMotDePasse')?.invalid">
+                <small class="error-text" *ngIf="passwordForm.get('nouveauMotDePasse')?.touched && passwordForm.get('nouveauMotDePasse')?.errors?.['minlength']">
+                  Le mot de passe doit contenir au moins 8 caractères.
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label for="confirmerMotDePasse">Confirmer le mot de passe</label>
+                <input 
+                  type="password" 
+                  id="confirmerMotDePasse"
+                  formControlName="confirmerMotDePasse" 
+                  class="form-control"
+                  [class.is-invalid]="passwordForm.get('confirmerMotDePasse')?.touched && (passwordForm.get('confirmerMotDePasse')?.invalid || passwordForm.errors?.['motsDePasseDifferents'])">
+                <small class="error-text" *ngIf="passwordForm.get('confirmerMotDePasse')?.touched && passwordForm.errors?.['motsDePasseDifferents']">
+                  Les mots de passe ne correspondent pas.
+                </small>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-cancel" (click)="toggleFormPassword()" [disabled]="changementPasswordEnCours">
+                Annuler
+              </button>
+              <button type="submit" class="btn-save" [disabled]="passwordForm.invalid || changementPasswordEnCours">
+                <span class="material-icons spinner" *ngIf="changementPasswordEnCours">sync</span>
+                Mettre à jour
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

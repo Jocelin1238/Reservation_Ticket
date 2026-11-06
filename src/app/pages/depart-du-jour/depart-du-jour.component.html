@@ -1,0 +1,603 @@
+<div class="depart-page">
+
+  <!-- ================================================= -->
+  <!-- RETOUR -->
+  <!-- ================================================= -->
+<div class="back-button-container">
+
+    <button
+      type="button"
+      class="back-button"
+      (click)="retourDashboard()">
+
+      <mat-icon>arrow_back</mat-icon>
+
+      <span>Retour au dashboard</span>
+
+    </button>
+
+  </div>
+
+
+
+  <!-- ================================================= -->
+  <!-- HEADER -->
+  <!-- ================================================= -->
+
+  <div class="page-header">
+
+    <div class="header-left">
+
+      <div class="header-icon">
+
+        <mat-icon>
+          directions_bus
+        </mat-icon>
+
+      </div>
+
+      <div>
+
+        <h1>
+          Départs du jour
+        </h1>
+
+        <p>
+          Consultez et contrôlez les voyages prévus aujourd'hui.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="scanner-button"
+      (click)="scannerTicket()">
+
+      <mat-icon>
+        qr_code_scanner
+      </mat-icon>
+
+      <span>
+        Scanner un ticket
+      </span>
+
+    </button>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- DATE -->
+  <!-- ================================================= -->
+
+  <div class="date-card">
+
+    <div class="date-icon">
+
+      <mat-icon>
+        calendar_today
+      </mat-icon>
+
+    </div>
+
+    <div>
+
+      <span>
+        Date des départs
+      </span>
+
+      <strong>
+        {{ 'now' | date:'EEEE d MMMM y' }}
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- STATISTIQUES -->
+  <!-- ================================================= -->
+
+  <div class="stats-grid">
+
+    <!-- TOTAL -->
+
+    <div class="stat-card">
+
+      <div class="stat-icon total">
+
+        <mat-icon>
+          directions_bus
+        </mat-icon>
+
+      </div>
+
+      <div class="stat-content">
+
+        <span>
+          Total départs
+        </span>
+
+        <strong>
+          {{ totalDepart }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- A VENIR -->
+
+    <div class="stat-card">
+
+      <div class="stat-icon upcoming">
+
+        <mat-icon>
+          schedule
+        </mat-icon>
+
+      </div>
+
+      <div class="stat-content">
+
+        <span>
+          À venir
+        </span>
+
+        <strong>
+          {{ departAVenir }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- EN COURS -->
+
+    <div class="stat-card">
+
+      <div class="stat-icon progress">
+
+        <mat-icon>
+          directions_bus
+        </mat-icon>
+
+      </div>
+
+      <div class="stat-content">
+
+        <span>
+          En cours
+        </span>
+
+        <strong>
+          {{ departEnCours }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- TERMINES -->
+
+    <div class="stat-card">
+
+      <div class="stat-icon finished">
+
+        <mat-icon>
+          check_circle
+        </mat-icon>
+
+      </div>
+
+      <div class="stat-content">
+
+        <span>
+          Terminés
+        </span>
+
+        <strong>
+          {{ departTermines }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- FILTRES -->
+  <!-- ================================================= -->
+
+  <div class="filters-card">
+
+    <div class="search-box">
+
+      <mat-icon>
+        search
+      </mat-icon>
+
+      <input
+        type="text"
+        [(ngModel)]="recherche"
+        (input)="rechercher()"
+        placeholder="Rechercher un voyage ou une ville..."
+      />
+
+    </div>
+
+
+    <div class="filter-select">
+
+      <mat-icon>
+        filter_list
+      </mat-icon>
+
+      <select
+        [(ngModel)]="statutFiltre"
+        (change)="appliquerFiltres()">
+
+        <option value="TOUS">
+          Tous les statuts
+        </option>
+
+        <option value="DISPONIBLE">
+          À venir
+        </option>
+
+        <option value="EN_COURS">
+          En cours
+        </option>
+
+        <option value="TERMINE">
+          Terminés
+        </option>
+
+        <option value="ANNULE">
+          Annulés
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- ERREUR -->
+  <!-- ================================================= -->
+
+  <div
+    class="error-card"
+    *ngIf="erreur">
+
+    <mat-icon>
+      error
+    </mat-icon>
+
+    <span>
+      {{ erreur }}
+    </span>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- CHARGEMENT -->
+  <!-- ================================================= -->
+
+  <div
+    class="loading-card"
+    *ngIf="chargement">
+
+    <mat-icon>
+      sync
+    </mat-icon>
+
+    <span>
+      Chargement des départs...
+    </span>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- TABLE -->
+  <!-- ================================================= -->
+
+  <div
+    class="table-card"
+    *ngIf="!chargement && !erreur">
+
+    <div class="table-header">
+
+      <div>
+
+        <h2>
+          Départs programmés
+        </h2>
+
+        <p>
+          {{ voyagesFiltres.length }} départ(s) aujourd'hui
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Voyage
+            </th>
+
+            <th>
+              Trajet
+            </th>
+
+            <th>
+              Départ
+            </th>
+
+            <th>
+              Arrivée
+            </th>
+
+            <th>
+              Places
+            </th>
+
+            <th>
+              Statut
+            </th>
+
+            <th>
+              Actions
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr
+            *ngFor="let voyage of voyagesFiltres">
+
+            <!-- VOYAGE -->
+
+            <td>
+
+              <div class="voyage-cell">
+
+                <div class="voyage-icon">
+
+                  <mat-icon>
+                    directions_bus
+                  </mat-icon>
+
+                </div>
+
+                <div>
+
+                  <strong>
+                    {{ voyage.numeroVoyage }}
+                  </strong>
+
+                  <span>
+                    #{{ voyage.id }}
+                  </span>
+
+                </div>
+
+              </div>
+
+            </td>
+
+
+            <!-- TRAJET -->
+
+            <td>
+
+              <div class="route-cell">
+
+                <strong>
+                  {{ voyage.trajet?.villeDepart || '-' }}
+                </strong>
+
+                <mat-icon>
+                  arrow_forward
+                </mat-icon>
+
+                <strong>
+                  {{ voyage.trajet?.villeArrivee || '-' }}
+                </strong>
+
+              </div>
+
+            </td>
+
+
+            <!-- DEPART -->
+
+            <td>
+
+              <div class="time-cell">
+
+                <strong>
+                  {{ voyage.heureDepart || '-' }}
+                </strong>
+
+                <span>
+                  {{ voyage.dateDepart || '-' }}
+                </span>
+
+              </div>
+
+            </td>
+
+
+            <!-- ARRIVEE -->
+
+            <td>
+
+              <div class="time-cell">
+
+                <strong>
+                  {{ voyage.heureArrivee || '-' }}
+                </strong>
+
+                <span>
+                  {{ voyage.dateArrivee || '-' }}
+                </span>
+
+              </div>
+
+            </td>
+
+
+            <!-- PLACES -->
+
+            <td>
+
+              <div class="places-cell">
+
+                <strong>
+                  {{ voyage.placesDisponibles }}
+                </strong>
+
+                <span>
+                  / {{ voyage.nombrePlaces }}
+                </span>
+
+              </div>
+
+            </td>
+
+
+            <!-- STATUT -->
+
+            <td>
+
+              <div
+                class="status-badge"
+                [ngClass]="getClasseStatut(voyage.statut)">
+
+                <mat-icon>
+                  {{ getIconStatut(voyage.statut) }}
+                </mat-icon>
+
+                <span>
+                  {{ voyage.statut }}
+                </span>
+
+              </div>
+
+            </td>
+
+
+            <!-- ACTIONS -->
+
+            <td>
+
+              <div class="actions">
+
+                <button
+                  type="button"
+                  class="action-button view"
+                  title="Voir le voyage"
+                  (click)="voirVoyage(voyage)">
+
+                  <mat-icon>
+                    visibility
+                  </mat-icon>
+
+                </button>
+
+
+                <button
+                  type="button"
+                  class="action-button tickets"
+                  title="Voir les tickets"
+                  (click)="voirTickets(voyage)">
+
+                  <mat-icon>
+                    confirmation_number
+                  </mat-icon>
+
+                </button>
+
+
+                <button
+                  type="button"
+                  class="action-button scan"
+                  title="Scanner un ticket"
+                  (click)="scannerTicket()">
+
+                  <mat-icon>
+                    qr_code_scanner
+                  </mat-icon>
+
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+
+          <!-- ================================================= -->
+          <!-- AUCUN DEPART -->
+          <!-- ================================================= -->
+
+          <tr
+            *ngIf="voyagesFiltres.length === 0">
+
+            <td
+              colspan="7"
+              class="empty-state">
+
+              <mat-icon>
+                directions_bus
+              </mat-icon>
+
+              <strong>
+                Aucun départ aujourd'hui
+              </strong>
+
+              <span>
+                Aucun voyage n'est prévu pour cette date.
+              </span>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,822 @@
+<div class="scanner-page">
+
+  <!-- ============================= -->
+  <!-- RETOUR DASHBOARD -->
+  <!-- ============================= -->
+
+  <div class="back-button-container">
+
+    <button
+      type="button"
+      class="back-button"
+      (click)="retourDashboard()">
+
+      <mat-icon>arrow_back</mat-icon>
+
+      <span>Retour au dashboard</span>
+
+    </button>
+
+  </div>
+
+
+  <!-- ============================= -->
+  <!-- HEADER -->
+  <!-- ============================= -->
+
+  <div class="page-header">
+
+    <div class="header-left">
+
+      <div class="header-icon">
+
+        <span class="material-icons">
+          qr_code_scanner
+        </span>
+
+      </div>
+
+      <div>
+
+        <h1>Scanner un ticket</h1>
+
+        <p>
+          Scannez le QR Code du ticket pour vérifier sa validité.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ============================= -->
+  <!-- CONTENU PRINCIPAL -->
+  <!-- ============================= -->
+
+  <div class="scanner-content">
+
+
+    <!-- ============================= -->
+    <!-- CARTE SCANNER -->
+    <!-- ============================= -->
+
+    <div class="scanner-card">
+
+      <div class="card-header">
+
+        <div>
+
+          <h2>Scanner le QR Code</h2>
+
+          <p>
+            Placez le QR Code du ticket devant la caméra.
+          </p>
+
+        </div>
+
+        <span class="material-icons card-icon">
+          photo_camera
+        </span>
+
+      </div>
+
+
+      <!-- ============================= -->
+      <!-- CAMERA -->
+      <!-- ============================= -->
+
+      <div class="camera-wrapper">
+
+        <video
+          #video
+          autoplay
+          muted
+          playsinline>
+        </video>
+
+
+        <div class="scan-overlay">
+
+          <div class="scan-frame">
+
+            <span class="corner top-left"></span>
+            <span class="corner top-right"></span>
+            <span class="corner bottom-left"></span>
+            <span class="corner bottom-right"></span>
+
+            <div class="scan-line"></div>
+
+          </div>
+
+        </div>
+
+
+        <div class="camera-message">
+
+          <span class="material-icons">
+            qr_code_2
+          </span>
+
+          <span>
+            Placez le QR Code dans le cadre
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- ============================= -->
+      <!-- MESSAGE -->
+      <!-- ============================= -->
+
+      <div
+        class="scanner-message"
+        *ngIf="message">
+
+        <span class="material-icons">
+          check_circle
+        </span>
+
+        <span>
+          {{ message }}
+        </span>
+
+      </div>
+
+
+      <!-- ============================= -->
+      <!-- ERREUR -->
+      <!-- ============================= -->
+
+      <div
+        class="scanner-error"
+        *ngIf="erreur">
+
+        <span class="material-icons">
+          error
+        </span>
+
+        <span>
+          {{ erreur }}
+        </span>
+
+      </div>
+
+
+      <!-- ============================= -->
+      <!-- QR CODE DETECTE -->
+      <!-- ============================= -->
+
+      <div
+        class="code-result"
+        *ngIf="codeScanne">
+
+        <div class="result-header">
+
+          <span class="material-icons">
+            confirmation_number
+          </span>
+
+          <div>
+
+            <h3>QR Code détecté</h3>
+
+            <p>
+              Le code a été correctement détecté.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="code-box">
+
+          <span>
+            {{ codeScanne }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- ============================= -->
+      <!-- CHARGEMENT TICKET -->
+      <!-- ============================= -->
+
+      <div
+        class="ticket-loading"
+        *ngIf="chargementTicket">
+
+        <span class="material-icons">
+          sync
+        </span>
+
+        <span>
+          Vérification du ticket...
+        </span>
+
+      </div>
+
+
+      <!-- ============================= -->
+      <!-- INFORMATIONS DU TICKET -->
+      <!-- ============================= -->
+
+      <div
+        class="ticket-result"
+        *ngIf="ticket && !chargementTicket">
+
+
+        <!-- ============================= -->
+        <!-- HEADER TICKET -->
+        <!-- ============================= -->
+
+        <div class="ticket-result-header">
+
+          <div class="ticket-title">
+
+            <div class="ticket-icon">
+
+              <span class="material-icons">
+                confirmation_number
+              </span>
+
+            </div>
+
+            <div>
+
+              <h2>Ticket trouvé</h2>
+
+              <p>
+                Informations du ticket
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- STATUT -->
+
+          <div
+            class="ticket-status"
+            [ngClass]="{
+              'status-valid': ticket.statut === 'VALIDE',
+              'status-used': ticket.statut === 'UTILISE',
+              'status-cancelled': ticket.statut === 'ANNULE'
+            }">
+
+            <span class="material-icons">
+
+              {{
+                ticket.statut === 'VALIDE'
+                  ? 'check_circle'
+                  : ticket.statut === 'UTILISE'
+                    ? 'cancel'
+                    : 'block'
+              }}
+
+            </span>
+
+            <span>
+              {{ ticket.statut }}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- CODE TICKET -->
+        <!-- ============================= -->
+
+        <div class="ticket-section">
+
+          <div class="section-title">
+
+            <span class="material-icons">
+              qr_code
+            </span>
+
+            <h3>Ticket</h3>
+
+          </div>
+
+
+          <div class="ticket-grid">
+
+            <div class="ticket-info">
+
+              <span class="label">
+                Code ticket
+              </span>
+
+              <strong>
+                {{ ticket.codeTicket }}
+              </strong>
+
+            </div>
+
+
+            <div class="ticket-info">
+
+              <span class="label">
+                ID ticket
+              </span>
+
+              <strong>
+                #{{ ticket.id }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- PASSAGER -->
+        <!-- ============================= -->
+
+        <div
+          class="ticket-section"
+          *ngIf="ticket.reservation?.utilisateur">
+
+          <div class="section-title">
+
+            <span class="material-icons">
+              person
+            </span>
+
+            <h3>Passager</h3>
+
+          </div>
+
+
+          <div class="ticket-grid">
+
+            <div class="ticket-info">
+
+              <span class="label">
+                Nom
+              </span>
+
+              <strong>
+
+                {{
+                  ticket.reservation?.utilisateur?.nom
+                  || '-'
+                }}
+
+                {{
+                  ticket.reservation?.utilisateur?.prenom
+                  || ''
+                }}
+
+              </strong>
+
+            </div>
+
+
+            <div class="ticket-info">
+
+              <span class="label">
+                Email
+              </span>
+
+              <strong>
+                {{
+                  ticket.reservation?.utilisateur?.email
+                  || '-'
+                }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- VOYAGE -->
+        <!-- ============================= -->
+
+        <div
+          class="ticket-section"
+          *ngIf="ticket.reservation?.voyage">
+
+          <div class="section-title">
+
+            <span class="material-icons">
+              directions_bus
+            </span>
+
+            <h3>Voyage</h3>
+
+          </div>
+
+
+          <div class="ticket-grid">
+
+            <div class="ticket-info">
+
+              <span class="label">
+                Voyage
+              </span>
+
+              <strong>
+                {{
+                  ticket.reservation?.voyage?.numeroVoyage
+                  || '-'
+                }}
+              </strong>
+
+            </div>
+
+
+            <div class="ticket-info">
+
+              <span class="label">
+                Prix
+              </span>
+
+              <strong>
+
+                {{
+                  ticket.reservation?.voyage?.prix
+                  || 0
+                }}
+
+                FCFA
+
+              </strong>
+
+            </div>
+
+
+            <div class="ticket-info">
+
+              <span class="label">
+                Date départ
+              </span>
+
+              <strong>
+                {{
+                  ticket.reservation?.voyage?.dateDepart
+                  || '-'
+                }}
+              </strong>
+
+            </div>
+
+
+            <div class="ticket-info">
+
+              <span class="label">
+                Heure départ
+              </span>
+
+              <strong>
+                {{
+                  ticket.reservation?.voyage?.heureDepart
+                  || '-'
+                }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- TRAJET -->
+        <!-- ============================= -->
+
+        <div
+          class="ticket-section"
+          *ngIf="ticket.reservation?.voyage?.trajet">
+
+          <div class="section-title">
+
+            <span class="material-icons">
+              route
+            </span>
+
+            <h3>Trajet</h3>
+
+          </div>
+
+
+          <div class="route-display">
+
+            <!-- DEPART -->
+
+            <div class="route-point">
+
+              <span class="material-icons">
+                location_on
+              </span>
+
+              <div>
+
+                <span>
+                  Départ
+                </span>
+
+                <strong>
+                  {{
+                    ticket.reservation?.voyage?.trajet?.villeDepart
+                    || '-'
+                  }}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <!-- FLECHE -->
+
+            <span class="material-icons route-arrow">
+              arrow_forward
+            </span>
+
+
+            <!-- ARRIVEE -->
+
+            <div class="route-point">
+
+              <span class="material-icons">
+                flag
+              </span>
+
+              <div>
+
+                <span>
+                  Arrivée
+                </span>
+
+                <strong>
+                  {{
+                    ticket.reservation?.voyage?.trajet?.villeArrivee
+                    || '-'
+                  }}
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- ACTION VALIDATION -->
+        <!-- ============================= -->
+
+        <div
+          class="ticket-actions"
+          *ngIf="ticket.statut === 'VALIDE'">
+
+          <button
+            type="button"
+            class="validate-button"
+            [disabled]="validationEnCours"
+            (click)="validerTicket()">
+
+            <span class="material-icons">
+
+              {{
+                validationEnCours
+                  ? 'sync'
+                  : 'check_circle'
+              }}
+
+            </span>
+
+            <span>
+
+              {{
+                validationEnCours
+                  ? 'Validation...'
+                  : 'Valider le ticket'
+              }}
+
+            </span>
+
+          </button>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- TICKET DEJA UTILISE -->
+        <!-- ============================= -->
+
+        <div
+          class="already-used"
+          *ngIf="ticket.statut === 'UTILISE'">
+
+          <span class="material-icons">
+            cancel
+          </span>
+
+          <div>
+
+            <strong>
+              Ticket déjà utilisé
+            </strong>
+
+            <p>
+              Ce ticket a déjà été validé.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- TICKET ANNULE -->
+        <!-- ============================= -->
+
+        <div
+          class="already-used"
+          *ngIf="ticket.statut === 'ANNULE'">
+
+          <span class="material-icons">
+            block
+          </span>
+
+          <div>
+
+            <strong>
+              Ticket annulé
+            </strong>
+
+            <p>
+              Ce ticket ne peut pas être utilisé.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ============================= -->
+      <!-- NOUVEAU SCAN -->
+      <!-- ============================= -->
+
+      <button
+        type="button"
+        class="scan-again-button"
+        *ngIf="ticket || codeScanne"
+        (click)="nouveauScan()">
+
+        <span class="material-icons">
+          refresh
+        </span>
+
+        Scanner un autre ticket
+
+      </button>
+
+
+      <!-- ============================= -->
+      <!-- INDICATION -->
+      <!-- ============================= -->
+
+      <div
+        class="scanner-info"
+        *ngIf="!codeScanne && !erreur && !ticket">
+
+        <span class="material-icons">
+          info
+        </span>
+
+        <p>
+
+          Assurez-vous que le QR Code est suffisamment éclairé
+          et entièrement visible dans le cadre.
+
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- CARTE INSTRUCTIONS -->
+    <!-- ============================= -->
+
+    <div class="instruction-card">
+
+      <div class="instruction-icon">
+
+        <span class="material-icons">
+          qr_code_scanner
+        </span>
+
+      </div>
+
+
+      <h2>
+        Comment scanner ?
+      </h2>
+
+
+      <div class="steps">
+
+        <!-- ETAPE 1 -->
+
+        <div class="step">
+
+          <div class="step-number">
+            1
+          </div>
+
+          <div>
+
+            <h3>
+              Présentez le ticket
+            </h3>
+
+            <p>
+              Demandez au passager de présenter son ticket
+              contenant le QR Code.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ETAPE 2 -->
+
+        <div class="step">
+
+          <div class="step-number">
+            2
+          </div>
+
+          <div>
+
+            <h3>
+              Placez le QR Code
+            </h3>
+
+            <p>
+              Positionnez le QR Code au centre du cadre
+              de la caméra.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ETAPE 3 -->
+
+        <div class="step">
+
+          <div class="step-number">
+            3
+          </div>
+
+          <div>
+
+            <h3>
+              Vérifiez le ticket
+            </h3>
+
+            <p>
+              Les informations du ticket seront affichées
+              après la lecture.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

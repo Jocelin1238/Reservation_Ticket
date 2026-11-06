@@ -1,0 +1,217 @@
+
+<aside class="sidebar-staff">
+
+  <!-- ========================================= -->
+  <!-- LOGO -->
+  <!-- ========================================= -->
+
+  <div class="logo">
+
+    <h2>Voyage Express</h2>
+
+    <span>Staff</span>
+
+  </div>
+
+
+  <!-- ========================================= -->
+  <!-- MENU PRINCIPAL -->
+  <!-- ========================================= -->
+
+  <div class="sidebar-main">
+
+    <ul class="menu">
+
+      <!-- TABLEAU DE BORD -->
+
+      <li>
+
+        <a
+          routerLink="/dashboard-staff"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+
+          <span class="material-icons">
+            dashboard
+          </span>
+
+          <span>
+            Tableau de bord
+          </span>
+
+        </a>
+
+      </li>
+
+
+
+<!-- VOYAGES -->
+
+<li>
+
+  <a
+    routerLink="/voyages"
+    routerLinkActive="active">
+
+    <span class="material-icons">
+      directions_bus
+    </span>
+
+    <span>
+      Voyages
+    </span>
+
+  </a>
+
+</li>
+
+      <!-- RESERVATIONS -->
+
+     <li routerLinkActive="active">
+  <a routerLink="/reservations">
+
+    <span class="material-icons">
+      confirmation_number
+    </span>
+
+    <span>
+      Réservations
+    </span>
+
+  </a>
+</li>
+
+      <!-- DEPARTS -->
+<!-- DEPARTS DU JOUR -->
+
+<li>
+
+  <a
+    routerLink="/staff/depart-du-jour"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">
+
+    <span class="material-icons">
+      today
+    </span>
+
+    <span>
+      Départs du jour
+    </span>
+
+  </a>
+
+</li>
+      <!-- SCANNER -->
+<li routerLinkActive="active">
+
+  <a routerLink="/staff/scanner">
+
+    <span class="material-icons">
+      qr_code_scanner
+    </span>
+
+    <span>
+      Scanner ticket
+    </span>
+
+  </a>
+
+</li>
+
+      <!-- TICKETS -->
+
+     <li>
+  <a
+    routerLink="/tickets"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">
+
+    <span class="material-icons">
+      confirmation_number
+    </span>
+
+    <span>
+      Tickets
+    </span>
+
+  </a>
+  <!-- PARAMÈTRES -->
+
+
+</li>
+
+    </ul>
+    
+ </div>
+ 
+
+
+  <!-- ========================================= -->
+  <!-- SEPARATION -->
+  <!-- ========================================= -->
+
+  <div class="sidebar-separator"></div>
+
+
+  <!-- ========================================= -->
+  <!-- MENU SECONDAIRE -->
+  <!-- ========================================= -->
+
+  <div class="sidebar-bottom">
+
+
+
+    <!-- PROFIL -->
+
+    <a
+      routerLink="/profil"
+      routerLinkActive="active"
+      class="bottom-item">
+
+      <span class="material-icons">
+        person
+      </span>
+
+      <span>
+        Mon profil
+      </span>
+
+    </a>
+<a
+  routerLink="/parametres"
+  routerLinkActive="active"
+  class="bottom-item">
+
+  <span class="material-icons">
+    settings
+  </span>
+
+  <span>
+    Paramètres
+  </span>
+
+</a>
+
+    <!-- DECONNEXION -->
+
+    <button
+      type="button"
+      class="bottom-item logout"
+      (click)="logout()">
+
+      <span class="material-icons">
+        logout
+      </span>
+
+      <span>
+        Déconnexion
+      </span>
+
+    </button>
+
+
+  </div>
+
+</aside>
+

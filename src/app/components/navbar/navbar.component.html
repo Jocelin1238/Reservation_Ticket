@@ -1,0 +1,461 @@
+<!-- =====================================================
+     NAVBAR
+====================================================== -->
+
+<nav class="navbar">
+
+  <!-- ===================================================
+       LOGO
+  ==================================================== -->
+
+  <a
+    routerLink="/accueil"
+    class="logo">
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round">
+
+      <polygon
+        points="3 11 22 2 13 21 11 13 3 11">
+      </polygon>
+
+    </svg>
+
+    Voyage Express
+
+  </a>
+
+
+  <!-- ===================================================
+       MENU PRINCIPAL
+  ==================================================== -->
+
+  <ul class="nav-menu">
+
+    <!-- ACCUEIL -->
+
+    <li>
+
+      <a
+        routerLink="/accueil"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+
+        ACCUEIL
+
+      </a>
+
+    </li>
+
+
+    <!-- VOYAGE -->
+
+    <li>
+
+      <a
+        href="javascript:void(0)"
+        (click)="allerAuxVoyages()">
+
+        VOYAGE
+
+      </a>
+
+    </li>
+
+
+    <!-- RESERVATION -->
+
+    <li *ngIf="estConnecte">
+
+      <a
+        href="javascript:void(0)"
+        (click)="allerAuxReservations()">
+
+        RÉSERVATION
+
+      </a>
+
+    </li>
+
+
+    <!-- TICKET -->
+
+    <li *ngIf="estConnecte">
+
+      <a
+        href="javascript:void(0)"
+        (click)="allerAuxTickets()">
+
+        TICKET
+
+      </a>
+
+    </li>
+
+
+    <!-- PAIEMENT -->
+
+    <li *ngIf="estConnecte">
+
+      <a
+        href="javascript:void(0)"
+        (click)="allerAuxPaiements()">
+
+        PAIEMENT
+
+      </a>
+
+    </li>
+
+  </ul>
+
+
+  <!-- ===================================================
+       PARTIE DROITE
+  ==================================================== -->
+
+  <div class="nav-profile">
+
+
+    <!-- =================================================
+         NOTIFICATIONS
+    ================================================== -->
+
+    <div class="notification-wrapper">
+
+      <!-- BOUTON CLOCHE -->
+
+      <button
+        type="button"
+        class="icon-btn notification-button"
+        title="Notifications"
+        (click)="toggleNotifications()">
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+
+          <path
+            d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9">
+          </path>
+
+          <path
+            d="M10.3 21a1.94 1.94 0 0 0 3.4 0">
+          </path>
+
+        </svg>
+
+
+        <!-- COMPTEUR -->
+
+        <span
+          class="notification-badge"
+          *ngIf="nombreNotifications > 0">
+
+          {{ nombreNotifications > 99 ? '99+' : nombreNotifications }}
+
+        </span>
+
+      </button>
+
+
+      <!-- =================================================
+           PANNEAU NOTIFICATIONS
+      ================================================== -->
+
+      <div
+        class="notification-panel"
+        *ngIf="menuNotificationsOuvert">
+
+
+        <!-- HEADER -->
+
+        <div class="notification-header">
+
+          <div>
+
+            <h3>
+              Notifications
+            </h3>
+
+            <span
+              *ngIf="nombreNotifications > 0">
+
+              {{ nombreNotifications }}
+              non lue{{ nombreNotifications > 1 ? 's' : '' }}
+
+            </span>
+
+            <span
+              *ngIf="nombreNotifications === 0">
+
+              Tout est à jour
+
+            </span>
+
+          </div>
+
+
+          <!-- TOUT LIRE -->
+
+          <button
+            type="button"
+            class="mark-all-button"
+            *ngIf="nombreNotifications > 0"
+            (click)="marquerToutesCommeLues()">
+
+            Tout lire
+
+          </button>
+
+        </div>
+
+
+        <!-- CHARGEMENT -->
+
+        <div
+          class="notification-loading"
+          *ngIf="chargementNotifications">
+
+          <span class="material-icons">
+            sync
+          </span>
+
+          Chargement...
+
+        </div>
+
+
+        <!-- AUCUNE NOTIFICATION -->
+
+        <div
+          class="notification-empty"
+          *ngIf="
+            !chargementNotifications &&
+            notifications.length === 0
+          ">
+
+          <span class="material-icons">
+            notifications_none
+          </span>
+
+          <p>
+            Aucune notification
+          </p>
+
+          <small>
+            Vous êtes à jour.
+          </small>
+
+        </div>
+
+
+        <!-- LISTE -->
+
+        <div
+          class="notification-list"
+          *ngIf="
+            !chargementNotifications &&
+            notifications.length > 0
+          ">
+
+
+          <div
+            class="notification-item"
+            *ngFor="let notification of notifications"
+            [class.notification-unread]="!notification.lu"
+            (click)="marquerNotificationCommeLue(notification)">
+
+
+            <!-- ICONE -->
+
+            <div
+              class="notification-icon"
+              [class.unread-icon]="!notification.lu">
+
+              <span class="material-icons">
+
+                {{
+                  getNotificationIcon(
+                    notification.type
+                  )
+                }}
+
+              </span>
+
+            </div>
+
+
+            <!-- CONTENU -->
+
+            <div class="notification-content">
+
+              <div class="notification-type">
+
+                {{
+                  notification.type
+                }}
+
+                <span
+                  class="unread-dot"
+                  *ngIf="!notification.lu">
+                </span>
+
+              </div>
+
+
+              <p class="notification-message">
+
+                {{
+                  notification.message
+                }}
+
+              </p>
+
+
+              <span class="notification-date">
+
+                {{
+                  formaterDate(
+                    notification.dateCreation
+                  )
+                }}
+
+              </span>
+
+            </div>
+
+
+            <!-- SUPPRIMER -->
+
+            <button
+              type="button"
+              class="delete-notification"
+              title="Supprimer"
+              (click)="
+                supprimerNotification(
+                  $event,
+                  notification
+                )
+              ">
+
+              <span class="material-icons">
+                close
+              </span>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         PROFIL
+    ================================================== -->
+
+    <div class="profile-wrapper">
+
+      <button
+        type="button"
+        class="profile-button"
+        (click)="toggleMenuProfil()"
+        title="Mon profil">
+
+        <img
+          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
+          alt="Profil"
+          class="avatar">
+
+      </button>
+
+
+      <!-- MENU PROFIL -->
+
+      <div
+        class="profile-menu"
+        *ngIf="menuProfilOuvert">
+
+
+        <!-- MON PROFIL -->
+
+        <button
+          type="button"
+          (click)="allerAuProfil()">
+
+          <span class="material-icons">
+            person
+          </span>
+
+          <span>
+            Mon profil
+          </span>
+
+        </button>
+
+
+        <!-- PARAMÈTRES -->
+
+        <button
+          type="button"
+          (click)="allerAuxParametres()">
+
+          <span class="material-icons">
+            settings
+          </span>
+
+          <span>
+            Paramètres
+          </span>
+
+        </button>
+
+
+        <!-- SEPARATEUR -->
+
+        <div class="profile-menu-separator"></div>
+
+
+        <!-- DECONNEXION -->
+
+        <button
+          type="button"
+          class="logout-button"
+          (click)="deconnexion()">
+
+          <span class="material-icons">
+            logout
+          </span>
+
+          <span>
+            Déconnexion
+          </span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</nav>

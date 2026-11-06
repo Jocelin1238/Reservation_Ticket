@@ -1,0 +1,747 @@
+<div class="register-page">
+
+  <!-- ================================================= -->
+  <!-- PARTIE GAUCHE -->
+  <!-- ================================================= -->
+
+  <div class="register-visual">
+
+    <div class="visual-overlay"></div>
+
+    <div class="visual-content">
+
+      <div class="brand">
+
+        <div class="brand-icon">
+
+          <span class="material-icons">
+            directions_bus
+          </span>
+
+        </div>
+
+        <span>
+          Système de Réservation
+        </span>
+
+      </div>
+
+
+      <div class="visual-text">
+
+        <span class="eyebrow">
+          VOTRE VOYAGE COMMENCE ICI
+        </span>
+
+        <h1>
+          Voyagez simplement.
+          <br>
+          Réservez sereinement.
+        </h1>
+
+        <p>
+          Créez votre compte et profitez d'une
+          expérience simple et rapide pour réserver
+          vos prochains voyages.
+        </p>
+
+      </div>
+
+
+      <div class="visual-features">
+
+        <div class="feature">
+
+          <span class="material-icons">
+            confirmation_number
+          </span>
+
+          <div>
+
+            <strong>
+              Réservation rapide
+            </strong>
+
+            <span>
+              Réservez votre billet en quelques clics.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="feature">
+
+          <span class="material-icons">
+            security
+          </span>
+
+          <div>
+
+            <strong>
+              Paiement sécurisé
+            </strong>
+
+            <span>
+              Vos informations sont protégées.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="feature">
+
+          <span class="material-icons">
+            notifications
+          </span>
+
+          <div>
+
+            <strong>
+              Notifications
+            </strong>
+
+            <span>
+              Recevez toutes les informations importantes.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- PARTIE DROITE -->
+  <!-- ================================================= -->
+
+  <div class="register-content">
+
+    <div class="register-container">
+
+
+      <!-- =============================================== -->
+      <!-- HEADER -->
+      <!-- =============================================== -->
+
+      <div class="register-header">
+
+        <div class="mobile-logo">
+
+          <div class="mobile-logo-icon">
+
+            <span class="material-icons">
+              directions_bus
+            </span>
+
+          </div>
+
+        </div>
+
+        <span class="header-label">
+          NOUVEAU COMPTE
+        </span>
+
+        <h2>
+          Créer votre compte
+        </h2>
+
+        <p>
+          Rejoignez-nous et commencez à voyager autrement.
+        </p>
+
+      </div>
+
+
+      <!-- =============================================== -->
+      <!-- MESSAGE ERREUR -->
+      <!-- =============================================== -->
+
+      <div
+        class="alert alert-error"
+        *ngIf="erreur">
+
+        <span class="material-icons">
+          error_outline
+        </span>
+
+        <span>
+          {{ erreur }}
+        </span>
+
+      </div>
+
+
+      <!-- =============================================== -->
+      <!-- MESSAGE SUCCÈS -->
+      <!-- =============================================== -->
+
+      <div
+        class="alert alert-success"
+        *ngIf="succes">
+
+        <span class="material-icons">
+          check_circle
+        </span>
+
+        <span>
+          {{ succes }}
+        </span>
+
+      </div>
+
+
+      <!-- =============================================== -->
+      <!-- FORMULAIRE -->
+      <!-- =============================================== -->
+
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="inscrire()"
+        novalidate>
+
+
+        <!-- ============================================= -->
+        <!-- PRÉNOM + NOM -->
+        <!-- ============================================= -->
+
+        <div class="form-row">
+
+
+          <!-- PRÉNOM -->
+
+          <div class="form-group">
+
+            <label for="prenom">
+              Prénom
+              <span>*</span>
+            </label>
+
+            <div
+              class="input-wrapper"
+              [class.invalid]="
+                prenom?.invalid &&
+                prenom?.touched
+              ">
+
+              <span class="material-icons input-icon">
+                person_outline
+              </span>
+
+              <input
+                id="prenom"
+                type="text"
+                formControlName="prenom"
+                placeholder="Votre prénom"
+                autocomplete="given-name"
+              />
+
+            </div>
+
+            <small
+              class="field-error"
+              *ngIf="
+                prenom?.hasError('required') &&
+                prenom?.touched
+              ">
+
+              Le prénom est obligatoire.
+
+            </small>
+
+            <small
+              class="field-error"
+              *ngIf="
+                prenom?.hasError('minlength') &&
+                prenom?.touched
+              ">
+
+              Le prénom doit contenir au moins 2 caractères.
+
+            </small>
+
+          </div>
+
+
+          <!-- NOM -->
+
+          <div class="form-group">
+
+            <label for="nom">
+              Nom
+              <span>*</span>
+            </label>
+
+            <div
+              class="input-wrapper"
+              [class.invalid]="
+                nom?.invalid &&
+                nom?.touched
+              ">
+
+              <span class="material-icons input-icon">
+                person_outline
+              </span>
+
+              <input
+                id="nom"
+                type="text"
+                formControlName="nom"
+                placeholder="Votre nom"
+                autocomplete="family-name"
+              />
+
+            </div>
+
+            <small
+              class="field-error"
+              *ngIf="
+                nom?.hasError('required') &&
+                nom?.touched
+              ">
+
+              Le nom est obligatoire.
+
+            </small>
+
+            <small
+              class="field-error"
+              *ngIf="
+                nom?.hasError('minlength') &&
+                nom?.touched
+              ">
+
+              Le nom doit contenir au moins 2 caractères.
+
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- EMAIL -->
+        <!-- ============================================= -->
+
+        <div class="form-group">
+
+          <label for="email">
+            Adresse email
+            <span>*</span>
+          </label>
+
+          <div
+            class="input-wrapper"
+            [class.invalid]="
+              email?.invalid &&
+              email?.touched
+            ">
+
+            <span class="material-icons input-icon">
+              mail_outline
+            </span>
+
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="exemple@email.com"
+              autocomplete="email"
+            />
+
+          </div>
+
+          <small
+            class="field-error"
+            *ngIf="
+              email?.hasError('required') &&
+              email?.touched
+            ">
+
+            L'adresse email est obligatoire.
+
+          </small>
+
+          <small
+            class="field-error"
+            *ngIf="
+              email?.hasError('email') &&
+              email?.touched
+            ">
+
+            Veuillez entrer une adresse email valide.
+
+          </small>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- TÉLÉPHONE -->
+        <!-- ============================================= -->
+
+        <div class="form-group">
+
+          <label for="telephone">
+            Téléphone
+            <small>(facultatif)</small>
+          </label>
+
+          <div
+            class="input-wrapper"
+            [class.invalid]="
+              telephone?.invalid &&
+              telephone?.touched
+            ">
+
+            <span class="material-icons input-icon">
+              phone
+            </span>
+
+            <input
+              id="telephone"
+              type="tel"
+              formControlName="telephone"
+              placeholder="+237 6XX XX XX XX"
+              autocomplete="tel"
+            />
+
+          </div>
+
+          <small
+            class="field-error"
+            *ngIf="
+              telephone?.invalid &&
+              telephone?.touched
+            ">
+
+            Numéro de téléphone invalide.
+
+          </small>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- ADRESSE -->
+        <!-- ============================================= -->
+
+        <div class="form-group">
+
+          <label for="adresse">
+            Adresse
+            <small>(facultatif)</small>
+          </label>
+
+          <div class="input-wrapper">
+
+            <span class="material-icons input-icon">
+              location_on
+            </span>
+
+            <input
+              id="adresse"
+              type="text"
+              formControlName="adresse"
+              placeholder="Votre adresse"
+              autocomplete="street-address"
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- MOT DE PASSE -->
+        <!-- ============================================= -->
+
+        <div class="form-group">
+
+          <label for="motDePasse">
+            Mot de passe
+            <span>*</span>
+          </label>
+
+          <div
+            class="input-wrapper"
+            [class.invalid]="
+              motDePasse?.invalid &&
+              motDePasse?.touched
+            ">
+
+            <span class="material-icons input-icon">
+              lock_outline
+            </span>
+
+            <input
+              id="motDePasse"
+              [type]="
+                afficherMotDePasse
+                  ? 'text'
+                  : 'password'
+              "
+              formControlName="motDePasse"
+              placeholder="Minimum 6 caractères"
+              autocomplete="new-password"
+            />
+
+            <button
+              type="button"
+              class="password-button"
+              (click)="toggleMotDePasse()">
+
+              <span class="material-icons">
+
+                {{
+                  afficherMotDePasse
+                    ? 'visibility_off'
+                    : 'visibility'
+                }}
+
+              </span>
+
+            </button>
+
+          </div>
+
+          <small
+            class="field-error"
+            *ngIf="
+              motDePasse?.hasError('required') &&
+              motDePasse?.touched
+            ">
+
+            Le mot de passe est obligatoire.
+
+          </small>
+
+          <small
+            class="field-error"
+            *ngIf="
+              motDePasse?.hasError('minlength') &&
+              motDePasse?.touched
+            ">
+
+            Le mot de passe doit contenir au moins 6 caractères.
+
+          </small>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- CONFIRMATION -->
+        <!-- ============================================= -->
+
+        <div class="form-group">
+
+          <label for="confirmationMotDePasse">
+            Confirmer le mot de passe
+            <span>*</span>
+          </label>
+
+          <div
+            class="input-wrapper"
+            [class.invalid]="
+              (
+                confirmationMotDePasse?.invalid ||
+                (
+                  confirmationMotDePasse?.touched &&
+                  !motsDePasseIdentiques()
+                )
+              )
+            ">
+
+            <span class="material-icons input-icon">
+              lock_outline
+            </span>
+
+            <input
+              id="confirmationMotDePasse"
+              [type]="
+                afficherConfirmation
+                  ? 'text'
+                  : 'password'
+              "
+              formControlName="confirmationMotDePasse"
+              placeholder="Confirmez votre mot de passe"
+              autocomplete="new-password"
+            />
+
+            <button
+              type="button"
+              class="password-button"
+              (click)="toggleConfirmation()">
+
+              <span class="material-icons">
+
+                {{
+                  afficherConfirmation
+                    ? 'visibility_off'
+                    : 'visibility'
+                }}
+
+              </span>
+
+            </button>
+
+          </div>
+
+          <small
+            class="field-error"
+            *ngIf="
+              confirmationMotDePasse?.hasError('required') &&
+              confirmationMotDePasse?.touched
+            ">
+
+            Veuillez confirmer votre mot de passe.
+
+          </small>
+
+          <small
+            class="field-error"
+            *ngIf="
+              confirmationMotDePasse?.touched &&
+              !motsDePasseIdentiques()
+            ">
+
+            Les mots de passe ne correspondent pas.
+
+          </small>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- CONDITIONS -->
+        <!-- ============================================= -->
+
+        <div class="conditions">
+
+          <button
+            type="button"
+            class="checkbox-button"
+            [class.checked]="accepterConditions"
+            (click)="toggleConditions()">
+
+            <span
+              class="custom-checkbox">
+
+              <span
+                class="material-icons"
+                *ngIf="accepterConditions">
+
+                check
+
+              </span>
+
+            </span>
+
+          </button>
+
+          <span>
+
+            J'accepte les
+            <a href="javascript:void(0)">
+              conditions d'utilisation
+            </a>
+            et la
+            <a href="javascript:void(0)">
+              politique de confidentialité
+            </a>.
+
+          </span>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- BOUTON -->
+        <!-- ============================================= -->
+
+        <button
+          type="submit"
+          class="register-button"
+          [disabled]="chargement">
+
+          <span
+            class="button-spinner"
+            *ngIf="chargement">
+          </span>
+
+          <span
+            class="material-icons"
+            *ngIf="!chargement">
+
+            person_add
+
+          </span>
+
+          <span>
+
+            {{
+              chargement
+                ? 'Création du compte...'
+                : 'Créer mon compte'
+            }}
+
+          </span>
+
+        </button>
+
+
+      </form>
+
+
+      <!-- =============================================== -->
+      <!-- LOGIN -->
+      <!-- =============================================== -->
+
+      <div class="login-link">
+
+        <span>
+          Vous avez déjà un compte ?
+        </span>
+
+        <button
+          type="button"
+          (click)="allerLogin()">
+
+          Se connecter
+
+        </button>
+
+      </div>
+
+
+      <!-- =============================================== -->
+      <!-- SÉCURITÉ -->
+      <!-- =============================================== -->
+
+      <div class="security-note">
+
+        <span class="material-icons">
+          verified_user
+        </span>
+
+        <span>
+          Vos informations sont protégées et sécurisées.
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

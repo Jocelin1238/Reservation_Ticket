@@ -1,0 +1,824 @@
+<app-navbar></app-navbar>
+<div class="voyages-page">
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <div class="page-header">
+
+    <div class="header-left">
+
+
+      <!-- TITRE -->
+      <div class="title-area">
+
+        <div class="title-icon">
+
+          <span class="material-icons">
+            directions_bus
+          </span>
+
+        </div>
+
+        <div>
+
+          <h1>
+            Nos voyages
+          </h1>
+
+          <p>
+            Découvrez les voyages disponibles et réservez votre prochain trajet.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ACTUALISER -->
+    <button
+      type="button"
+      class="btn-primary"
+      (click)="chargerVoyages()">
+
+      <span class="material-icons">
+        refresh
+      </span>
+
+      Actualiser
+
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       RECHERCHE VOYAGE
+  ====================================================== -->
+
+  <div class="search-trip-card">
+
+    <div class="search-trip-header">
+
+      <div>
+
+        <span class="section-subtitle">
+          RECHERCHE
+        </span>
+
+        <h2>
+          Trouvez votre prochain voyage
+        </h2>
+
+        <p>
+          Choisissez votre ville de départ, votre destination
+          et votre date.
+        </p>
+
+      </div>
+
+      <span class="material-icons search-icon">
+        search
+      </span>
+
+    </div>
+
+
+    <div class="search-trip-grid">
+
+      <div class="search-field">
+
+  <label>
+    Départ
+  </label>
+
+  <select
+    [(ngModel)]="villeDepartRecherche">
+
+    <option value="">
+      Choisir une ville
+    </option>
+
+    <option
+      *ngFor="let ville of villes"
+      [value]="ville.nom">
+
+      {{ ville.nom }}
+
+    </option>
+
+  </select>
+
+</div>
+     <div class="search-field">
+
+  <label>
+    Arrivée
+  </label>
+
+  <select
+    [(ngModel)]="villeArriveeRecherche">
+
+    <option value="">
+      Choisir une ville
+    </option>
+
+    <option
+      *ngFor="let ville of villes"
+      [value]="ville.nom">
+
+      {{ ville.nom }}
+
+    </option>
+
+  </select>
+
+</div>
+
+
+      <!-- DATE -->
+      <div class="search-field">
+
+        <label>
+          Date du voyage
+        </label>
+
+        <input
+          type="date"
+          [(ngModel)]="dateRecherche"
+          (change)="appliquerFiltres()">
+
+      </div>
+
+
+      <!-- BOUTON -->
+      <div class="search-action">
+
+        <button
+          type="button"
+          class="btn-primary"
+          (click)="appliquerFiltres()">
+
+          <span class="material-icons">
+            search
+          </span>
+
+          Rechercher
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       RÉSUMÉ DE LA RECHERCHE
+  ====================================================== -->
+
+  <div
+    class="search-summary"
+    *ngIf="
+      villeDepartRecherche ||
+      villeArriveeRecherche ||
+      dateRecherche
+    ">
+
+    <span class="material-icons">
+      route
+    </span>
+
+    <span>
+
+      Résultats pour :
+
+      <strong *ngIf="villeDepartRecherche">
+        {{ villeDepartRecherche }}
+      </strong>
+
+      <span
+        *ngIf="
+          villeDepartRecherche &&
+          villeArriveeRecherche
+        ">
+
+        →
+
+      </span>
+
+      <strong *ngIf="villeArriveeRecherche">
+        {{ villeArriveeRecherche }}
+      </strong>
+
+      <strong *ngIf="dateRecherche">
+        · {{ formatDate(dateRecherche) }}
+      </strong>
+
+    </span>
+
+  </div>
+
+
+  <!-- =====================================================
+       CHARGEMENT
+  ====================================================== -->
+
+  <div
+    class="loading-card"
+    *ngIf="chargement">
+
+    <div class="spinner"></div>
+
+    <h3>
+      Chargement des voyages...
+    </h3>
+
+    <p>
+      Veuillez patienter quelques instants.
+    </p>
+
+  </div>
+
+
+  <!-- =====================================================
+       ERREUR
+  ====================================================== -->
+
+  <div
+    class="error-card"
+    *ngIf="!chargement && erreur">
+
+    <span class="material-icons">
+      error_outline
+    </span>
+
+    <div>
+
+      <strong>
+        Une erreur est survenue
+      </strong>
+
+      <p>
+        {{ erreur }}
+      </p>
+
+    </div>
+
+    <button
+      type="button"
+      class="retry-button"
+      (click)="chargerVoyages()">
+
+      <span class="material-icons">
+        refresh
+      </span>
+
+      Réessayer
+
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       CONTENU
+  ====================================================== -->
+
+  <ng-container *ngIf="!chargement && !erreur">
+
+
+    <!-- ===================================================
+         STATISTIQUES
+    ==================================================== -->
+
+    <div class="stats-grid">
+
+      <!-- TOTAL -->
+      <div class="stat-card">
+
+        <div class="stat-icon blue">
+
+          <span class="material-icons">
+            directions_bus
+          </span>
+
+        </div>
+
+        <div>
+
+          <span>
+            Total voyages
+          </span>
+
+          <strong>
+            {{ voyages.length }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- DISPONIBLES -->
+      <div class="stat-card">
+
+        <div class="stat-icon green">
+
+          <span class="material-icons">
+            check_circle
+          </span>
+
+        </div>
+
+        <div>
+
+          <span>
+            Disponibles
+          </span>
+
+          <strong>
+            {{ nombreVoyagesDisponibles }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- AUJOURD'HUI -->
+      <div class="stat-card">
+
+        <div class="stat-icon orange">
+
+          <span class="material-icons">
+            today
+          </span>
+
+        </div>
+
+        <div>
+
+          <span>
+            Aujourd'hui
+          </span>
+
+          <strong>
+            {{ nombreVoyagesAujourdHui }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- PLACES -->
+      <div class="stat-card">
+
+        <div class="stat-icon purple">
+
+          <span class="material-icons">
+            event_seat
+          </span>
+
+        </div>
+
+        <div>
+
+          <span>
+            Places disponibles
+          </span>
+
+          <strong>
+            {{ nombrePlacesDisponibles }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         RECHERCHE TEXTE + FILTRES
+    ==================================================== -->
+
+    <div class="filters-card">
+
+      <div class="search-box">
+
+        <span class="material-icons">
+          search
+        </span>
+
+        <input
+          type="text"
+          [(ngModel)]="recherche"
+          (input)="rechercher()"
+          placeholder="Rechercher une ville, un voyage, un transport...">
+
+      </div>
+
+
+      <div class="filter-buttons">
+
+        <button
+          type="button"
+          [class.active]="filtreStatut === 'TOUS'"
+          (click)="changerFiltre('TOUS')">
+
+          Tous
+
+        </button>
+
+
+        <button
+          type="button"
+          [class.active]="filtreStatut === 'DISPONIBLE'"
+          (click)="changerFiltre('DISPONIBLE')">
+
+          Disponibles
+
+        </button>
+
+
+        <button
+          type="button"
+          [class.active]="filtreStatut === 'COMPLET'"
+          (click)="changerFiltre('COMPLET')">
+
+          Complets
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         AUCUN VOYAGE
+    ==================================================== -->
+
+    <div
+      class="empty-card"
+      *ngIf="voyagesFiltres.length === 0">
+
+      <div class="empty-icon">
+
+        <span class="material-icons">
+          directions_bus
+        </span>
+
+      </div>
+
+      <h2>
+        Aucun voyage trouvé
+      </h2>
+
+      <p>
+        Aucun voyage ne correspond à votre recherche
+        ou aux filtres sélectionnés.
+      </p>
+
+      <button
+        type="button"
+        class="btn-primary"
+        (click)="
+
+          recherche = '';
+
+          villeDepartRecherche = '';
+
+          villeArriveeRecherche = '';
+
+          dateRecherche = '';
+
+          changerFiltre('TOUS');
+
+        ">
+
+        <span class="material-icons">
+          refresh
+        </span>
+
+        Afficher tous les voyages
+
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         LISTE DES VOYAGES
+    ==================================================== -->
+
+    <div
+      class="voyages-container"
+      *ngIf="voyagesFiltres.length > 0">
+
+
+      <!-- =================================================
+           VOYAGE
+      ================================================== -->
+
+      <div
+        class="voyage-card"
+        *ngFor="let voyage of voyagesFiltres">
+
+
+        <!-- ===============================================
+             PARTIE PRINCIPALE
+        ================================================ -->
+
+        <div class="voyage-main">
+
+
+          <!-- ICÔNE -->
+          <div class="voyage-icon">
+
+            <span class="material-icons">
+              directions_bus
+            </span>
+
+          </div>
+
+
+          <!-- INFORMATIONS -->
+          <div class="voyage-info">
+
+
+            <!-- TOP -->
+            <div class="voyage-top">
+
+              <div>
+
+                <span class="voyage-label">
+                  VOYAGE #{{ voyage.numeroVoyage }}
+                </span>
+
+                <h2>
+
+                  {{ voyage.villeDepart || 'Départ' }}
+
+                  <span class="route-arrow">
+                    →
+                  </span>
+
+                  {{ voyage.villeArrivee || 'Destination' }}
+
+                </h2>
+
+              </div>
+
+
+              <!-- STATUT -->
+              <span
+                class="status"
+                [ngClass]="getStatutClass(voyage.statut)">
+
+                <span class="status-dot"></span>
+
+                {{ getStatutLabel(voyage.statut) }}
+
+              </span>
+
+            </div>
+
+
+            <!-- ===========================================
+                 INFORMATIONS
+            ============================================ -->
+
+            <div class="info-grid">
+
+
+              <!-- DATE -->
+              <div class="info-item">
+
+                <span class="material-icons">
+                  calendar_today
+                </span>
+
+                <div>
+
+                  <small>
+                    Départ
+                  </small>
+
+                  <strong>
+                    {{ formatDate(voyage.dateDepart) }}
+                  </strong>
+
+                </div>
+
+              </div>
+
+
+              <!-- HEURE -->
+              <div class="info-item">
+
+                <span class="material-icons">
+                  schedule
+                </span>
+
+                <div>
+
+                  <small>
+                    Heure
+                  </small>
+
+                  <strong>
+                    {{ formatHeure(voyage.heureDepart) }}
+                  </strong>
+
+                </div>
+
+              </div>
+
+
+              <!-- PRIX -->
+              <div class="info-item">
+
+                <span class="material-icons">
+                  payments
+                </span>
+
+                <div>
+
+                  <small>
+                    Prix
+                  </small>
+
+                  <strong>
+                    {{ formatPrix(voyage.prix) }}
+                  </strong>
+
+                </div>
+
+              </div>
+
+
+              <!-- PLACES -->
+              <div class="info-item">
+
+                <span class="material-icons">
+                  event_seat
+                </span>
+
+                <div>
+
+                  <small>
+                    Places disponibles
+                  </small>
+
+                  <strong
+                    [class.low-places]="voyage.placesDisponibles <= 5">
+
+                    {{ voyage.placesDisponibles }}
+
+                  </strong>
+
+                </div>
+
+              </div>
+
+
+              <!-- TRANSPORT -->
+              <div class="info-item">
+
+                <span class="material-icons">
+                  airport_shuttle
+                </span>
+
+                <div>
+
+                  <small>
+                    Transport
+                  </small>
+
+                  <strong>
+                    {{ voyage.transport || '-' }}
+                  </strong>
+
+                </div>
+
+              </div>
+
+
+              <!-- CONFORT -->
+              <div class="info-item">
+
+                <span class="material-icons">
+                  airline_seat_recline_normal
+                </span>
+
+                <div>
+
+                  <small>
+                    Confort
+                  </small>
+
+                  <strong>
+                    {{ voyage.confort || '-' }}
+                  </strong>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- ===========================================
+                 DESCRIPTION
+            ============================================ -->
+
+            <p
+              class="voyage-description"
+              *ngIf="voyage.description">
+
+              {{ voyage.description }}
+
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ===============================================
+             ACTION
+        ================================================ -->
+
+        <div class="voyage-action">
+
+
+          <!-- PRIX -->
+          <div class="action-price">
+
+            <small>
+              À partir de
+            </small>
+
+            <strong>
+              {{ formatPrix(voyage.prix) }}
+            </strong>
+
+          </div>
+
+
+          <!-- BOUTONS -->
+          <div class="action-buttons">
+
+
+            <!-- VOIR DÉTAILS -->
+            <button
+              type="button"
+              class="details-button"
+              (click)="voirDetails(voyage.id)">
+
+              <span class="material-icons">
+                visibility
+              </span>
+
+              Voir détails
+
+            </button>
+
+
+            <!-- RÉSERVER -->
+            <button
+              type="button"
+              class="reserve-button"
+              [disabled]="!peutReserver(voyage)"
+              (click)="reserverVoyage(voyage)">
+
+              <span class="material-icons">
+                confirmation_number
+              </span>
+
+              {{
+                peutReserver(voyage)
+                  ? 'Réserver'
+                  : 'Indisponible'
+              }}
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</div>

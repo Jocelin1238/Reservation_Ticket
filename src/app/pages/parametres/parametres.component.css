@@ -1,0 +1,585 @@
+/* =====================================================
+   PAGE
+===================================================== */
+
+.parametres-page {
+    min-height: 100vh;
+    background: #f5f8fc;
+    padding: 35px;
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    margin: 15px 0 8px;
+
+    font-size: 30px;
+    font-weight: 700;
+
+    color: #1f2937;
+}
+
+.page-header p {
+    margin: 0;
+
+    color: #6b7280;
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   BOUTON RETOUR
+===================================================== */
+
+.btn-retour {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    background: white;
+    color: #0d6efd;
+
+    border: 1px solid #0d6efd;
+    border-radius: 10px;
+
+    padding: 11px 18px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all .3s ease;
+}
+
+.btn-retour:hover {
+    background: #0d6efd;
+    color: white;
+
+    transform: translateX(-3px);
+
+    box-shadow:
+        0 5px 15px rgba(13,110,253,.2);
+}
+
+
+/* =====================================================
+   CARTE
+===================================================== */
+
+.settings-card {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 28px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.07);
+}
+
+
+/* =====================================================
+   HEADER CARTE
+===================================================== */
+
+.card-header {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 28px;
+}
+
+.card-header h2 {
+    margin: 0 0 5px;
+
+    font-size: 19px;
+
+    color: #1f2937;
+}
+
+.card-header p {
+    margin: 0;
+
+    font-size: 13px;
+
+    color: #6b7280;
+}
+
+
+/* =====================================================
+   ICONES
+===================================================== */
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-icon.blue {
+    background: #e8f1ff;
+    color: #0d6efd;
+}
+
+.card-icon.orange {
+    background: #fff4df;
+    color: #f59e0b;
+}
+
+.card-icon.red {
+    background: #ffe8e8;
+    color: #dc3545;
+}
+
+
+/* =====================================================
+   FORMULAIRE
+===================================================== */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+.form-group input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 14px;
+
+    border: 1px solid #dfe3e8;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition: .3s;
+}
+
+.form-group input:focus {
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 3px rgba(13,110,253,.12);
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #edf0f3;
+}
+
+.btn-primary,
+.btn-danger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 12px 20px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.btn-primary {
+    background: #0d6efd;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #084298;
+
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #b02a37;
+
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   PREFERENCES
+===================================================== */
+
+.preferences {
+    display: flex;
+    flex-direction: column;
+}
+
+.preference-item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 18px 0;
+
+    border-bottom: 1px solid #edf0f3;
+}
+
+.preference-item:last-child {
+    border-bottom: none;
+}
+
+.preference-item strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #1f2937;
+
+    font-size: 14px;
+}
+
+.preference-item span {
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   SWITCH
+===================================================== */
+
+.switch {
+    position: relative;
+
+    width: 48px;
+    height: 26px;
+
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+
+    inset: 0;
+
+    background: #d1d5db;
+
+    border-radius: 30px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.slider::before {
+    content: "";
+
+    position: absolute;
+
+    width: 20px;
+    height: 20px;
+
+    left: 3px;
+    top: 3px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    transition: .3s;
+
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+}
+
+.switch input:checked + .slider {
+    background: #0d6efd;
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(22px);
+}
+
+
+/* =====================================================
+   MOT DE PASSE
+===================================================== */
+
+.password-form {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+.password-input {
+    position: relative;
+}
+
+.password-input input {
+    padding-right: 45px;
+}
+
+.password-input button {
+    position: absolute;
+
+    right: 8px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    background: transparent;
+
+    border: none;
+
+    color: #6b7280;
+
+    cursor: pointer;
+
+    margin: 0;
+
+    padding: 5px;
+}
+
+.password-input button:hover {
+    color: #0d6efd;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .password-form {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .parametres-page {
+        padding: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-card {
+        padding: 20px;
+    }
+
+    .preference-item {
+        gap: 15px;
+    }
+
+}
+
+/* ================================================= */
+/* CONTENEUR AVATAR */
+/* ================================================= */
+
+.avatar-container {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 18px;
+}
+
+
+/* ================================================= */
+/* AVATAR INITIAL */
+/* ================================================= */
+
+.avatar {
+  width: 110px;
+  height: 110px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e8f1ff;
+  color: #0b5ed7;
+
+  font-size: 30px;
+  font-weight: 700;
+
+  border: 4px solid white;
+
+  box-shadow:
+    0 5px 18px rgba(20, 35, 60, .12);
+
+  box-sizing: border-box;
+}
+
+
+/* ================================================= */
+/* PHOTO */
+/* ================================================= */
+
+.avatar-image {
+  width: 110px;
+  height: 110px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  border: 4px solid white;
+
+  box-shadow:
+    0 5px 18px rgba(20, 35, 60, .12);
+
+  display: block;
+}
+
+
+/* ================================================= */
+/* BOUTON PHOTO */
+/* ================================================= */
+
+.change-photo-button {
+  position: absolute;
+
+  right: -3px;
+  bottom: 3px;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+
+  background: #0b5ed7;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  border: 3px solid white;
+
+  box-shadow:
+    0 4px 12px rgba(11, 94, 215, .25);
+
+  transition: all .2s ease;
+
+  z-index: 5;
+}
+
+
+.change-photo-button:hover {
+  background: #084298;
+
+  transform: scale(1.08);
+}
+
+
+.change-photo-button .material-icons {
+  font-size: 17px;
+}
+
+
+/* ================================================= */
+/* INDICATEUR EN LIGNE */
+/* ================================================= */
+
+.online-indicator {
+  position: absolute;
+
+  left: 5px;
+  bottom: 5px;
+
+  width: 13px;
+  height: 13px;
+
+  border-radius: 50%;
+
+  background: #198754;
+
+  border: 3px solid white;
+
+  box-sizing: content-box;
+}
+
+
+.online-indicator.offline {
+  background: #9aa4b2;
+}

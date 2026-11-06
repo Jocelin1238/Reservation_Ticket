@@ -1,0 +1,508 @@
+<!-- SIDEBAR -->
+<app-sidebar></app-sidebar>
+
+<!-- CONTENU PRINCIPAL -->
+<div class="main-content">
+
+    <app-topbar></app-topbar>
+
+    <div class="content">
+
+        <!-- HEADER -->
+        <div class="page-header">
+
+            <div>
+                <h1>
+                    Gestion des transports
+                </h1>
+
+                <p>
+                    Gérez les moyens de transport utilisés
+                    pour les voyages.
+                </p>
+            </div>
+
+            <button
+                class="btn-add"
+                (click)="ouvrirAjout()">
+
+                <span>+</span>
+                Ajouter un transport
+
+            </button>
+
+        </div>
+
+
+        <!-- ============================== -->
+        <!-- CARTES TRANSPORT -->
+        <!-- ============================== -->
+
+        <div class="transport-cards">
+
+            <!-- BUS -->
+            <div class="transport-card bus">
+
+                <div class="transport-icon">
+                    <mat-icon>directions_bus</mat-icon>
+                </div>
+
+                <div class="transport-info">
+
+                    <span>
+                        Bus
+                    </span>
+
+                    <strong>
+                        {{ compterType('BUS') }}
+                    </strong>
+
+                    <small>
+                        transports disponibles
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- AVION -->
+            <div class="transport-card avion">
+
+                <div class="transport-icon">
+                    <mat-icon>flight</mat-icon>
+                </div>
+
+                <div class="transport-info">
+
+                    <span>
+                        Avions
+                    </span>
+
+                    <strong>
+                        {{ compterType('AVION') }}
+                    </strong>
+
+                    <small>
+                        transports disponibles
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- TRAIN -->
+            <div class="transport-card train">
+
+                <div class="transport-icon">
+                    <mat-icon>train</mat-icon>
+                </div>
+
+                <div class="transport-info">
+
+                    <span>
+                        Trains
+                    </span>
+
+                    <strong>
+                        {{ compterType('TRAIN') }}
+                    </strong>
+
+                    <small>
+                        transports disponibles
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- CAPACITE -->
+            <div class="transport-card capacity">
+
+                <div class="transport-icon">
+                    <mat-icon>groups</mat-icon>
+                </div>
+
+                <div class="transport-info">
+
+                    <span>
+                        Capacité totale
+                    </span>
+
+                    <strong>
+                        {{ capaciteTotale() }}
+                    </strong>
+
+                    <small>
+                        places disponibles
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ============================== -->
+        <!-- FORMULAIRE -->
+        <!-- ============================== -->
+
+        <div
+            class="form-card"
+            *ngIf="afficherFormulaire">
+
+            <div class="form-header">
+
+                <div>
+
+                    <h2>
+                        {{
+                            modeModification
+                                ? 'Modifier un transport'
+                                : 'Ajouter un transport'
+                        }}
+                    </h2>
+
+                    <p>
+                        Informations du moyen de transport
+                    </p>
+
+                </div>
+
+                <button
+                    class="close-btn"
+                    (click)="fermerFormulaire()">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <!-- NOM -->
+                <div class="form-group">
+
+                    <label>
+                        Nom du transport
+                    </label>
+
+                    <input
+                        type="text"
+                        [(ngModel)]="transport.nom"
+                        placeholder="Ex: Bus VIP">
+
+                </div>
+
+
+                <!-- TYPE -->
+                <div class="form-group">
+
+                    <label>
+                        Type
+                    </label>
+
+                    <select
+                        [(ngModel)]="transport.type">
+
+                        <option value="BUS">
+                            Bus
+                        </option>
+
+                        <option value="AVION">
+                            Avion
+                        </option>
+
+                        <option value="TRAIN">
+                            Train
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- CAPACITE -->
+                <div class="form-group">
+
+                    <label>
+                        Capacité
+                    </label>
+
+                    <input
+                        type="number"
+                        min="1"
+                        [(ngModel)]="transport.capacite"
+                        placeholder="Ex: 50">
+
+                </div>
+
+
+                <!-- STATUT -->
+                <div class="form-group">
+
+                    <label>
+                        Statut
+                    </label>
+
+                    <select
+                        [(ngModel)]="transport.statut">
+
+                        <option value="ACTIF">
+                            Actif
+                        </option>
+
+                        <option value="INACTIF">
+                            Inactif
+                        </option>
+
+                        <option value="MAINTENANCE">
+                            Maintenance
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOUTONS -->
+            <div class="form-actions">
+
+                <button
+                    class="btn-cancel"
+                    (click)="fermerFormulaire()">
+
+                    Annuler
+
+                </button>
+
+                <button
+                    class="btn-save"
+                    (click)="enregistrerTransport()">
+
+                    {{
+                        modeModification
+                            ? 'Modifier'
+                            : 'Enregistrer'
+                    }}
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ============================== -->
+        <!-- TABLEAU -->
+        <!-- ============================== -->
+
+        <div class="table-card">
+
+            <div class="table-header">
+
+                <div>
+
+                    <h2>
+                        Liste des transports
+                    </h2>
+
+                    <p>
+                        {{ transports.length }}
+                        transport(s)
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Transport
+                            </th>
+
+                            <th>
+                                Type
+                            </th>
+
+                            <th>
+                                Capacité
+                            </th>
+
+                            <th>
+                                Statut
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr
+                            *ngFor="let transport of transports">
+
+                            <!-- NOM -->
+                            <td>
+
+                                <div class="transport-name">
+
+                                    <div class="mini-icon">
+
+                                        <mat-icon
+                                            *ngIf="transport.type === 'BUS'">
+                                            directions_bus
+                                        </mat-icon>
+
+                                        <mat-icon
+                                            *ngIf="transport.type === 'AVION'">
+                                            flight
+                                        </mat-icon>
+
+                                        <mat-icon
+                                            *ngIf="transport.type === 'TRAIN'">
+                                            train
+                                        </mat-icon>
+
+                                    </div>
+
+                                    <strong>
+                                        {{ transport.nom }}
+                                    </strong>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- TYPE -->
+                            <td>
+
+                                <span class="type-badge">
+                                    {{ transport.type }}
+                                </span>
+
+                            </td>
+
+
+                            <!-- CAPACITE -->
+                            <td>
+
+                                <div class="capacity-value">
+
+                                    <mat-icon>
+                                        groups
+                                    </mat-icon>
+
+                                    {{ transport.capacite }}
+                                    places
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- STATUT -->
+                            <td>
+
+                                <span
+                                    class="status"
+                                    [class.active]="transport.statut === 'ACTIF'"
+                                    [class.inactive]="transport.statut === 'INACTIF'"
+                                    [class.maintenance]="transport.statut === 'MAINTENANCE'">
+
+                                    {{ transport.statut }}
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- ACTIONS -->
+                            <td>
+
+                                <div class="actions">
+
+                                    <button
+                                        class="edit"
+                                        (click)="modifierTransport(transport)">
+
+                                        Modifier
+
+                                    </button>
+
+                                    <button
+                                        class="delete"
+                                        (click)="supprimerTransport(transport.id)">
+
+                                        Supprimer
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- AUCUN TRANSPORT -->
+                        <tr
+                            *ngIf="transports.length === 0">
+
+                            <td
+                                colspan="5"
+                                class="empty">
+
+                                <div>
+
+                                    <mat-icon>
+                                        directions_bus
+                                    </mat-icon>
+
+                                    <h3>
+                                        Aucun transport
+                                    </h3>
+
+                                    <p>
+                                        Commencez par ajouter
+                                        un moyen de transport.
+                                    </p>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

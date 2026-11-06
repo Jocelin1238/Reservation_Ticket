@@ -1,0 +1,943 @@
+/* =====================================================
+   PAGE REGISTER
+===================================================== */
+
+.register-page {
+  min-height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 44% 56%;
+  background: #f7f9fc;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+
+/* =====================================================
+   PARTIE VISUELLE
+===================================================== */
+
+.register-visual {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      blue 0%,
+      blue 55%,
+      #1769aa 100%
+    );
+
+  color: white;
+}
+
+
+.register-visual::before {
+  content: "";
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  border-radius: 50%;
+
+  right: -220px;
+  bottom: -180px;
+
+  background: rgba(255, 255, 255, 0.06);
+}
+
+
+.register-visual::after {
+  content: "";
+
+  position: absolute;
+
+  width: 300px;
+  height: 300px;
+
+  border-radius: 50%;
+
+  left: -150px;
+  top: 30%;
+
+  background: rgba(255, 255, 255, 0.04);
+}
+
+
+.visual-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(4, 20, 39, 0.1),
+      rgba(4, 20, 39, 0.35)
+    );
+}
+
+
+.visual-content {
+  position: relative;
+  z-index: 2;
+
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 55px 65px;
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
+.brand-icon {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.14);
+
+  backdrop-filter: blur(10px);
+}
+
+
+.brand-icon .material-icons {
+  font-size: 24px;
+}
+
+
+/* =====================================================
+   TEXTE VISUEL
+===================================================== */
+
+.visual-text {
+  margin-top: 145px;
+  max-width: 560px;
+}
+
+
+.eyebrow {
+  display: inline-block;
+
+  margin-bottom: 20px;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 2px;
+
+  color: #8fd1ff;
+}
+
+
+.visual-text h1 {
+  margin: 0 0 22px;
+
+  font-size: clamp(38px, 4vw, 58px);
+
+  line-height: 1.08;
+
+  letter-spacing: -1.8px;
+
+  font-weight: 800;
+}
+
+
+.visual-text p {
+  max-width: 500px;
+
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  font-size: 16px;
+
+  line-height: 1.8;
+}
+
+
+/* =====================================================
+   FEATURES
+===================================================== */
+
+.visual-features {
+  margin-top: auto;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 24px;
+
+  max-width: 500px;
+}
+
+
+.feature {
+  display: flex;
+  align-items: center;
+
+  gap: 17px;
+}
+
+
+.feature > .material-icons {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.1);
+
+  color: #8fd1ff;
+
+  font-size: 22px;
+}
+
+
+.feature div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+
+.feature strong {
+  font-size: 14px;
+}
+
+
+.feature div span {
+  color: rgba(255, 255, 255, 0.58);
+
+  font-size: 12px;
+}
+
+
+/* =====================================================
+   CONTENU DROIT
+===================================================== */
+
+.register-content {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+
+  overflow-y: auto;
+}
+
+
+.register-container {
+  width: min(620px, 100%);
+
+  padding: 55px 65px 40px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.register-header {
+  margin-bottom: 28px;
+}
+
+
+.header-label {
+  display: inline-block;
+
+  margin-bottom: 8px;
+
+  color: #1976d2;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+
+.register-header h2 {
+  margin: 0 0 8px;
+
+  color: #152238;
+
+  font-size: 32px;
+
+  font-weight: 800;
+
+  letter-spacing: -0.8px;
+}
+
+
+.register-header p {
+  margin: 0;
+
+  color: #758195;
+
+  font-size: 14px;
+}
+
+
+/* =====================================================
+   LOGO MOBILE
+===================================================== */
+
+.mobile-logo {
+  display: none;
+}
+
+
+/* =====================================================
+   ALERTES
+===================================================== */
+
+.alert {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 13px 15px;
+
+  margin-bottom: 20px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+
+.alert .material-icons {
+  font-size: 20px;
+}
+
+
+.alert-error {
+  background: #fff1f1;
+
+  border: 1px solid #ffd2d2;
+
+  color: #c62828;
+}
+
+
+.alert-success {
+  background: #effaf3;
+
+  border: 1px solid #c8ecd5;
+
+  color: #16803c;
+}
+
+
+/* =====================================================
+   FORMULAIRE
+===================================================== */
+
+form {
+  width: 100%;
+}
+
+
+.form-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 16px;
+}
+
+
+.form-group {
+  margin-bottom: 17px;
+}
+
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #26364d;
+
+  font-size: 13px;
+
+  font-weight: 650;
+}
+
+
+.form-group label > span {
+  color: #e53935;
+}
+
+
+.form-group label small {
+  margin-left: 4px;
+
+  color: #9aa4b2;
+
+  font-weight: 400;
+
+  font-size: 11px;
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.input-wrapper {
+  position: relative;
+
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+
+  border: 1px solid #dce2ea;
+
+  border-radius: 9px;
+
+  background: white;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.input-wrapper:focus-within {
+  border-color: #1976d2;
+
+  box-shadow:
+    0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+
+.input-wrapper.invalid {
+  border-color: #e53935;
+
+  background: #fffafa;
+}
+
+
+.input-icon {
+  margin-left: 14px;
+
+  color: #8995a5;
+
+  font-size: 20px;
+}
+
+
+.input-wrapper:focus-within .input-icon {
+  color: #1976d2;
+}
+
+
+.input-wrapper input {
+  width: 100%;
+  height: 100%;
+
+  padding: 0 14px 0 11px;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #26364d;
+
+  font-size: 13px;
+}
+
+
+.input-wrapper input::placeholder {
+  color: #a8b1bd;
+}
+
+
+/* =====================================================
+   PASSWORD
+===================================================== */
+
+.password-button {
+  width: 44px;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #8b96a5;
+
+  cursor: pointer;
+}
+
+
+.password-button:hover {
+  color: #1976d2;
+}
+
+
+.password-button .material-icons {
+  font-size: 20px;
+}
+
+
+/* =====================================================
+   ERREURS CHAMPS
+===================================================== */
+
+.field-error {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #d32f2f;
+
+  font-size: 11px;
+}
+
+
+/* =====================================================
+   CONDITIONS
+===================================================== */
+
+.conditions {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 9px;
+
+  margin: 5px 0 20px;
+
+  color: #6d7888;
+
+  font-size: 11.5px;
+
+  line-height: 1.6;
+}
+
+
+.conditions a {
+  color: #1976d2;
+
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+
+.conditions a:hover {
+  text-decoration: underline;
+}
+
+
+.checkbox-button {
+  width: 18px;
+  height: 18px;
+
+  padding: 0;
+
+  flex-shrink: 0;
+
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1.5px solid #cbd3dd;
+
+  border-radius: 4px;
+
+  background: white;
+
+  transition: 0.2s ease;
+}
+
+
+.checkbox-button.checked .custom-checkbox {
+  border-color: #1976d2;
+
+  background: #1976d2;
+
+  color: white;
+}
+
+
+.custom-checkbox .material-icons {
+  font-size: 14px;
+}
+
+
+/* =====================================================
+   BOUTON REGISTER
+===================================================== */
+
+.register-button {
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      blue,
+      blue
+    );
+
+  color: white;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 7px 18px rgba(25, 118, 210, 0.22);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+
+.register-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 10px 23px rgba(25, 118, 210, 0.28);
+}
+
+
+.register-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+
+.register-button:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+
+  box-shadow: none;
+}
+
+
+.register-button .material-icons {
+  font-size: 19px;
+}
+
+
+/* =====================================================
+   SPINNER
+===================================================== */
+
+.button-spinner {
+  width: 17px;
+  height: 17px;
+
+  border: 2px solid rgba(255, 255, 255, 0.35);
+
+  border-top-color: white;
+
+  border-radius: 50%;
+
+  animation: spin 0.7s linear infinite;
+}
+
+
+.spinner {
+  animation: spin 0.7s linear infinite;
+}
+
+
+@keyframes spin {
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+.login-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 5px;
+
+  margin-top: 23px;
+
+  color: #7a8594;
+
+  font-size: 12px;
+}
+
+
+.login-link button {
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: blue;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.login-link button:hover {
+  text-decoration: underline;
+}
+
+
+/* =====================================================
+   NOTE SÉCURITÉ
+===================================================== */
+
+.security-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  margin-top: 28px;
+
+  padding-top: 18px;
+
+  border-top: 1px solid #e8ecf1;
+
+  color: #9aa4b2;
+
+  font-size: 10.5px;
+}
+
+
+.security-note .material-icons {
+  color: #5c9e70;
+
+  font-size: 16px;
+}
+
+
+/* =====================================================
+   RESPONSIVE TABLETTE
+===================================================== */
+
+@media (max-width: 1100px) {
+
+  .register-page {
+    grid-template-columns: 38% 62%;
+  }
+
+
+  .visual-content {
+    padding: 45px 40px;
+  }
+
+
+  .register-container {
+    padding: 45px 45px 35px;
+  }
+
+
+  .visual-text {
+    margin-top: 110px;
+  }
+
+
+  .visual-text h1 {
+    font-size: 42px;
+  }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE MOBILE
+===================================================== */
+
+@media (max-width: 800px) {
+
+  .register-page {
+    display: block;
+
+    background: #f7f9fc;
+  }
+
+
+  .register-visual {
+    display: none;
+  }
+
+
+  .register-content {
+    min-height: 100vh;
+
+    width: 100%;
+
+    background: #f7f9fc;
+  }
+
+
+  .register-container {
+    width: 100%;
+
+    max-width: 600px;
+
+    margin: 0 auto;
+
+    padding: 35px 25px;
+  }
+
+
+  .mobile-logo {
+    display: flex;
+
+    justify-content: center;
+
+    margin-bottom: 18px;
+  }
+
+
+  .mobile-logo-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+      linear-gradient(
+        135deg,
+        #1976d2,
+        #1258a0
+      );
+
+    color: white;
+
+    box-shadow:
+      0 8px 20px rgba(25, 118, 210, 0.22);
+  }
+
+
+  .mobile-logo-icon .material-icons {
+    font-size: 26px;
+  }
+
+
+  .register-header {
+    text-align: center;
+  }
+
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+}
+
+
+/* =====================================================
+   PETIT MOBILE
+===================================================== */
+
+@media (max-width: 450px) {
+
+  .register-container {
+    padding: 28px 18px;
+  }
+
+
+  .register-header h2 {
+    font-size: 27px;
+  }
+
+
+  .register-header p {
+    font-size: 13px;
+  }
+
+
+  .login-link {
+    flex-direction: column;
+
+    gap: 4px;
+  }
+
+}

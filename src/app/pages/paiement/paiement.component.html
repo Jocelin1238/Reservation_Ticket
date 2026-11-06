@@ -1,0 +1,1264 @@
+
+<div class="layout">
+
+  <!-- =========================
+       SIDEBAR SUPER ADMIN
+  ========================== -->
+  <app-sidebar
+    *ngIf="roleUtilisateur === 'ROLE_SUPER_ADMIN'">
+  </app-sidebar>
+
+
+  <!-- =========================
+       SIDEBAR ADMIN
+  ========================== -->
+  <app-sidebar-admin
+    *ngIf="roleUtilisateur === 'ROLE_ADMIN'">
+  </app-sidebar-admin>
+
+
+  <!-- =========================
+       CONTENU PRINCIPAL
+  ========================== -->
+  <div class="main-content">
+
+    <!-- TOPBAR -->
+    <app-topbar
+      *ngIf="
+        roleUtilisateur === 'ROLE_ADMIN' ||
+        roleUtilisateur === 'ROLE_SUPER_ADMIN'
+      ">
+    </app-topbar>
+
+
+    <!-- =========================
+         PAGE PAIEMENT
+    ========================== -->
+    <div class="paiement-page">
+
+  <!-- =========================================================
+       EN-TÊTE
+  ========================================================== -->
+
+  <div class="page-header">
+
+    <div class="header-content">
+
+      <div class="header-icon">
+        <mat-icon>payments</mat-icon>
+      </div>
+
+      <div>
+        <h1>Gestion des paiements</h1>
+        <p>Consultez et gérez les transactions de vos clients</p>
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      class="btn-refresh"
+      (click)="chargerPaiements()">
+
+      <mat-icon>refresh</mat-icon>
+      <span>Actualiser</span>
+
+    </button>
+
+  </div>
+
+
+  <!-- =========================================================
+       STATISTIQUES
+  ========================================================== -->
+
+  <div class="stats-grid">
+
+    <!-- TOTAL -->
+    <div class="stat-card total-card">
+
+      <div class="stat-top">
+
+        <div class="stat-icon total">
+          <mat-icon>account_balance_wallet</mat-icon>
+        </div>
+
+        <span class="stat-label">
+          Total paiements
+        </span>
+
+      </div>
+
+      <div class="stat-bottom">
+
+        <strong>
+          {{ getNombreTotal() }}
+        </strong>
+
+        <span class="stat-description">
+          transactions
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- RÉUSSIS -->
+    <div class="stat-card success-card">
+
+      <div class="stat-top">
+
+        <div class="stat-icon reussi">
+          <mat-icon>check_circle</mat-icon>
+        </div>
+
+        <span class="stat-label">
+          Réussis
+        </span>
+
+      </div>
+
+      <div class="stat-bottom">
+
+        <strong>
+          {{ getNombreReussis() }}
+        </strong>
+
+        <span class="stat-description">
+          paiements réussis
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- EN COURS -->
+    <div class="stat-card pending-card">
+
+      <div class="stat-top">
+
+        <div class="stat-icon en-cours">
+          <mat-icon>schedule</mat-icon>
+        </div>
+
+        <span class="stat-label">
+          En cours
+        </span>
+
+      </div>
+
+      <div class="stat-bottom">
+
+        <strong>
+          {{ getNombreEnCours() }}
+        </strong>
+
+        <span class="stat-description">
+          en attente
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- ÉCHECS -->
+    <div class="stat-card error-card-stat">
+
+      <div class="stat-top">
+
+        <div class="stat-icon echec">
+          <mat-icon>cancel</mat-icon>
+        </div>
+
+        <span class="stat-label">
+          Échecs
+        </span>
+
+      </div>
+
+      <div class="stat-bottom">
+
+        <strong>
+          {{ getNombreEchecs() }}
+        </strong>
+
+        <span class="stat-description">
+          paiements échoués
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       TOTAL REVENUS
+  ========================================================== -->
+
+  <div class="revenue-card">
+
+    <div class="revenue-icon">
+      <mat-icon>trending_up</mat-icon>
+    </div>
+
+    <div class="revenue-content">
+
+      <span>
+        Revenus générés
+      </span>
+
+      <strong>
+        {{ formatMontant(getTotalRevenus()) }}
+        <small>FCFA</small>
+      </strong>
+
+    </div>
+
+    <div class="revenue-info">
+
+      <mat-icon>info_outline</mat-icon>
+
+      <span>
+        Paiements réussis uniquement
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       FILTRES
+  ========================================================== -->
+
+  <div class="filters-card">
+
+    <div class="filters-header">
+
+      <div>
+
+        <h2>Liste des paiements</h2>
+
+        <p>
+          Recherchez et filtrez les transactions
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="filters-content">
+
+      <!-- RECHERCHE -->
+      <div class="search-box">
+
+        <span class="search-icon">
+          <mat-icon>search</mat-icon>
+        </span>
+
+        <input
+          type="text"
+          [(ngModel)]="recherche"
+          (input)="filtrerPaiements()"
+          placeholder="Rechercher une référence ou une méthode..."
+        >
+
+        <button
+          *ngIf="recherche"
+          type="button"
+          class="clear-search"
+          title="Effacer la recherche"
+          (click)="recherche=''; filtrerPaiements()">
+
+          <mat-icon>close</mat-icon>
+
+        </button>
+
+      </div>
+
+
+      <!-- FILTRE STATUT -->
+      <div class="filter-select">
+
+        <span class="filter-icon">
+          <mat-icon>filter_list</mat-icon>
+        </span>
+
+        <select
+          [(ngModel)]="statutFiltre"
+          (change)="changerStatutFiltre()">
+
+          <option value="TOUS">
+            Tous les statuts
+          </option>
+
+          <option value="REUSSI">
+            Réussis
+          </option>
+
+          <option value="EN_COURS">
+            En cours
+          </option>
+
+          <option value="ECHEC">
+            Échecs
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- FILTRE MÉTHODE -->
+      <div class="filter-select">
+
+        <span class="filter-icon">
+          <mat-icon>credit_card</mat-icon>
+        </span>
+
+        <select
+          [(ngModel)]="methodeFiltre"
+          (change)="changerMethodeFiltre()">
+
+          <option value="TOUTES">
+            Toutes les méthodes
+          </option>
+
+          <option value="MOMO">
+            Mobile Money
+          </option>
+
+          <option value="OM">
+            Orange Money
+          </option>
+
+          <option value="CARTE">
+            Carte bancaire
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       CHARGEMENT
+  ========================================================== -->
+
+  <div
+    class="loading-card"
+    *ngIf="chargement">
+
+    <div class="loader"></div>
+
+    <div>
+
+      <strong>
+        Chargement des paiements
+      </strong>
+
+      <span>
+        Veuillez patienter...
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       ERREUR
+  ========================================================== -->
+
+  <div
+    class="error-message-card"
+    *ngIf="erreur">
+
+    <div class="error-icon">
+
+      <mat-icon>
+        error_outline
+      </mat-icon>
+
+    </div>
+
+    <div>
+
+      <strong>
+        Une erreur est survenue
+      </strong>
+
+      <p>
+        {{ erreur }}
+      </p>
+
+    </div>
+
+    <button
+      type="button"
+      class="error-close"
+      title="Fermer"
+      (click)="erreur=''">
+
+      <mat-icon>
+        close
+      </mat-icon>
+
+    </button>
+
+  </div>
+
+
+  <!-- =========================================================
+       TABLEAU
+  ========================================================== -->
+
+  <div
+    class="table-card"
+    *ngIf="!chargement">
+
+    <div class="table-header">
+
+      <div>
+
+        <h2>
+          Transactions récentes
+        </h2>
+
+        <span>
+          {{ paiementsFiltres.length }}
+          paiement(s) affiché(s)
+        </span>
+
+      </div>
+
+      <div class="table-total">
+
+        <span>
+          Total affiché
+        </span>
+
+        <strong>
+
+          {{
+            formatMontant(
+              paiementsFiltres
+                .filter(p => p.statut === 'REUSSI')
+                .reduce(
+                  (total, p) =>
+                    total + (p.montant || 0),
+                  0
+                )
+            )
+          }}
+
+          FCFA
+
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>ID</th>
+            <th>TRANSACTION</th>
+            <th>MONTANT</th>
+            <th>MÉTHODE</th>
+            <th>RÉSERVATION</th>
+            <th>DATE</th>
+            <th>STATUT</th>
+            <th>ACTION</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr
+            *ngFor="
+              let paiement of paiementsFiltres
+            ">
+
+            <!-- ID -->
+            <td>
+
+              <span class="paiement-id">
+                #{{ paiement.id }}
+              </span>
+
+            </td>
+
+
+            <!-- TRANSACTION -->
+            <td>
+
+              <div class="transaction">
+
+                <div class="transaction-icon">
+
+                  <mat-icon>
+                    receipt_long
+                  </mat-icon>
+
+                </div>
+
+                <div>
+
+                  <strong>
+
+                    {{
+                      paiement.referenceTransaction
+                      || '-'
+                    }}
+
+                  </strong>
+
+                  <span>
+                    Transaction
+                  </span>
+
+                </div>
+
+              </div>
+
+            </td>
+
+
+            <!-- MONTANT -->
+            <td>
+
+              <div class="amount">
+
+                <strong>
+
+                  {{
+                    formatMontant(
+                      paiement.montant
+                    )
+                  }}
+
+                </strong>
+
+                <small>
+                  FCFA
+                </small>
+
+              </div>
+
+            </td>
+
+
+            <!-- MÉTHODE -->
+            <td>
+
+              <span
+                class="payment-method"
+                [ngClass]="
+                  getMethodeClass(
+                    paiement.methode
+                  )
+                ">
+
+                <mat-icon
+                  *ngIf="
+                    paiement.methode === 'MOMO' ||
+                    paiement.methode === 'OM'
+                  ">
+
+                  phone_android
+
+                </mat-icon>
+
+                <mat-icon
+                  *ngIf="
+                    paiement.methode === 'CARTE'
+                  ">
+
+                  credit_card
+
+                </mat-icon>
+
+                <span>
+
+                  {{
+                    paiement.methode
+                    || '-'
+                  }}
+
+                </span>
+
+              </span>
+
+            </td>
+
+
+            <!-- RÉSERVATION -->
+            <td>
+
+              <div class="reservation-reference">
+
+                <div class="reservation-icon">
+
+                  <mat-icon>
+                    confirmation_number
+                  </mat-icon>
+
+                </div>
+
+                <div>
+
+                  <strong>
+
+                    {{
+                      paiement.reservation?.id
+                        ? '#' + paiement.reservation?.id
+                        : 'Réservation'
+                    }}
+
+                  </strong>
+
+                  <span>
+                    Réservation associée
+                  </span>
+
+                </div>
+
+              </div>
+
+            </td>
+
+
+            <!-- DATE -->
+            <td>
+
+              <div class="date-paiement">
+
+                <span class="calendar-icon">
+
+                  <mat-icon>
+                    schedule
+                  </mat-icon>
+
+                </span>
+
+                <span>
+
+                  {{
+                    formatDateTime(
+                      paiement.datePaiement
+                    )
+                  }}
+
+                </span>
+
+              </div>
+
+            </td>
+
+
+            <!-- STATUT -->
+            <td>
+
+              <span
+                class="status"
+                [ngClass]="
+                  getStatutClass(
+                    paiement.statut
+                  )
+                ">
+
+                <span class="status-dot"></span>
+
+                <span
+                  *ngIf="
+                    paiement.statut === 'REUSSI'
+                  ">
+                  Réussi
+                </span>
+
+                <span
+                  *ngIf="
+                    paiement.statut === 'EN_COURS'
+                  ">
+                  En cours
+                </span>
+
+                <span
+                  *ngIf="
+                    paiement.statut === 'ECHEC'
+                  ">
+                  Échec
+                </span>
+
+                <span
+                  *ngIf="
+                    paiement.statut !== 'REUSSI' &&
+                    paiement.statut !== 'EN_COURS' &&
+                    paiement.statut !== 'ECHEC'
+                  ">
+
+                  {{ paiement.statut }}
+
+                </span>
+
+              </span>
+
+            </td>
+
+
+            <!-- ACTION -->
+            <td>
+
+              <div class="actions">
+
+                <!-- DÉTAILS -->
+                <button
+                  type="button"
+                  class="btn-view"
+                  title="Voir les détails"
+                  (click)="ouvrirDetails(paiement)">
+
+                  <mat-icon>
+                    visibility
+                  </mat-icon>
+
+                </button>
+
+
+                <!-- VALIDER -->
+                <button
+                  *ngIf="
+                    paiement.statut === 'EN_COURS'
+                  "
+                  type="button"
+                  class="btn-validate"
+                  title="Valider le paiement"
+                  [disabled]="validationEnCours"
+                  (click)="validerPaiement(paiement)">
+
+                  <mat-icon>
+                    check
+                  </mat-icon>
+
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+
+          <!-- AUCUN PAIEMENT -->
+          <tr
+            *ngIf="
+              paiementsFiltres.length === 0
+            ">
+
+            <td
+              colspan="8"
+              class="empty">
+
+              <div class="empty-content">
+
+                <div class="empty-icon">
+
+                  <mat-icon>
+                    payments
+                  </mat-icon>
+
+                </div>
+
+                <strong>
+                  Aucun paiement trouvé
+                </strong>
+
+                <span>
+                  Essayez de modifier vos critères de recherche.
+                </span>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       MODAL DÉTAILS
+  ========================================================== -->
+
+  <div
+    class="details-overlay"
+    *ngIf="
+      detailsOuverts &&
+      paiementSelectionne
+    "
+    (click)="fermerDetails()">
+
+    <div
+      class="details-modal"
+      (click)="$event.stopPropagation()">
+
+
+      <!-- HEADER MODAL -->
+
+      <div class="details-header">
+
+        <div class="details-title">
+
+          <div class="details-icon">
+
+            <mat-icon>
+              payments
+            </mat-icon>
+
+          </div>
+
+          <div>
+
+            <h2>
+              Détails du paiement
+            </h2>
+
+            <span>
+              Transaction #{{ paiementSelectionne.id }}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="close-details"
+          title="Fermer"
+          (click)="fermerDetails()">
+
+          <mat-icon>
+            close
+          </mat-icon>
+
+        </button>
+
+      </div>
+
+
+      <!-- CORPS -->
+
+      <div class="details-body">
+
+
+        <!-- STATUT -->
+
+        <div class="details-status-row">
+
+          <span class="details-label">
+            Statut du paiement
+          </span>
+
+          <span
+            class="status"
+            [ngClass]="
+              getStatutClass(
+                paiementSelectionne.statut
+              )
+            ">
+
+            <span class="status-dot"></span>
+
+            <span
+              *ngIf="
+                paiementSelectionne.statut === 'REUSSI'
+              ">
+              Réussi
+            </span>
+
+            <span
+              *ngIf="
+                paiementSelectionne.statut === 'EN_COURS'
+              ">
+              En cours
+            </span>
+
+            <span
+              *ngIf="
+                paiementSelectionne.statut === 'ECHEC'
+              ">
+              Échec
+            </span>
+
+            <span
+              *ngIf="
+                paiementSelectionne.statut !== 'REUSSI' &&
+                paiementSelectionne.statut !== 'EN_COURS' &&
+                paiementSelectionne.statut !== 'ECHEC'
+              ">
+
+              {{ paiementSelectionne.statut }}
+
+            </span>
+
+          </span>
+
+        </div>
+
+
+        <!-- TRANSACTION -->
+
+        <div class="details-section">
+
+          <div class="section-title">
+
+            <span class="section-icon">
+
+              <mat-icon>
+                receipt_long
+              </mat-icon>
+
+            </span>
+
+            <div>
+
+              <h3>
+                Informations de transaction
+              </h3>
+
+              <span>
+                Informations liées au paiement
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="details-grid">
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Référence transaction
+              </span>
+
+              <strong>
+
+                {{
+                  paiementSelectionne.referenceTransaction
+                  || '-'
+                }}
+
+              </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Montant
+              </span>
+
+              <strong class="detail-price">
+
+                {{
+                  formatMontant(
+                    paiementSelectionne.montant
+                  )
+                }}
+
+                FCFA
+
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- MÉTHODE -->
+
+        <div class="details-section">
+
+          <div class="section-title">
+
+            <span class="section-icon">
+
+              <mat-icon>
+                credit_card
+              </mat-icon>
+
+            </span>
+
+            <div>
+
+              <h3>
+                Méthode de paiement
+              </h3>
+
+              <span>
+                Moyen utilisé pour la transaction
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="method-detail">
+
+            <div
+              class="method-large"
+              [ngClass]="
+                getMethodeClass(
+                  paiementSelectionne.methode
+                )
+              ">
+
+              <mat-icon
+                *ngIf="
+                  paiementSelectionne.methode === 'CARTE'
+                ">
+
+                credit_card
+
+              </mat-icon>
+
+              <mat-icon
+                *ngIf="
+                  paiementSelectionne.methode === 'MOMO' ||
+                  paiementSelectionne.methode === 'OM'
+                ">
+
+                phone_android
+
+              </mat-icon>
+
+              <span>
+
+                {{
+                  paiementSelectionne.methode
+                  || '-'
+                }}
+
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RÉSERVATION -->
+
+        <div class="details-section">
+
+          <div class="section-title">
+
+            <span class="section-icon">
+
+              <mat-icon>
+                confirmation_number
+              </mat-icon>
+
+            </span>
+
+            <div>
+
+              <h3>
+                Réservation associée
+              </h3>
+
+              <span>
+                Réservation concernée par le paiement
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="details-grid">
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Identifiant réservation
+              </span>
+
+              <strong>
+
+                {{
+                  paiementSelectionne.reservation?.id
+                    ? '#' + paiementSelectionne.reservation?.id
+                    : 'Non disponible'
+                }}
+
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- DATES -->
+
+        <div class="details-section">
+
+          <div class="section-title">
+
+            <span class="section-icon">
+
+              <mat-icon>
+                event
+              </mat-icon>
+
+            </span>
+
+            <div>
+
+              <h3>
+                Historique
+              </h3>
+
+              <span>
+                Dates de la transaction
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="details-grid">
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Date du paiement
+              </span>
+
+              <strong>
+
+                {{
+                  formatDateTime(
+                    paiementSelectionne.datePaiement
+                  )
+                }}
+
+              </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Dernière modification
+              </span>
+
+              <strong>
+
+                {{
+                  paiementSelectionne.dateModification
+                    ? formatDateTime(
+                        paiementSelectionne.dateModification
+                      )
+                    : '-'
+                }}
+
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- FOOTER -->
+
+      <div class="details-footer">
+
+        <button
+          *ngIf="
+            paiementSelectionne.statut === 'EN_COURS'
+          "
+          type="button"
+          class="btn-validate-modal"
+          [disabled]="validationEnCours"
+          (click)="validerPaiement(paiementSelectionne)">
+
+          <mat-icon>
+            check_circle
+          </mat-icon>
+
+          {{
+            validationEnCours
+              ? 'Validation...'
+              : 'Valider le paiement'
+          }}
+
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-close-modal"
+          (click)="fermerDetails()">
+
+          <mat-icon>
+            close
+          </mat-icon>
+
+          Fermer
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+</div>
+

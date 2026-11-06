@@ -1,0 +1,98 @@
+<h2 mat-dialog-title>
+    Détails de l'utilisateur
+</h2>
+
+
+<mat-dialog-content>
+
+
+    <div class="user-card">
+
+
+        <div class="avatar">
+
+            <mat-icon>
+                account_circle
+            </mat-icon>
+
+        </div>
+
+
+
+        <h3>
+            {{ user.nom }} {{ user.prenom }}
+        </h3>
+
+
+
+        <div class="info">
+
+            <p>
+                <strong>Email :</strong>
+                {{ user.email }}
+            </p>
+
+
+            <p>
+                <strong>Téléphone :</strong>
+                {{ user.telephone }}
+            </p>
+
+
+            <p>
+                <strong>Adresse :</strong>
+                {{ user.adresse }}
+            </p>
+
+
+            <p>
+                <strong>Rôle :</strong>
+
+                {{ user.roles?.[0]?.role }}
+
+            </p>
+
+
+            <p>
+                <strong>Statut :</strong>
+
+
+                <span
+                [class.active]="user.actif"
+                [class.inactive]="!user.actif">
+
+
+                    {{ user.actif ? 'Actif' : 'Inactif' }}
+
+
+                </span>
+
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+</mat-dialog-content>
+
+
+
+<mat-dialog-actions align="end">
+
+
+    <button
+        mat-raised-button
+        color="primary"
+        mat-dialog-close>
+
+
+        Fermer
+
+
+    </button>
+
+
+</mat-dialog-actions>

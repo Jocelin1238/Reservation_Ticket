@@ -1,0 +1,67 @@
+.user-card {
+
+    text-align: center;
+
+    padding: 20px;
+
+}
+
+
+
+.avatar mat-icon {
+
+    font-size: 80px;
+
+    width: 80px;
+
+    height: 80px;
+
+}
+
+
+
+h3 {
+
+    margin-top: 15px;
+
+    font-size: 22px;
+
+}
+
+
+
+.info {
+
+    text-align: left;
+
+    margin-top: 20px;
+
+}
+
+
+
+.info p {
+
+    margin: 12px 0;
+
+}
+
+
+
+.active {
+
+    color: green;
+
+    font-weight: bold;
+
+}
+
+
+
+.inactive {
+
+    color: red;
+
+    font-weight: bold;
+
+}
